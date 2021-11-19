@@ -9,7 +9,7 @@ specifiers:
   '@types/heft-jest': ~1.0.2
   graphql: ~16.0.1
   rxjs: ~7.4.0
-  typescript: ~4.5.2
+  typescript: '4.4'
 
 dependencies:
   '@apollo/client': 3.4.17_graphql@16.0.1
@@ -20,9 +20,36 @@ dependencies:
   '@types/heft-jest': 1.0.2
   graphql: 16.0.1
   rxjs: 7.4.0
-  typescript: 4.5.2
+  typescript: 4.4.4
 
 packages:
+
+  /@apollo/client/3.4.17_graphql@15.7.2:
+    resolution: {integrity: sha512-MDt2rwMX1GqodiVEKJqmDmAz8xr0qJmq5PdWeIt0yDaT4GOkKYWZiWkyfhfv3raTk8PyJvbsNG9q2CqmUrlGfg==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0
+      react: ^16.8.0 || ^17.0.0
+      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      subscriptions-transport-ws:
+        optional: true
+    dependencies:
+      '@graphql-typed-document-node/core': 3.1.1_graphql@15.7.2
+      '@wry/context': 0.6.1
+      '@wry/equality': 0.5.2
+      '@wry/trie': 0.3.1
+      graphql: 15.7.2
+      graphql-tag: 2.12.6_graphql@15.7.2
+      hoist-non-react-statics: 3.3.2
+      optimism: 0.16.1
+      prop-types: 15.7.2
+      symbol-observable: 4.0.0
+      ts-invariant: 0.9.3
+      tslib: 2.3.1
+      zen-observable-ts: 1.1.0
+    dev: false
 
   /@apollo/client/3.4.17_graphql@16.0.1:
     resolution: {integrity: sha512-MDt2rwMX1GqodiVEKJqmDmAz8xr0qJmq5PdWeIt0yDaT4GOkKYWZiWkyfhfv3raTk8PyJvbsNG9q2CqmUrlGfg==}
@@ -379,6 +406,14 @@ packages:
     dependencies:
       exec-sh: 0.3.6
       minimist: 1.2.5
+    dev: false
+
+  /@graphql-typed-document-node/core/3.1.1_graphql@15.7.2:
+    resolution: {integrity: sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 15.7.2
     dev: false
 
   /@graphql-typed-document-node/core/3.1.1_graphql@16.0.1:
@@ -1869,6 +1904,16 @@ packages:
     resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
     dev: false
 
+  /graphql-tag/2.12.6_graphql@15.7.2:
+    resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 15.7.2
+      tslib: 2.3.1
+    dev: false
+
   /graphql-tag/2.12.6_graphql@16.0.1:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
     engines: {node: '>=10'}
@@ -1877,6 +1922,11 @@ packages:
     dependencies:
       graphql: 16.0.1
       tslib: 2.3.1
+    dev: false
+
+  /graphql/15.7.2:
+    resolution: {integrity: sha512-AnnKk7hFQFmU/2I9YSQf3xw44ctnSFCfp3zE0N6W174gqe9fWG/2rKaKxROK7CcI3XtERpjEKFqts8o319Kf7A==}
+    engines: {node: '>= 10.x'}
     dev: false
 
   /graphql/16.0.1:
@@ -3964,8 +4014,8 @@ packages:
       is-typedarray: 1.0.0
     dev: false
 
-  /typescript/4.5.2:
-    resolution: {integrity: sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==}
+  /typescript/4.4.4:
+    resolution: {integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: false
@@ -4216,17 +4266,17 @@ packages:
     dev: false
 
   file:projects/rxjs-apollo.tgz:
-    resolution: {integrity: sha512-CplWeuf+Fgr+XHVPkqooYnQvpjuVzpCNgyLynSKZWABNNVsOlTZTlVvrC0b4bup0B33wJ0Dk/ux/jDVMmOSZMA==, tarball: file:projects/rxjs-apollo.tgz}
+    resolution: {integrity: sha512-WUOlyg9w2asohDnF1GqJZO1SiXtpE34fLcNcd/fBEbWyajfg7w1PRRvomn0ILV5mEBEN9Uhf+OYTa14RIxEpuA==, tarball: file:projects/rxjs-apollo.tgz}
     name: '@rush-temp/rxjs-apollo'
     version: 0.0.0
     dependencies:
-      '@apollo/client': 3.4.17_graphql@16.0.1
+      '@apollo/client': 3.4.17_graphql@15.7.2
       '@rushstack/heft': 0.42.2
       '@rushstack/heft-jest-plugin': 0.1.46_@rushstack+heft@0.42.2
       '@types/heft-jest': 1.0.2
-      graphql: 16.0.1
+      graphql: 15.7.2
       rxjs: 7.4.0
-      typescript: 4.5.2
+      typescript: 4.4.4
     transitivePeerDependencies:
       - bufferutil
       - canvas

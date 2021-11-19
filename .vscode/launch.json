@@ -5,8 +5,8 @@
         "type": "node",
         "request": "launch",
         "name": "Debug Jest tests",
-        "program": "${workspaceFolder}/packages/client/node_modules/@rushstack/heft/lib/start.js",
-        "cwd": "${workspaceFolder}/packages/client",
+        "program": "${workspaceFolder}/packages/rxjs-apollo/node_modules/@rushstack/heft/lib/start.js",
+        "cwd": "${workspaceFolder}/packages/rxjs-apollo",
         "args": ["--debug", "test", "--clean"],
         "console": "integratedTerminal",
         "sourceMaps": true
