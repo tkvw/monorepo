@@ -1,15 +1,15 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "Debug Jest tests",
-        "program": "${workspaceFolder}/packages/rxjs-apollo/node_modules/@rushstack/heft/lib/start.js",
-        "cwd": "${workspaceFolder}/packages/rxjs-apollo",
-        "args": ["--debug", "test", "--clean"],
-        "console": "integratedTerminal",
-        "sourceMaps": true
-      },
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Jest tests",
+      "program": "${workspaceFolder}/packages/rxjs-apollo/node_modules/@rushstack/heft/lib/start.js",
+      "cwd": "${workspaceFolder}/packages/rxjs-apollo",
+      "args": ["--debug", "test", "--clean"],
+      "console": "integratedTerminal",
+      "sourceMaps": true
+    }
+  ]
+}
