@@ -1,0 +1,27 @@
+{
+  "name": "@tkvw/rxjs-apollo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "heft build",
+    "clean": "heft clean",
+    "test": "heft test"
+  },
+  "keywords": [],
+  "author": "Dennie de Lange (github.com/tkvw)",
+  "license": "MIT",
+  "peerDependencies": {
+    "@apollo/client": "~3.4.17",
+    "rxjs": "~7.4.0"
+  },
+  "devDependencies": {
+    "typescript": "~4.5.2",
+    "@rushstack/heft": "~0.42.2",
+    "@types/heft-jest": "~1.0.2",
+    "@rushstack/heft-jest-plugin": "~0.1.46",
+    "@apollo/client": "~3.4.17",
+    "graphql": "~16.0.1",
+    "rxjs": "~7.4.0"
+  }
+}

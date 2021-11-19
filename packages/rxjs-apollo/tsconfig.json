@@ -13,7 +13,7 @@
       "experimentalDecorators": true,
       "strict": true,
       "esModuleInterop": true,
- 
+      "types": ["heft-jest"],
       "module": "commonjs",
       "target": "es2017",
       "lib": ["es2017"]

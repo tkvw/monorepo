@@ -458,8 +458,12 @@
     //   "reviewCategory": "tools"
     // }
     {
-      "packageName": "apollo-client-rxjs",
-      "projectFolder": "packages/client"
+      "packageName": "@tkvw/rxjs-apollo",
+      "projectFolder": "packages/rxjs-apollo"
+    },
+    {
+      "packageName": "@tkvw/rxjs-apollo-codegen",
+      "projectFolder": "packages/rxjs-apollo-codegen"
     }
   ]
 }
