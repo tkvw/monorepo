@@ -460,7 +460,7 @@
     {
       "packageName": "@tkvw/rxjs-apollo-codegen",
       "projectFolder": "packages/rxjs-apollo-codegen",
-      "shouldPublish": true
+      "shouldPublish": false
     }
   ]
 }
