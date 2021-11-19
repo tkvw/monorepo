@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "heft build",
+    "build": "heft test --clean",
     "clean": "heft clean",
     "test": "heft test"
   },
@@ -22,6 +22,7 @@
     "@rushstack/heft-jest-plugin": "~0.1.46",
     "@apollo/client": "~3.4.17",
     "graphql": "15",
-    "rxjs": "~7.4.0"
+    "rxjs": "~7.4.0",
+    "@rushstack/heft-node-rig": "~1.2.30"
   }
 }

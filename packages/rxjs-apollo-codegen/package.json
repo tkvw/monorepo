@@ -8,5 +8,18 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@tkvw/rxjs-apollo": "workspace:*",
+    "@microsoft/rush-lib": "~5.56.0"
+  },
+  "devDependencies": {
+    "typescript": "4.4",
+    "@rushstack/heft": "~0.42.2",
+    "@types/heft-jest": "~1.0.2",
+    "@rushstack/heft-jest-plugin": "~0.1.46",
+    "@graphql-codegen/plugin-helpers": "~2.3.1",
+    "@graphql-codegen/visitor-plugin-common": "~2.5.1",
+    "graphql": "15"
+  }
 }
