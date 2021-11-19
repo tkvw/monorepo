@@ -1,0 +1,17 @@
+{
+  "name": "apollo-client-rxjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "heft build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "~4.5.2",
+    "@rushstack/heft": "~0.42.2"
+  }
+}
