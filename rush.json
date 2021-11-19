@@ -454,11 +454,13 @@
     // }
     {
       "packageName": "@tkvw/rxjs-apollo",
-      "projectFolder": "packages/rxjs-apollo"
+      "projectFolder": "packages/rxjs-apollo",
+      "shouldPublish": true
     },
     {
       "packageName": "@tkvw/rxjs-apollo-codegen",
-      "projectFolder": "packages/rxjs-apollo-codegen"
+      "projectFolder": "packages/rxjs-apollo-codegen",
+      "shouldPublish": true
     }
   ]
 }
