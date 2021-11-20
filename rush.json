@@ -175,8 +175,8 @@
    * To remove these restrictions, you could set projectFolderMinDepth=1
    * and set projectFolderMaxDepth to a large number.
    */
-  // "projectFolderMinDepth": 2,
-  // "projectFolderMaxDepth": 2,
+   "projectFolderMinDepth": 1,
+   "projectFolderMaxDepth": 3,
 
   /**
    * Today the npmjs.com registry enforces fairly strict naming rules for packages, but in the early
@@ -454,13 +454,15 @@
     // }
     {
       "packageName": "@tkvw/rxjs-apollo",
-      "projectFolder": "packages/rxjs-apollo",
-      "shouldPublish": true
+      "projectFolder": "packages/typescript/rxjs-apollo",
+      "shouldPublish": true,
+      "versionPolicyName": "ts-rxjs"
     },
     {
       "packageName": "@tkvw/rxjs-apollo-codegen",
-      "projectFolder": "packages/rxjs-apollo-codegen",
-      "shouldPublish": false
+      "projectFolder": "packages/typescript/rxjs-apollo-codegen",
+      "shouldPublish": false,
+      "versionPolicyName": "ts-rxjs"
     }
   ]
 }

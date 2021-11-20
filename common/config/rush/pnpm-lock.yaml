@@ -5,7 +5,7 @@ importers:
   .:
     specifiers: {}
 
-  ../../packages/rxjs-apollo:
+  ../../packages/typescript/rxjs-apollo:
     specifiers:
       '@apollo/client': ~3.4.17
       '@rushstack/heft': ~0.42.2
@@ -25,7 +25,7 @@ importers:
       rxjs: 7.4.0
       typescript: 4.4.4
 
-  ../../packages/rxjs-apollo-codegen:
+  ../../packages/typescript/rxjs-apollo-codegen:
     specifiers:
       '@graphql-codegen/plugin-helpers': ~2.3.1
       '@graphql-codegen/visitor-plugin-common': ~2.5.1
@@ -978,14 +978,14 @@ packages:
       '@jest/console': 25.5.0
       '@jest/reporters': 25.4.0
       '@jest/test-result': 25.5.0
-      '@jest/transform': 25.4.0
+      '@jest/transform': 25.5.1
       '@jest/types': 25.5.0
       ansi-escapes: 4.3.2
       chalk: 3.0.0
       exit: 0.1.2
       graceful-fs: 4.2.8
       jest-changed-files: 25.5.0
-      jest-config: 25.4.0
+      jest-config: 25.5.4
       jest-haste-map: 25.5.1
       jest-message-util: 25.5.0
       jest-regex-util: 25.2.6
@@ -993,7 +993,7 @@ packages:
       jest-resolve-dependencies: 25.5.4
       jest-runner: 25.5.4
       jest-runtime: 25.5.4
-      jest-snapshot: 25.4.0
+      jest-snapshot: 25.5.1
       jest-util: 25.5.0
       jest-validate: 25.5.0
       jest-watcher: 25.5.0
@@ -1046,7 +1046,7 @@ packages:
       '@bcoe/v8-coverage': 0.2.3
       '@jest/console': 25.5.0
       '@jest/test-result': 25.5.0
-      '@jest/transform': 25.4.0
+      '@jest/transform': 25.5.1
       '@jest/types': 25.5.0
       chalk: 3.0.0
       collect-v8-coverage: 1.0.1
@@ -4610,7 +4610,7 @@ packages:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
     dependencies:
       hosted-git-info: 2.8.9
-      resolve: 1.17.0
+      resolve: 1.20.0
       semver: 5.7.1
       validate-npm-package-license: 3.0.4
 
@@ -5313,7 +5313,6 @@ packages:
     dependencies:
       is-core-module: 2.8.0
       path-parse: 1.0.7
-    dev: true
 
   /restore-cursor/3.1.0:
     resolution: {integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==}

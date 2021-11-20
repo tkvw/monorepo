@@ -99,4 +99,10 @@
   // 
   //   // "includeEmailInChangeFile": true
   // }
+  {
+    "definitionName": "lockStepVersion",
+    "policyName": "ts-rxjs",
+    "version": "1.0.0",
+    "nextBump": "prerelease"
+  }
 ]
