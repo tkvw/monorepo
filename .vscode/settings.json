@@ -1,5 +1,9 @@
 {
-    "files.associations": {
-        "*.json": "jsonc"
-      }
+  "files.associations": {
+    "*.json": "jsonc"
+  },
+  "jestrunner.jestCommand": "heft test --test-path-pattern",
+  "jestrunner.changeDirectoryToWorkspaceRoot": false,
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.preferences.importModuleSpecifierEnding": "js"
 }

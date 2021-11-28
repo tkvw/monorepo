@@ -1,0 +1,37 @@
+{
+  "name": "@tkvw/rxjs",
+  "version": "1.0.0",
+  "description": "Some rxjs operators",
+  "type":"module",
+  "engines":{
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "main": "./lib/cjs/index.js",
+  "exports":{
+    "./*": {
+      "import": "./lib/esm/*",
+      "require": "./lib/cjs/*"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["lib/types/*"]
+    }
+  },
+  "scripts": {
+    "build": "heft build --clean",
+    "dev": "heft build --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Dennie de Lange",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "~7.4.0"
+  },
+  "devDependencies": {
+    "rxjs-marbles": "~7.0.1",
+    "type-fest": "~2.6.0",
+    "@tkvw/heft-node-rig": "workspace:*"
+  }
+}

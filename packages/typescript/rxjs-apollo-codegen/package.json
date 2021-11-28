@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "heft build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,7 +15,6 @@
     "@microsoft/rush-lib": "~5.56.0"
   },
   "devDependencies": {
-    "typescript": "4.4",
     "@rushstack/heft": "~0.42.2",
     "@types/heft-jest": "~1.0.2",
     "@rushstack/heft-jest-plugin": "~0.1.46",

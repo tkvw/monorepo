@@ -104,5 +104,11 @@
     "policyName": "ts-rxjs",
     "version": "1.0.0",
     "nextBump": "prerelease"
+  },
+  {
+    "definitionName": "lockStepVersion",
+    "policyName": "ts-heft",
+    "version": "1.0.0",
+    "nextBump": "prerelease"
   }
 ]

@@ -16,13 +16,12 @@
     "rxjs": "~7.4.0"
   },
   "devDependencies": {
-    "typescript": "4.4",
-    "@rushstack/heft": "~0.42.2",
-    "@types/heft-jest": "~1.0.2",
-    "@rushstack/heft-jest-plugin": "~0.1.46",
+    "@tkvw/heft-node-rig": "workspace:*",
     "@apollo/client": "~3.4.17",
     "graphql": "15",
-    "rxjs": "~7.4.0",
-    "@rushstack/heft-node-rig": "~1.2.30"
+    "rxjs": "~7.4.0"
+  },
+  "dependencies": {
+    "@tkvw/rxjs": "workspace:*"
   }
 }

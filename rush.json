@@ -453,6 +453,11 @@
     //   "reviewCategory": "tools"
     // }
     {
+      "packageName": "@tkvw/rxjs",
+      "projectFolder": "packages/typescript/rxjs",
+      "shouldPublish": true,
+      "versionPolicyName": "ts-rxjs"
+    },{
       "packageName": "@tkvw/rxjs-apollo",
       "projectFolder": "packages/typescript/rxjs-apollo",
       "shouldPublish": true,
@@ -463,6 +468,12 @@
       "projectFolder": "packages/typescript/rxjs-apollo-codegen",
       "shouldPublish": false,
       "versionPolicyName": "ts-rxjs"
+    },
+    {
+      "packageName": "@tkvw/heft-node-rig",
+      "projectFolder": "packages/typescript/heft-node-rig",
+      "shouldPublish": true,
+      "versionPolicyName": "ts-heft"
     }
   ]
 }
