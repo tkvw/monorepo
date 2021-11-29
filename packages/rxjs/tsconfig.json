@@ -1,6 +1,7 @@
 {
     "extends": "./node_modules/@tkvw/heft-node-rig/profiles/default/tsconfig-base.json",
     "compilerOptions": {
+      "lib": ["es2017","DOM"],
       "types": ["heft-jest"]
     }
   }

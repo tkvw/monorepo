@@ -1,0 +1,7 @@
+{
+  "extends": "./node_modules/@tkvw/heft-node-rig/profiles/vscode/tsconfig-base.json",
+  "compilerOptions": {
+    "types": ["mocha"],
+    "esModuleInterop": true
+  }
+}

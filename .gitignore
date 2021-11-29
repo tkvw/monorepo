@@ -66,4 +66,8 @@ common/autoinstallers/*/.npmrc
 
 # Heft
 .heft
-packages/typescript/*/lib
+build/*/lib
+packages/*/lib
+packages/*/temp
+.vscode-test
+

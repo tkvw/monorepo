@@ -32,6 +32,8 @@
   "devDependencies": {
     "rxjs-marbles": "~7.0.1",
     "type-fest": "~2.6.0",
-    "@tkvw/heft-node-rig": "workspace:*"
+    "@tkvw/heft-node-rig": "workspace:*",
+    "@types/heft-jest": "~1.0.2",
+    "@tkvw/eslint-config": "workspace:*"
   }
 }
