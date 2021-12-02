@@ -1,16 +1,41 @@
 {
   "version": "0.2.0",
   "configurations": [
-
+    {
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"${workspaceFolder}/packages/vscode-extension-command-vars",
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/vscode-extension-command-vars"
+			],
+			"preLaunchTask": "${defaultBuildTask}"
+		},
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug AVA test file",
+      "runtimeExecutable": "${command:folders.packageJson}node_modules/.bin/ava",
+      "runtimeArgs": [
+        "lib/**/${fileBasenameNoExtension}.js"
+      ],
+      "cwd": "${command:folders.packageJson}",
+      "outputCapture": "std",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "preLaunchTask": "Build current project"
+    },
     {
       "type": "node",
       "request": "launch",
       "name": "Debug Jest tests",
-      "program": "./node_modules/@rushstack/heft/lib/start.js",
-      "cwd": "${workspaceFolder}/packages/typescript/rxjs",
-      "args": ["--debug", "test", "--clean"],
+      "program": "${command:folders.packageJson}/node_modules/.bin/ava",
+      "cwd": "${command:folders.packageJson}",
+      "args": ["lib/**/${fileBasenameNoExtension}.js"],
       "console": "integratedTerminal",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "preLaunchTask": "Build current project"
     }
   ]
 }

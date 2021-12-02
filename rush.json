@@ -482,10 +482,14 @@
       "versionPolicyName": "ts-heft"
     },
     {
-      "packageName": "@tkvw/vscode-command-vars",
-      "projectFolder": "packages/vscode-command-vars",
-      "shouldPublish": true,
+      "packageName": "tkvw-vscode-command-vars",
+      "projectFolder": "packages/vscode-extension-command-vars",
       "versionPolicyName": "ts-vscode"
+    },
+    {
+      "packageName": "vscode-extension-command-vars-test",
+      "projectFolder": "packages/vscode-extension-command-vars-test"
     }
+    
   ]
 }

@@ -70,4 +70,4 @@ build/*/lib
 packages/*/lib
 packages/*/temp
 .vscode-test
-
+*.vsix

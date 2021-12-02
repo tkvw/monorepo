@@ -2,14 +2,13 @@
   "$schema": "http://json.schemastore.org/tsconfig",
 
   "compilerOptions": {
-    "outDir": "../../../../../lib/esm",
+    "outDir": "../../../../../lib",
     "rootDir": "../../../../../src",
 
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "declaration": true,
     "sourceMap": true,
-    "declarationDir": "../../../../../lib/types",
     "declarationMap": true,
     "inlineSources": true,
     "experimentalDecorators": true,
@@ -17,10 +16,8 @@
     "esModuleInterop": true,
     "noEmitOnError": false,
     "allowUnreachableCode": false,
-
     "types": ["heft-jest"],
-
-    "module": "ES2020",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "target": "es2017",
     "lib": ["es2017"]

@@ -4,7 +4,15 @@
       {
         "label": "echo",
         "type": "shell",
-        "command": "echo ${command:extension.commandvariable.file.relativeDirDots}"
+        "command": "echo ${command:folders.packageJson}"
+      },
+      {
+        "label": "Build current project",
+        "type": "shell",
+        "command": "heft build --clean",
+        "options": {
+          "cwd": "${command:folders.packageJson}"
+        }
       }
     ]
   }
