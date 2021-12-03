@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "../../build/eslint-config"
+		},
+		{
+			"path": "../../build/heft-node-rig"
+		}
+	]
+}

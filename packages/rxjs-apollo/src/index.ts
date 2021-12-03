@@ -1,3 +1,5 @@
-export { query } from './query';
-export { mutation } from './mutation';
-export { subscribe } from './subscribe'; 
+export * from './connectQuery';
+export * from './connectMutation';
+export * from './connectSubscribe'; 
+export * from "./apolloLink"
+export * from "./link/retrylink"

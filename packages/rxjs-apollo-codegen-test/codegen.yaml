@@ -1,0 +1,17 @@
+schema:
+  - https://space-x-land-with-sub.herokuapp.com/graphql/
+overwrite: true
+documents:
+  - './src/**/*.graphql'
+generates:
+  src/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - "@tkvw/rxjs-apollo-codegen"
+    config:
+      clientPath: './client'
+      queryOperationPrefix: 'use'      
+      queryOperationSuffix: 'Query'      
+      fragmentVariableSuffix: 'Fragment'
+      documentVariableSuffix: 'Document'

@@ -1,7 +1,8 @@
 {
-  "extends": "./node_modules/@rushstack/heft-node-rig/profiles/default/tsconfig-base.json",
+  "extends": "./node_modules/@tkvw/heft-node-rig/profiles/default/tsconfig-base.json",
   "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "../../build/heft-node-rig/node_modules/@types"],
     "types": ["heft-jest"],
-    "lib": ["dom","ESNext"]
+    "lib": ["ES2017","DOM"]
   }
 }

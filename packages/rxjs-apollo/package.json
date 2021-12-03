@@ -2,11 +2,14 @@
   "name": "@tkvw/rxjs-apollo",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "heft test --clean",
     "clean": "heft clean",
-    "test": "heft test"
+    "test:watch": "heft test --clean --watch",
+    "test": "heft test --debug --clean"
   },
   "keywords": [],
   "author": "Dennie de Lange (github.com/tkvw)",
@@ -17,9 +20,11 @@
   },
   "devDependencies": {
     "@tkvw/heft-node-rig": "workspace:*",
+    "@tkvw/eslint-config": "workspace:*",
     "@apollo/client": "~3.4.17",
     "graphql": "15",
-    "rxjs": "~7.4.0"
+    "rxjs": "~7.4.0",
+    "rxjs-marbles": "~7.0.1"
   },
   "dependencies": {
     "@tkvw/rxjs": "workspace:*"

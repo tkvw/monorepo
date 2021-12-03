@@ -15,11 +15,11 @@ describe('createRetry', () => {
   it('works with exponential backoff',
     marbles((m) => {
       const source = m.cold('a-#');
-      const { retry } = createRetry({
+      const { createLink } = createRetry({
         maxAttempts: of(4)
       });
       const expected = m.cold('a- 1000ms a- 4000ms a- 9000ms a- 16000ms a-#');
-      const expect = source.pipe(retry());
+      const expect = source.pipe(createLink());
       m.expect(expect).toBeObservable(expected);
     })
   );
@@ -27,7 +27,7 @@ describe('createRetry', () => {
     const source = m.cold('a-#');
     const maxAttempts$ = new BehaviorSubject(2);
 
-    const { retry,retryMessages } = createRetry({
+    const { createLink,retryMessages } = createRetry({
       maxAttempts: maxAttempts$
     });
     retryMessages.subscribe(message => {
@@ -36,7 +36,7 @@ describe('createRetry', () => {
       }
     });
     const expected = m.cold('a- 1000ms a- 4000ms a- 9000ms a-#');
-    m.expect(source.pipe(retry())).toBeObservable(expected);
+    m.expect(source.pipe(createLink())).toBeObservable(expected);
   }));
 
   //   it('throttle',marbles((m)=> {

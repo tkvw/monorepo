@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "../../packages/rxjs"
+		},
+		{
+			"path": "../../packages/rxjs-apollo"
+		},
+		{
+			"path": "../../packages/rxjs-apollo-codegen"
+		},
+		{
+			"path": "../../packages/rxjs-apollo-codegen-test"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			
+		}
+	}
+}

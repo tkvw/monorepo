@@ -2,24 +2,27 @@
   "name": "@tkvw/rxjs-apollo-codegen",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/codegen.js",
+  "module": "lib/codegen.mjs",
+  "types": "lib/codegen.d.ts",
   "scripts": {
-    "build": "heft build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "heft build --clean",
+    "build:watch": "heft build --clean --watch"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@tkvw/rxjs-apollo": "workspace:*",
-    "@microsoft/rush-lib": "~5.56.0"
+    "@microsoft/rush-lib": "~5.56.0",
+    "pascal-case": "~3.1.2"
   },
   "devDependencies": {
-    "@rushstack/heft": "~0.42.2",
     "@types/heft-jest": "~1.0.2",
-    "@rushstack/heft-jest-plugin": "~0.1.46",
     "@graphql-codegen/plugin-helpers": "~2.3.1",
     "@graphql-codegen/visitor-plugin-common": "~2.5.1",
-    "graphql": "15"
+    "graphql": "15",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "@tkvw/eslint-config": "workspace:*"
   }
 }

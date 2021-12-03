@@ -5,4 +5,8 @@ module.exports = {
     node: true,
   },
   extends: ['@rushstack/eslint-config/profile/node.js'],
+  rules: {
+    "@typescript-eslint/explicit-function-return-type": "off"
+  },
 };
+

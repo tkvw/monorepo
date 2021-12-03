@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "../../packages/vscode-extension-command-vars"
+		},
+		{
+			"path": "../../packages/vscode-extension-command-vars-test"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			
+		}
+	}
+}

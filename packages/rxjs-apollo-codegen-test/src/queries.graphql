@@ -1,0 +1,50 @@
+mutation AddCodegenUser($userName: String!) {
+  insert_users(objects: { name: $userName, rocket: "codegen" }) {
+    affected_rows
+  }
+}
+mutation DeleteCodegenUser {
+  delete_users(where: { rocket: { _eq: "codegen" } }) {
+    affected_rows
+  }
+}
+query GetCodegenUsers {
+  users(where: { rocket: { _eq: "codegen" } }) {
+    name
+    timestamp
+  }
+}
+fragment Launches on Launch{
+  mission_id
+  mission_name
+}
+query GetLaunches {
+  launches {
+    ...Launches
+  }
+}
+query GetLaunchesWithArgs($limit: Int) {
+  launches(limit: $limit) {
+    mission_id
+    mission_name
+  }
+}
+# subscribe to added users
+subscription UsersAdded {
+  usersAdded {
+    id
+    name
+    timestamp
+  }
+}
+
+# Insert a new user and Publish
+mutation InsertUsersAndPublish($name: String!) {
+  insert_users(objects: { name: $name, rocket: "codegen" }) {
+    affected_rows
+    returning {
+      name
+      rocket
+    }
+  }
+}

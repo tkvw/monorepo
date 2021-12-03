@@ -29,7 +29,7 @@ export interface IOptionsWithTransformMessage<TransformedMessage> extends IOptio
 }
 
 export interface IRetry<CustomRetryMessage> {
-  retry: <T>() => OperatorFunction<T, T>;
+  createLink: <T>() => OperatorFunction<T, T>;
   retryMessages: Observable<CustomRetryMessage>;
 }
 
@@ -56,7 +56,7 @@ export function createRetry<CustomRetryMessage = IRetryMessage>(
   const delaySubject$ = new BehaviorSubject<number>(1000);
   const setDelay = (delay: number): void => delaySubject$.next(delay);
 
-  const retry = <T>(): OperatorFunction<T, T> =>
+  const createLink = <T>(): OperatorFunction<T, T> =>
     retryWhen<T>((error$) =>
       error$.pipe(
         switchMap((error, invocationCount) =>
@@ -90,7 +90,7 @@ export function createRetry<CustomRetryMessage = IRetryMessage>(
     );
   return {
     retryMessages: retryMessageSubject$.asObservable(),
-    retry
+    createLink
   };
 }
 

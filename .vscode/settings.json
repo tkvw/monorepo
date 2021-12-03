@@ -2,9 +2,6 @@
   "files.associations": {
     "*.json": "jsonc"
   },
-  "jestrunner.jestCommand": "./node_modules/@rushstack/heft/lib/start.js --test-path-pattern",
-  "jestrunner.projectPath": "${command:folders.packageJson}",
-  "jestrunner.changeDirectoryToWorkspaceRoot": false,
   "javascript.preferences.importModuleSpecifierEnding": "js",
   "typescript.preferences.importModuleSpecifierEnding": "js"
 }

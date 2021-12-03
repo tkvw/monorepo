@@ -62,7 +62,7 @@
      * The default value is false to avoid legacy compatibility issues.
      * It is strongly recommended to set strictPeerDependencies=true.
      */
-    "strictPeerDependencies": true
+    "strictPeerDependencies": true,
 
     /**
      * Configures the strategy used to select versions during installation.
@@ -110,7 +110,7 @@
      *
      * This option is experimental. The default value is false.
      */
-     ,"useWorkspaces": true
+    "useWorkspaces": true
   },
 
   /**
@@ -175,8 +175,8 @@
    * To remove these restrictions, you could set projectFolderMinDepth=1
    * and set projectFolderMaxDepth to a large number.
    */
-   "projectFolderMinDepth": 1,
-   "projectFolderMaxDepth": 3,
+  "projectFolderMinDepth": 1,
+  "projectFolderMaxDepth": 3,
 
   /**
    * Today the npmjs.com registry enforces fairly strict naming rules for packages, but in the early
@@ -292,7 +292,7 @@
      * The default branch name. This tells "rush change" which remote branch to compare against.
      * The default value is "master"
      */
-     "defaultBranch": "main",
+    "defaultBranch": "main",
     /**
      * The default remote. This tells "rush change" which remote to compare against if the remote URL is
      * not set or if a remote matching the provided remote URL is not found.
@@ -457,7 +457,8 @@
       "projectFolder": "packages/rxjs",
       "shouldPublish": true,
       "versionPolicyName": "ts-rxjs"
-    },{
+    },
+    {
       "packageName": "@tkvw/rxjs-apollo",
       "projectFolder": "packages/rxjs-apollo",
       "shouldPublish": true,
@@ -489,7 +490,10 @@
     {
       "packageName": "vscode-extension-command-vars-test",
       "projectFolder": "packages/vscode-extension-command-vars-test"
+    },
+    {
+      "packageName": "@tkvw/rxjs-apollo-codegen-test",
+      "projectFolder": "packages/rxjs-apollo-codegen-test"
     }
-    
   ]
 }

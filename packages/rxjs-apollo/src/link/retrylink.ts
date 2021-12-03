@@ -1,17 +1,22 @@
-import createRetry,{Options,OptionsWithTransformMessage,RetryMessage} from '@tkvw/rxjs/operators/createRetry';
-import {apolloLink} from "../apolloLink.js"
+import { ApolloLink } from '@apollo/client/core';
+import { createRetry, IRetryMessage, IOptionsWithTransformMessage, IOptions } from '@tkvw/rxjs';
+import { Observable } from 'rxjs';
+import { apolloLink } from '../apolloLink.js';
 
+export interface IRetryLink<RetryMessage> {
+  link: ApolloLink;
+  retryMessages: Observable<RetryMessage>;
+}
+export function createRetryLink<CustomRetryMessage = IRetryMessage>(
+  options: IOptionsWithTransformMessage<CustomRetryMessage>
+): IRetryLink<CustomRetryMessage>;
+export function createRetryLink(options?: IOptions): IRetryLink<IRetryMessage>;
+export function createRetryLink(options?: IOptions) {
+  const { createLink, retryMessages } = createRetry(options);
 
-export function createRetryLink<CustomRetryMessage = RetryMessage>(options: OptionsWithTransformMessage<CustomRetryMessage>);
-export function createRetryLink(options?: Options);
-export function createRetryLink(options: Options){
-    const {retry,retryMessages} = createRetry(options);
-
-    const link = apolloLink(next => operation => next(operation).pipe(
-      retry()
-    ));
-    return {
-      link,
-      retryMessages
-    }
+  const link = apolloLink((next) => (operation) => next(operation).pipe(createLink()));
+  return {
+    link,
+    retryMessages
+  };
 }
