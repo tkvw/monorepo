@@ -71,3 +71,6 @@ packages/*/lib
 packages/*/temp
 .vscode-test
 *.vsix
+
+# Svelte
+examples/*/.svelte-kit

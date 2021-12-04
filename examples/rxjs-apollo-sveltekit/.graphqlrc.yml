@@ -1,0 +1,19 @@
+schema: https://api.spacex.land/graphql/
+documents: src/queries.graphql
+extensions:
+  codegen:
+    generates:
+      ./src/schema.graphql:
+        plugins:
+          - schema-ast
+      ./src/generated.ts:
+        plugins:
+          - typescript
+          - typescript-operations
+          - "@tkvw/rxjs-apollo-codegen"
+        config:
+          clientPath: './client'
+          queryOperationPrefix: 'use'      
+          queryOperationSuffix: 'Query'      
+          fragmentVariableSuffix: 'Fragment'
+          documentVariableSuffix: 'Document'

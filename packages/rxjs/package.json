@@ -2,9 +2,20 @@
   "name": "@tkvw/rxjs",
   "version": "1.0.0",
   "description": "Some rxjs operators",
-  "main": "./lib/index.js",
-  "module": "./lib/index.mjs",
-  "types": "./lib/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "index.d.ts",
+  "exports":{
+    ".": {
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["lib/types/*"]
+    }
+  },
   "scripts": {
     "build": "heft build --clean",
     "watch": "heft build --watch",

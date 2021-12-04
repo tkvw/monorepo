@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import { ApolloClient, NetworkStatus } from '@apollo/client/core';
 import type {
   ApolloQueryResult,
   WatchQueryOptions,
@@ -10,13 +10,19 @@ import type {
 import { Observable, switchMap, iif, of, map, from, NEVER } from 'rxjs';
 
 export interface IQueryOptions<TVariables, TData> extends WatchQueryOptions<TVariables, TData> {
+  useInitialLoading?: boolean;
   skip?: boolean;
 }
-export interface IQueryResult<TVariables = OperationVariables,TData = any> extends ApolloQueryResult<TData>{
-  options: IQueryOptions<TVariables, TData>,
-  skipped?: boolean;
+export interface IQueryResult<TVariables = OperationVariables, TData = any> extends ApolloQueryResult<TData> {
+  options: IQueryOptions<TVariables, TData>;
+  skipped: boolean;
+  initialized: boolean;
 }
-export type IFetchMoreOptions<TVariables = OperationVariables,TData = any> = FetchMoreQueryOptions<TVariables, TData> & FetchMoreOptions<TData, TVariables> 
+export type IFetchMoreOptions<TVariables = OperationVariables, TData = any> = FetchMoreQueryOptions<
+  TVariables,
+  TData
+> &
+  FetchMoreOptions<TData, TVariables>;
 
 export interface IQueryable {
   <
@@ -30,9 +36,8 @@ export interface IQueryable {
       FetchMoreQueryOptions<TVariables, TData> & FetchMoreOptions<TData, TVariables>
     >,
     subscribeToMore?: Observable<SubscribeToMoreOptions<TData, TSubscriptionVariables, TSubscriptionData>>
-  ): Observable<IQueryResult<TVariables,TData>>;
+  ): Observable<IQueryResult<TVariables, TData>>;
 }
-
 
 export function connectQuery(clientObservable: Observable<ApolloClient<unknown>>): IQueryable {
   return <
@@ -42,7 +47,7 @@ export function connectQuery(clientObservable: Observable<ApolloClient<unknown>>
     TSubscriptionVariables = TVariables
   >(
     options: Observable<IQueryOptions<TVariables, TData>>,
-    fetchMoreOptions: Observable<IFetchMoreOptions<TVariables,TData>> = NEVER,
+    fetchMoreOptions: Observable<IFetchMoreOptions<TVariables, TData>> = NEVER,
     subscribeToMore: Observable<
       SubscribeToMoreOptions<TData, TSubscriptionVariables, TSubscriptionData>
     > = NEVER
@@ -50,19 +55,40 @@ export function connectQuery(clientObservable: Observable<ApolloClient<unknown>>
     clientObservable.pipe(
       switchMap((client) =>
         options.pipe(
-          switchMap(({ skip = false, ...options }) =>
+          switchMap(({ skip = false, useInitialLoading = false, ...options }, count) =>
             iif(
               () => skip,
-              of({ data: {} as TData, loading: false, networkStatus: 1, options,skipped: true }),
-              new Observable<IQueryResult<TVariables,TData>>((observer) => {
+              of({
+                data: {} as TData,
+                skipped: true,
+                loading: false,
+                networkStatus: NetworkStatus.ready,
+                options,
+                initialized: count > 0
+              }),
+              new Observable<IQueryResult<TVariables, TData>>((observer) => {
+                if (useInitialLoading && count === 0) {
+                  observer.next({
+                    data: {} as TData,
+                    skipped: false,
+                    loading: true,
+                    networkStatus: NetworkStatus.loading,
+                    options,
+                    initialized: false
+                  });
+                }
+
                 const watchQuery = client.watchQuery(options);
 
-                const transformResult = (result: ApolloQueryResult<TData>) => ({
+                const transformResult = (
+                  result: ApolloQueryResult<TData>
+                ): IQueryResult<TVariables, TData> => ({
                   ...result,
                   options,
-                  skipped: false
-                })
-                  
+                  skipped: false,
+                  initialized: true
+                });
+
                 const watchQuerySubscription = watchQuery.map(transformResult).subscribe(observer);
                 const fetchMoreSubscription = fetchMoreOptions
                   .pipe(

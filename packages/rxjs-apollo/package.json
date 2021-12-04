@@ -2,9 +2,9 @@
   "name": "@tkvw/rxjs-apollo",
   "version": "0.0.1",
   "description": "",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
-  "types": "lib/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "heft test --clean",
     "clean": "heft clean",
@@ -28,5 +28,16 @@
   },
   "dependencies": {
     "@tkvw/rxjs": "workspace:*"
+  },
+  "exports":{
+    ".": {
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["lib/types/*"]
+    }
   }
 }

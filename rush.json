@@ -494,6 +494,11 @@
     {
       "packageName": "@tkvw/rxjs-apollo-codegen-test",
       "projectFolder": "packages/rxjs-apollo-codegen-test"
+    },
+    {
+      "packageName": "@tkvw/examples-rxjs-apollo-sveltekit",
+      "projectFolder": "examples/rxjs-apollo-sveltekit"
     }
+    
   ]
 }

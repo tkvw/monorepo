@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client/core";
-import type { MutationOptions, DefaultContext, SubscriptionOptions } from "@apollo/client/core";
 import { Observable, map, NEVER } from "rxjs";
-import { connectQuery, connectMutation, connectSubscribe } from "@tkvw/rxjs-apollo";
+import { connectQuery } from "@tkvw/rxjs-apollo";
 import type { IQueryOptions as IQueryOptionsOriginal, IFetchMoreOptions as IFetchMoreOptionsOriginal } from "@tkvw/rxjs-apollo";
 import client from "./client";
 export type Maybe<T> = T | null;
@@ -1065,7 +1064,6 @@ export type Subscription = {
   __typename?: 'Subscription';
   /** fetch data from the table: "users" */
   users: Array<Users>;
-  usersAdded?: Maybe<Array<Maybe<Users>>>;
   /** fetch aggregated fields from the table: "users" */
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
@@ -1324,48 +1322,10 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
-export type AddCodegenUserMutationVariables = Exact<{
-  userName: Scalars['String'];
-}>;
+export type LaunchesPastQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AddCodegenUserMutation = { __typename?: 'Mutation', insert_users?: { __typename?: 'users_mutation_response', affected_rows: number } | null | undefined };
-
-export type DeleteCodegenUserMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type DeleteCodegenUserMutation = { __typename?: 'Mutation', delete_users?: { __typename?: 'users_mutation_response', affected_rows: number } | null | undefined };
-
-export type GetCodegenUsersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCodegenUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'users', name?: string | null | undefined, timestamp: any }> };
-
-export type LaunchesFragment = { __typename?: 'Launch', mission_id?: Array<string | null | undefined> | null | undefined, mission_name?: string | null | undefined };
-
-export type GetLaunchesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetLaunchesQuery = { __typename?: 'Query', launches?: Array<{ __typename?: 'Launch', mission_id?: Array<string | null | undefined> | null | undefined, mission_name?: string | null | undefined } | null | undefined> | null | undefined };
-
-export type GetLaunchesWithArgsQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type GetLaunchesWithArgsQuery = { __typename?: 'Query', launches?: Array<{ __typename?: 'Launch', mission_id?: Array<string | null | undefined> | null | undefined, mission_name?: string | null | undefined } | null | undefined> | null | undefined };
-
-export type UsersAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
-
-
-export type UsersAddedSubscription = { __typename?: 'Subscription', usersAdded?: Array<{ __typename?: 'users', id: any, name?: string | null | undefined, timestamp: any } | null | undefined> | null | undefined };
-
-export type InsertUsersAndPublishMutationVariables = Exact<{
-  name: Scalars['String'];
-}>;
-
-
-export type InsertUsersAndPublishMutation = { __typename?: 'Mutation', insert_users?: { __typename?: 'users_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'users', name?: string | null | undefined, rocket?: string | null | undefined }> } | null | undefined };
+export type LaunchesPastQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', mission_name?: string | null | undefined, details?: string | null | undefined, links?: { __typename?: 'LaunchLinks', flickr_images?: Array<string | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined };
 
 
 
@@ -1375,170 +1335,31 @@ export type IQueryOptions<TVariables,TData> = Omit<IQueryOptionsOriginal<TVariab
 export type IFetchMoreOptions<TVariables,TData> = Omit<IFetchMoreOptionsOriginal<TVariables,TData>,"query">;
 
 
-export const mutation = connectMutation(client);
-export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TVariables,TData,TContext>,"mutation">;
-
-
-export const subscribe = connectSubscribe(client);
-export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVariables,TData>,"query">;
-
-
-/* Fragments */
-export const LaunchesFragment = gql`
-    fragment Launches on Launch {
-  mission_id
-  mission_name
-}
-    `;
 /* Other */
-export const AddCodegenUserDocument = gql`
-    mutation AddCodegenUser($userName: String!) {
-  insert_users(objects: {name: $userName, rocket: "codegen"}) {
-    affected_rows
-  }
-}
-    `;
-export const DeleteCodegenUserDocument = gql`
-    mutation DeleteCodegenUser {
-  delete_users(where: {rocket: {_eq: "codegen"}}) {
-    affected_rows
-  }
-}
-    `;
-export const GetCodegenUsersDocument = gql`
-    query GetCodegenUsers {
-  users(where: {rocket: {_eq: "codegen"}}) {
-    name
-    timestamp
-  }
-}
-    `;
-export const GetLaunchesDocument = gql`
-    query GetLaunches {
-  launches {
-    ...Launches
-  }
-}
-    ${LaunchesFragment}`;
-export const GetLaunchesWithArgsDocument = gql`
-    query GetLaunchesWithArgs($limit: Int) {
-  launches(limit: $limit) {
-    mission_id
+export const LaunchesPastDocument = gql`
+    query launchesPast {
+  launchesPast {
     mission_name
-  }
-}
-    `;
-export const UsersAddedDocument = gql`
-    subscription UsersAdded {
-  usersAdded {
-    id
-    name
-    timestamp
-  }
-}
-    `;
-export const InsertUsersAndPublishDocument = gql`
-    mutation InsertUsersAndPublish($name: String!) {
-  insert_users(objects: {name: $name, rocket: "codegen"}) {
-    affected_rows
-    returning {
-      name
-      rocket
+    details
+    links {
+      flickr_images
     }
   }
 }
     `;
 
-export type AddCodegenUserMutationOptions<TContext = DefaultContext> = IMutationOptions<AddCodegenUserMutationVariables,AddCodegenUserMutation,TContext>;
-export function AddCodegenUser<TContext = DefaultContext>(options$: Observable<AddCodegenUserMutationOptions<TContext>>){
-  return mutation(options$.pipe(
-    map(options => ({
-      ...options,
-      mutation: AddCodegenUserDocument
-    }))
-  ));
-}
-
-
-export type DeleteCodegenUserMutationOptions<TContext = DefaultContext> = IMutationOptions<DeleteCodegenUserMutationVariables,DeleteCodegenUserMutation,TContext>;
-export function DeleteCodegenUser<TContext = DefaultContext>(options$: Observable<DeleteCodegenUserMutationOptions<TContext>>){
-  return mutation(options$.pipe(
-    map(options => ({
-      ...options,
-      mutation: DeleteCodegenUserDocument
-    }))
-  ));
-}
-
-
-export type GetCodegenUsersOptions = IQueryOptions<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>;
-export type GetCodegenUsersFetchMoreOptions = IFetchMoreOptions<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>;
-export function useGetCodegenUsersQuery(options$: Observable<GetCodegenUsersOptions>, fetchMoreOptions$: Observable<GetCodegenUsersFetchMoreOptions> = NEVER){
+export type LaunchesPastOptions = IQueryOptions<LaunchesPastQueryVariables,LaunchesPastQuery>;
+export type LaunchesPastFetchMoreOptions = IFetchMoreOptions<LaunchesPastQueryVariables,LaunchesPastQuery>;
+export function useLaunchesPastQuery(options$: Observable<LaunchesPastOptions>, fetchMoreOptions$: Observable<LaunchesPastFetchMoreOptions> = NEVER){
   return query(options$.pipe(
     map(options => ({
       ...options,
-      query: GetCodegenUsersDocument
+      query: LaunchesPastDocument
     }))
   ),fetchMoreOptions$.pipe(
     map(options => ({
       ...options,
-      query: GetCodegenUsersDocument
-    }))
-  ));
-}
-
-
-export type GetLaunchesOptions = IQueryOptions<GetLaunchesQueryVariables,GetLaunchesQuery>;
-export type GetLaunchesFetchMoreOptions = IFetchMoreOptions<GetLaunchesQueryVariables,GetLaunchesQuery>;
-export function useGetLaunchesQuery(options$: Observable<GetLaunchesOptions>, fetchMoreOptions$: Observable<GetLaunchesFetchMoreOptions> = NEVER){
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesDocument
-    }))
-  ));
-}
-
-
-export type GetLaunchesWithArgsOptions = IQueryOptions<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>;
-export type GetLaunchesWithArgsFetchMoreOptions = IFetchMoreOptions<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>;
-export function useGetLaunchesWithArgsQuery(options$: Observable<GetLaunchesWithArgsOptions>, fetchMoreOptions$: Observable<GetLaunchesWithArgsFetchMoreOptions> = NEVER){
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesWithArgsDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesWithArgsDocument
-    }))
-  ));
-}
-
-
-export type UsersAddedSubscribeOptions = ISubscribeOptions<UsersAddedSubscriptionVariables,UsersAddedSubscription>;
-export function UsersAdded(options$: Observable<UsersAddedSubscribeOptions>){
-  return subscribe(options$.pipe(
-    map(options => ({
-      ...options,
-      query: UsersAddedDocument
-    }))
-  ));
-}
-
-
-export type InsertUsersAndPublishMutationOptions<TContext = DefaultContext> = IMutationOptions<InsertUsersAndPublishMutationVariables,InsertUsersAndPublishMutation,TContext>;
-export function InsertUsersAndPublish<TContext = DefaultContext>(options$: Observable<InsertUsersAndPublishMutationOptions<TContext>>){
-  return mutation(options$.pipe(
-    map(options => ({
-      ...options,
-      mutation: InsertUsersAndPublishDocument
+      query: LaunchesPastDocument
     }))
   ));
 }

@@ -15,6 +15,22 @@ import {
 
 import { pascalCase } from 'pascal-case';
 
+interface IImport {
+  default?: string;
+  from: string;
+  libs: string[];
+  types: string[];
+}
+
+function createImport(from: string, options?: Partial<IImport>): IImport {
+  return {
+    from,
+    libs: [],
+    types: [],
+    ...options
+  };
+}
+
 export interface IConfig extends Omit<RawClientSideBasePluginConfig, 'scalars'> {
   clientPath: string;
   queryOperationPrefix?: string;
@@ -27,10 +43,10 @@ export interface IConfig extends Omit<RawClientSideBasePluginConfig, 'scalars'> 
 
   queryOptionsPrefix?: string;
   queryOptionsSuffix?: string;
-  
+
   fetchMoreOptionsPrefix?: string;
   fetchMoreOptionsSuffix?: string;
-  
+
   mutationOptionsPrefix?: string;
   mutationOptionsSuffix?: string;
 
@@ -113,18 +129,39 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
   const hasMutation = operations.some(({ operation }) => 'mutation' === operation);
   const hasSubscription = operations.some(({ operation }) => 'subscription' === operation);
 
-  const imports = [
-    `import client from "${clientPath}";`,
-    `import { gql${hasMutation?', MutationOptions, DefaultContext':''}${hasSubscription?', SubscriptionOptions':''} } from "@apollo/client/core";`,
-    `import { Observable, map, NEVER } from "rxjs"`,
-    `import { ${[
-      hasQuery ? 'connectQuery, IQueryOptions as IQueryOptionsOriginal, IFetchMoreOptions as IFetchMoreOptionsOriginal' : '',
-      hasMutation ? 'connectMutation' : '',
-      hasSubscription ? 'connectSubscribe' : ''
-    ]
-      .filter((x) => x)
-      .join(',')} } from "@tkvw/rxjs-apollo"`
-  ];
+  if (!hasQuery && !hasMutation && !hasSubscription) {
+    console.error('No documents with operations found');
+    return {
+      content: ''
+    };
+  }
+
+  const client = createImport(clientPath, {
+    default: 'client'
+  });
+  const apollo = createImport('@apollo/client/core', {
+    libs: ['gql']
+  });
+  const rxjs = createImport('rxjs', {
+    libs: ['Observable', 'map', 'NEVER']
+  });
+  const rxjsApollo = createImport('@tkvw/rxjs-apollo');
+
+  if (hasQuery) {
+    rxjsApollo.libs.push('connectQuery');
+    rxjsApollo.types.push(
+      'IQueryOptions as IQueryOptionsOriginal',
+      'IFetchMoreOptions as IFetchMoreOptionsOriginal'
+    );
+  }
+  if (hasMutation) {
+    rxjsApollo.libs.push('connectMutation');
+    apollo.types.push('MutationOptions', 'DefaultContext');
+  }
+  if (hasSubscription) {
+    rxjsApollo.libs.push('connectSubscribe');
+    apollo.types.push('SubscriptionOptions');
+  }
 
   const statements = [];
   if (hasQuery) {
@@ -155,16 +192,16 @@ export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVari
     contents = [...contents, `/* Other */`, x.join('\n')];
   }
   operations.reduce((acc, operation) => {
-    if(!operation.name?.value || !operation.operation) return acc;
+    if (!operation.name?.value || !operation.operation) return acc;
     const operationName = pascalCase(operation.name.value);
-    const operationSuffix = pascalCase(visitor.getOperationSuffix(operation,operation.operation));
+    const operationSuffix = pascalCase(visitor.getOperationSuffix(operation, operation.operation));
 
     const op = `${operationName}${operationSuffix}`;
     const opv = `${op}Variables`;
     const documentVariableName = `${documentVariablePrefix}${operationName}${documentVariableSuffix}`;
     const { prefix, suffix } = operationTypeFormats[operation.operation];
     const functionName = `${prefix}${operationName}${suffix}`;
-    
+
     if ('query' === operation.operation) {
       const queryOptionsName = `${queryOptionsPrefix}${operationName}${queryOptionsSuffix}`;
       const fetchMoreOptionsName = `${fetchMoreOptionsPrefix}${operationName}${fetchMoreOptionsSuffix}`;
@@ -185,9 +222,7 @@ export function ${functionName}(options$: Observable<${queryOptionsName}>, fetch
   ));
 }
 `);
-   
-    }
-    else if('mutation' === operation.operation){
+    } else if ('mutation' === operation.operation) {
       const mutationOptionsName = `${mutationOptionsPrefix}${operationName}${mutationOptionsSuffix}`;
       contents.push(`
 export type ${mutationOptionsName}<TContext = DefaultContext> = IMutationOptions<${opv},${op},TContext>;
@@ -200,8 +235,7 @@ export function ${functionName}<TContext = DefaultContext>(options$: Observable<
   ));
 }
 `);
-    }
-    else if('subscription' === operation.operation){
+    } else if ('subscription' === operation.operation) {
       const subscribeOptionsName = `${subscribeOptionsPrefix}${operationName}${subscribeOptionsSuffix}`;
       contents.push(`
 export type ${subscribeOptionsName} = ISubscribeOptions<${opv},${op}>;
@@ -219,7 +253,20 @@ export function ${functionName}(options$: Observable<${subscribeOptionsName}>){
     return acc;
   }, contents);
 
-  const prepend: string[] = imports;
+  const prepend: string[] = [apollo, rxjs, rxjsApollo, client].reduce<string[]>((acc, item) => {
+    const libs = item.libs.length > 0 ? `{ ${item.libs.join(', ')} }` : '';
+    if (item.default && libs) {
+      acc.push(`import ${item.default}, ${libs} from "${item.from}";`);
+    } else if (libs) {
+      acc.push(`import ${libs} from "${item.from}";`);
+    } else {
+      acc.push(`import ${item.default} from "${item.from}";`);
+    }
+    if (item.types.length > 0) {
+      acc.push(`import type { ${item.types.join(', ')} } from "${item.from}";`);
+    }
+    return acc;
+  }, []);
 
   return {
     prepend,

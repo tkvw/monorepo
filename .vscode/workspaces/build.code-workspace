@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../../build/heft-node-rig"
+		},
+		{
+			"path": "../../build/heft-svelte-rig"
 		}
 	]
 }
