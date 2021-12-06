@@ -1,0 +1,50 @@
+{
+  "name": "@tkvw/rush-templates",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    },
+    "./generators": {
+      "import": "./lib/esm/generators/index.js",
+      "default": "./lib/cjs/generators/index"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "lib/types/*"
+      ],
+      "generators": [
+        "lib/types/generators/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "heft build --clean",
+    "watch": "heft build --clean --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Dennie de Lange",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/heft-jest": "~1.0.2",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "@tkvw/eslint-config": "workspace:*",
+    "@microsoft/rush-lib": "~5.56.0",
+    "@types/lodash-es": "~4.17.5"
+  },
+  "dependencies": {
+    "@rushstack/ts-command-line": "~4.10.4",
+    "node-plop": "~0.30.0",
+    "type-fest": "~2.6.0",
+    "lodash-es": "~4.17.21"
+  }
+}

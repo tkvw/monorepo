@@ -2,7 +2,7 @@
 ## Retry
 
 ```ts
-import createRetry from "@tkvw/rxjs/operators/retry";
+import { createRetry } from "@tkvw/rxjs";
 
 const {attempt,retry} = createRetry(cancel,m => ({
     ...m,

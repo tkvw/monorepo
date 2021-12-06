@@ -1,0 +1,21 @@
+{
+  "name": "@tkvw/templates",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "templates": "lib/start.js"
+  },
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "heft build --clean"
+  },
+  "keywords": [],
+  "author": "Dennie de Lange",
+  "license": "ISC",
+  "dependencies": {
+    "@tkvw/rush-templates": "workspace:*",
+    "@rushstack/heft-node-rig": "~1.2.33",
+    "@rushstack/heft": "~0.42.2"
+  }
+}

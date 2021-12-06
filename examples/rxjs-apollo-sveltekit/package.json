@@ -32,7 +32,6 @@
     "@graphql-codegen/typescript": "~2.4.1",
     "@graphql-codegen/typescript-operations": "~2.2.1",
     "graphql": "15"
-
   },
   "type": "module",
   "dependencies": {
@@ -40,5 +39,6 @@
     "@graphql-codegen/schema-ast": "~2.4.0",
     "rxjs": "~7.4.0",
     "@apollo/client": "~3.4.17"
-  }
+  },
+  "author": "Dennie de Lange"
 }

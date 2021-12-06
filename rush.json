@@ -498,6 +498,14 @@
     {
       "packageName": "@tkvw/examples-rxjs-apollo-sveltekit",
       "projectFolder": "examples/rxjs-apollo-sveltekit"
+    },
+    {
+      "packageName": "@tkvw/rush-templates",
+      "projectFolder": "build/rush-templates"
+    },
+    {
+      "packageName": "@tkvw/templates",
+      "projectFolder": "build/templates"
     }
     
   ]

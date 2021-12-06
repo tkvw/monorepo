@@ -166,6 +166,13 @@
     //    */
     //   // "autoinstallerName": "my-task"
     // }
+    {
+      "commandKind": "global",
+      "name": "templates",
+      "summary": "xx",
+      "description": "Generate a template",
+      "shellCommand": "node build/templates/lib/start.js"
+    }
   ],
 
   /**
@@ -173,6 +180,14 @@
    * For example, you might define a "--production" parameter for the "rush build" command.
    */
   "parameters": [
+    {
+      "parameterKind": "string",
+      "argumentName":"GENERATOR",
+      "shortName": "-g",
+      "longName": "--generator",
+      "description": "Generator to use",      
+      "associatedCommands": ["templates"]
+    }
     // {
     //   /**
     //    * (Required) Determines the type of custom parameter.

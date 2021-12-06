@@ -12,8 +12,12 @@
     "test": "heft test --debug --clean"
   },
   "keywords": [],
-  "author": "Dennie de Lange (github.com/tkvw)",
-  "license": "MIT",
+  "author": "Dennie de Lange",
+  "license": "ISC",
+  "repository": "git://github.com/tkvw/monorepo.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "peerDependencies": {
     "@apollo/client": "~3.4.17",
     "rxjs": "~7.4.0"
@@ -29,7 +33,7 @@
   "dependencies": {
     "@tkvw/rxjs": "workspace:*"
   },
-  "exports":{
+  "exports": {
     ".": {
       "import": "./lib/esm/index.js",
       "default": "./lib/cjs/index.js"
@@ -37,7 +41,9 @@
   },
   "typesVersions": {
     "*": {
-      "*": ["lib/types/*"]
+      "*": [
+        "lib/types/*"
+      ]
     }
   }
 }

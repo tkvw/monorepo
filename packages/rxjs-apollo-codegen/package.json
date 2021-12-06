@@ -2,16 +2,38 @@
   "name": "@tkvw/rxjs-apollo-codegen",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/codegen.js",
-  "module": "lib/codegen.mjs",
-  "types": "lib/codegen.d.ts",
+  "main": "lib/cjs/codegen.js",
+  "module": "lib/esm/codegen.js",
+  "types": "codegen.d.ts",
+  "homepage": "https://github.com/tkvw/monorepo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkvw/monorepo.git",
+    "directory": "packages/rxjs-apollo-codegen"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/cjs/codegen.js",
+      "default": "./lib/esm/codegen.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "lib/types/*"
+      ]
+    }
+  },
   "scripts": {
     "build": "heft build --clean",
     "build:watch": "heft build --clean --watch"
   },
   "keywords": [],
-  "author": "",
-  "license": "MIT",
+  "author": "Dennie de Lange",
+  "license": "ISC",
   "dependencies": {
     "@tkvw/rxjs-apollo": "workspace:*",
     "@microsoft/rush-lib": "~5.56.0",
