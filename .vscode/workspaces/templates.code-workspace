@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "../../build/rush-templates"
+		},
+		{
+			"path": "../../build/templates"
+		}
+	]
+}

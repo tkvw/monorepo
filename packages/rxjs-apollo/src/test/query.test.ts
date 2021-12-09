@@ -7,38 +7,22 @@ import {
   Operation,
   FetchResult
 } from '@apollo/client/core';
-import {  of, Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 import { connectQuery } from '../connectQuery';
+import { createClient } from './createMockClient.js';
 
-export interface MockResultResolver{
-  (operation: Operation): FetchResult
-}
-
-export function createMockLink(resolver: MockResultResolver) {
-  return new ApolloLink((operation) => {
-    return new ApolloObservable((observer) => {
-      observer.next(resolver(operation));
-      observer.complete();
-    });
-  });
-}
-
-export function createClient(resolver: MockResultResolver) {
-  return new ApolloClient({
-    cache: new InMemoryCache(),
-    link: createMockLink(resolver)
-  });
-}
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 describe('query operator function', () => {
   it.only('test query', async () => {
-    const client = of(createClient(operation => {
-      debugger;
-      return {
-        data: operation.getContext()['response']??null
-      }
-    }));
+    const client = of(
+      createClient((operation) => {
+        debugger;
+        return {
+          data: operation.getContext()['response'] ?? null
+        };
+      })
+    );
     const options = new Subject<any>();
     const request = connectQuery(client)(options);
     const next = jest.fn();
@@ -48,7 +32,7 @@ describe('query operator function', () => {
     options.next({
       context: {
         response: {
-          first: "message"
+          first: 'message'
         }
       },
       query: gql`

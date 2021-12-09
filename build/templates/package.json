@@ -8,14 +8,21 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "heft build --clean"
+    "build": "heft build --clean",
+    "watch": "heft build --watch",
+    "run": "NODE_OPTIONS=\"--loader ts-node/esm/transpile-only\" ./node_modules/.bin/runp --config src/plopfile.ts"
   },
   "keywords": [],
   "author": "Dennie de Lange",
   "license": "ISC",
   "dependencies": {
-    "@tkvw/rush-templates": "workspace:*",
+    "@tkvw/plop": "workspace:*",
     "@rushstack/heft-node-rig": "~1.2.33",
-    "@rushstack/heft": "~0.42.2"
+    "@rushstack/heft": "~0.42.2",
+    "@types/node": "16.x",
+    "ts-node": "~10.4.0",
+    "typescript": "~4.4.2",
+    "rambda": "~6.9.0",
+    "npm-check-updates": "~12.0.3"
   }
 }

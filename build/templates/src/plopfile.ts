@@ -1,40 +1,24 @@
-import { createTemplateRunner, NodePlopAPI,RushConfiguration } from '@tkvw/rush-templates';
-import addPackageJsonData from "./addPackageJsonData.js";
+import { createPlopConfig } from '@tkvw/plop';
+import { createUpdateRushPackagesGenerator } from '@tkvw/plop/generators';
+import { rushApi, PackageJsonApi } from '@tkvw/plop/api';
 
+export default createPlopConfig(async (api) => {
+  api.setGenerator('test', createUpdateRushPackagesGenerator(api));
+  api.setGenerator('updatePackageJsons', {
+    actions: [
+      async () => {
+        const rush = await rushApi(api.getDestBasePath());
+        Promise.all(
+          rush.projects.map(async (project) => {
+            const packageJsonFile = await PackageJsonApi.create(project.projectFolder);
+            await packageJsonFile.read();
 
-const templateRunner = createTemplateRunner(
-  addPackageJsonData
-);
+            
+          })
+        );
 
-
-export default templateRunner(async (plop) => {
-
-  plop.setGenerator('test', {
-    prompts: [
-      {
-        type: 'confirm',
-        name: 'wantTacos',
-        message: 'Do you want tacos?'
+        return '';
       }
-    ],
-    actions: function (data) {
-      var actions = [];
-
-      if (data?.wantTacos) {
-        actions.push({
-          type: 'add',
-          path: 'folder/{{dashCase name}}.txt',
-          templateFile: 'templates/tacos.txt'
-        });
-      } else {
-        actions.push({
-          type: 'add',
-          path: 'folder/{{dashCase name}}.txt',
-          templateFile: 'templates/burritos.txt'
-        });
-      }
-
-      return actions;
-    }
+    ]
   });
 });

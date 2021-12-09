@@ -31,12 +31,16 @@
   "author": "Dennie de Lange",
   "license": "ISC",
   "dependencies": {
-    "rxjs": "~7.4.0"
+    "rxjs": "~7.4.0",
+    "jwt-decode": "~3.1.2",
+    "debug": "~4.3.3"
   },
   "devDependencies": {
     "rxjs-marbles": "~7.0.1",
     "type-fest": "~2.6.0",
     "@tkvw/heft-node-rig": "workspace:*",
-    "@tkvw/eslint-config": "workspace:*"
+    "@tkvw/eslint-config": "workspace:*",
+    "@types/debug": "~4.1.7",
+    "eslint": "~7.30.0"
   }
 }

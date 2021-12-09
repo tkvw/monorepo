@@ -28,7 +28,8 @@
     "@apollo/client": "~3.4.17",
     "graphql": "15",
     "rxjs": "~7.4.0",
-    "rxjs-marbles": "~7.0.1"
+    "rxjs-marbles": "~7.0.1",
+    "eslint": "~7.30.0"
   },
   "dependencies": {
     "@tkvw/rxjs": "workspace:*"

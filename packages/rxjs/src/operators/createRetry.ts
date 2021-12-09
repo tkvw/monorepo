@@ -1,16 +1,16 @@
 import {
-  tap,
-  Observable,
-  retryWhen,
-  Subject,
-  switchMap,
-  race,
-  of,
   BehaviorSubject,
+  Observable,
+  OperatorFunction,
+  Subject,
   iif,
-  timer,
+  of,
+  race,
+  retryWhen,
+  switchMap,
+  tap,
   throwError,
-  OperatorFunction
+  timer
 } from 'rxjs';
 
 export interface IRetryMessage {
