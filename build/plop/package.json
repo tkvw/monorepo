@@ -88,6 +88,6 @@
     "debug": "~4.3.3",
     "fast-glob": "~3.2.7",
     "npm-check-updates": "~12.0.3",
-    "rambda": "~6.9.0"
+    "sort-package-json": "~1.53.1"
   }
 }

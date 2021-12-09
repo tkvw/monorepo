@@ -1,7 +1,6 @@
 import { NodePlopAPI, PlopGeneratorConfig } from 'node-plop';
 
 import { rushApi, PackageJsonApi, PackageJson } from '../api/index.js';
-import R from 'rambda';
 
 export function createUpdateRushPackagesGenerator(api: NodePlopAPI): Partial<PlopGeneratorConfig> {
   return {
@@ -43,10 +42,9 @@ export function createUpdateRushPackagesGenerator(api: NodePlopAPI): Partial<Plo
             ...p.peerDependencies
           });
           const usedIn = (name: string) => {
-            const hasName = R.has(name);
-
+            
             return selectedPackages
-              .filter(({ data }) => hasName(packageDependencies(data)))
+              .filter(({ data }) => Object.keys(packageDependencies(data)).includes(name))
               .map(({ data }) => data.name);
           };
           const allDependencies = selectedPackages.reduce(
@@ -57,16 +55,14 @@ export function createUpdateRushPackagesGenerator(api: NodePlopAPI): Partial<Plo
             {} as Record<string, string>
           );
 
-          const checkForUpdates = R.pipe(
-            PackageJsonApi.excludeWorkspaceDependencies,
-            PackageJsonApi.sort,
-            PackageJsonApi.checkUpdates()
-          );
-          const updatedPackages = await checkForUpdates(allDependencies);
+          const dependenciesExcludingWorkspace = PackageJsonApi.excludeWorkspaceDependencies(allDependencies);
+          const checkForUpdates = PackageJsonApi.checkUpdates();
 
-          return Object.keys(updatedPackages).map((packageName) => {
+          const updatedDependencies = await checkForUpdates(dependenciesExcludingWorkspace);
+
+          return Object.keys(updatedDependencies).sort().map((packageName) => {
             const currentVersion = allDependencies[packageName];
-            const nextVersion = updatedPackages[packageName];
+            const nextVersion = updatedDependencies[packageName];
             return {
               checked: true,
               name: `${packageName} from ${currentVersion} to ${nextVersion}, used in ${usedIn(

@@ -1,5 +1,4 @@
 import { PathLike } from 'fs';
-import R from 'rambda';
 import { FileApi, BaseFileApi } from './fileApi.js';
 
 export class JsonFileApi<JsonData = any> extends BaseFileApi implements FileApi<JsonData>{
@@ -12,9 +11,8 @@ export class JsonFileApi<JsonData = any> extends BaseFileApi implements FileApi<
   async write(data: JsonData){
     return this.writeText(JSON.stringify(data,null,this.spaces));
   }  
-  static sort = R.pipe(
-    R.toPairs,
-    R.sortBy(R.pipe(R.nth(0), R.defaultTo('zz'))),
-    R.fromPairs
-  ) as (json: Record<string,any>) => Record<string,any>;
+  static sort = (data: Record<string,string>) => {
+    const entries = Object.entries(data);
+    return Object.fromEntries(entries.sort(([ak],[bk]) => ak < bk ? 1: -1));
+  }
 }

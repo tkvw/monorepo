@@ -4,7 +4,7 @@ import { JsonFileApi } from './jsonApi.js';
 import { run as ncu } from 'npm-check-updates';
 import path from 'path';
 import fs from 'fs/promises';
-import R from 'rambda';
+import { sortPackageJson } from 'sort-package-json';
 
 export { PackageJson };
 
@@ -18,17 +18,12 @@ export class PackageJsonApi extends JsonFileApi<PackageJson> {
       }
     }).then((x) => x as Record<string, string>);
   };
-  static excludeWorkspaceDependencies = R.pipe(
-    R.toPairs,
-    R.filter(
-      R.pipe(
-        R.nth(1),
-        R.defaultTo('workspace:'),
-        R.both(R.pipe(R.isNil, R.not), R.pipe(R.startsWith('workspace:'), R.not))
-      ) as (value: [string, string]) => boolean
-    ),
-    R.fromPairs
-  ) as (dependencies: Dependencies) => Dependencies;
+  static excludeWorkspaceDependencies = (dependencies: Dependencies) => {
+    const excludeVersion = "workspace:";
+    const entries = Object.entries(dependencies);
+    const entriesExcludingWorkspaceVersions = entries.filter(kv => !kv[1].startsWith(excludeVersion));
+    return Object.fromEntries(entriesExcludingWorkspaceVersions);
+  }  
 
   static create = async (
     file: string,
@@ -45,5 +40,6 @@ export class PackageJsonApi extends JsonFileApi<PackageJson> {
       path: fileStat.isFile() ? file : path.resolve(file, packageJsonFile)
     });
   };
+  static sortPackageJson = (data: PackageJson) => sortPackageJson(data);
 }
 

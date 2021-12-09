@@ -1,24 +1,20 @@
 import { createPlopConfig } from '@tkvw/plop';
-import { createUpdateRushPackagesGenerator } from '@tkvw/plop/generators';
-import { rushApi, PackageJsonApi } from '@tkvw/plop/api';
+import {
+  createRushCommonPackageJsonGenerator,
+  createUpdateRushPackagesGenerator
+} from '@tkvw/plop/generators';
 
 export default createPlopConfig(async (api) => {
-  api.setGenerator('test', createUpdateRushPackagesGenerator(api));
-  api.setGenerator('updatePackageJsons', {
-    actions: [
-      async () => {
-        const rush = await rushApi(api.getDestBasePath());
-        Promise.all(
-          rush.projects.map(async (project) => {
-            const packageJsonFile = await PackageJsonApi.create(project.projectFolder);
-            await packageJsonFile.read();
-
-            
-          })
-        );
-
-        return '';
+  api.setGenerator('upgradePackages', createUpdateRushPackagesGenerator(api));
+  api.setGenerator(
+    'setCommonPackgeJson',
+    createRushCommonPackageJsonGenerator(async (project) => ({
+      author: 'Dennie de Lange',
+      repository: {
+        type: 'git',
+        url: 'https://github.com/tkvw/monorepo.git',
+        directory: `${project.projectRelativeFolder}`
       }
-    ]
-  });
+    }))
+  );
 });
