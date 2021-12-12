@@ -15,14 +15,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@microsoft/api-extractor": "7.18.19",
-    "@rushstack/eslint-config": "~2.4.5",
+    "@microsoft/api-extractor": "7.19.2",
+    "@rushstack/eslint-config": "~2.5.0",
     "@rushstack/eslint-patch": "~1.1.0",
-    "@rushstack/heft": "~0.42.2",
-    "@rushstack/heft-jest-plugin": "~0.1.46",
+    "@rushstack/heft": "~0.44.0",
+    "@rushstack/heft-jest-plugin": "~0.2.0",
     "@types/heft-jest": "~1.0.2",
     "@types/node": "16.x",
-    "eslint": "~7.30.0",
-    "typescript": "~4.4.2"
+    "eslint": "~8.4.1",
+    "typescript": "~4.5.4"
   }
 }

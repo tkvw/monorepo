@@ -27,6 +27,10 @@ module.exports = {
  * The return value is the updated object.
  */
 function readPackage(packageJson, context) {
+  if(['relay-compiler','@graphql-codegen/core'].includes(packageJson.name)){
+    packageJson.dependencies['graphql'] = '^16.0.0';
+  }
+  
 
   // // The karma types have a missing dependency on typings from the log4js package.
   // if (packageJson.name === '@types/karma') {

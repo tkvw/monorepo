@@ -2,6 +2,9 @@
   "name": "@tkvw/build-tools",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "exports": {
     ".": {
@@ -27,7 +30,7 @@
   },
   "types": "index.d.ts",
   "typesVersions": {
-    "*": {      
+    "*": {
       "*": [
         "lib/types/*"
       ],
@@ -47,18 +50,15 @@
   },
   "scripts": {
     "build": "heft build --clean",
-    "watch": "heft build --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "heft build --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "type-fest": "~2.6.0",
-    "@microsoft/rush-lib": "~5.56.0",
+    "@microsoft/rush-lib": "~5.57.1",
+    "@tkvw/api": "workspace:*",
     "npm-check-updates": "~12.0.3",
     "sort-package-json": "~1.53.1",
-    "@tkvw/api": "workspace:*"
+    "type-fest": "~2.8.0"
   },
   "devDependencies": {
     "@tkvw/heft-node-rig": "workspace:*"

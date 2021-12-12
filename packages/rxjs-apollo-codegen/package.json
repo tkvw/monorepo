@@ -32,7 +32,7 @@
     "build:watch": "heft build --clean --watch"
   },
   "dependencies": {
-    "@microsoft/rush-lib": "~5.56.0",
+    "@microsoft/rush-lib": "~5.57.1",
     "@tkvw/rxjs-apollo": "workspace:*",
     "pascal-case": "~3.1.2"
   },
@@ -42,7 +42,7 @@
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
     "@types/heft-jest": "~1.0.2",
-    "graphql": "15"
+    "graphql": "16"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

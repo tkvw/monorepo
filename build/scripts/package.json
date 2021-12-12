@@ -2,20 +2,21 @@
   "name": "@tkvw/scripts",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "scripts": {
+    "start": "node --loader ts-node/esm src/start.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "@tkvw/api": "workspace:*",
     "@tkvw/build-tools": "workspace:*",
+    "@tkvw/cli": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
     "ts-node": "~10.4.0",
-    "typescript": "~4.4.2",
-    "@tkvw/cli": "workspace:*",
-    "@tkvw/api": "workspace:*"
+    "typescript": "~4.5.4"
   },
   "devDependencies": {
     "@types/node": "16.x"

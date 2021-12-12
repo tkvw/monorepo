@@ -25,6 +25,10 @@ export const upgrade: yargs.CommandModule<
   handler: async ({ ci, force, startingFolder, verbose }) => {
     const rush = rushConfig({ startingFolder, verbose });
     const updateableDependencies = await getRushUpdateableDependencies(rush);
+    if(Object.keys(updateableDependencies).length===0){
+      console.log("No updates found")
+      return;
+    }
 
     if (!ci || force) {
       const tableHeaders = ['package', 'current', 'latest', 'usedIn'];

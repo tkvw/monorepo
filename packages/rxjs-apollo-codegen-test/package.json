@@ -2,28 +2,28 @@
   "name": "@tkvw/rxjs-apollo-codegen-test",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "Dennie de Lange",
   "main": "index.js",
   "scripts": {
     "gen": "cross-env DEBUG=1 && graphql-codegen",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Dennie de Lange",
-  "license": "ISC",
+  "dependencies": {
+    "@apollo/client": "~3.5.6",
+    "@tkvw/rxjs-apollo": "workspace:*",
+    "rxjs": "~7.4.0"
+  },
   "devDependencies": {
-    "@tkvw/rxjs-apollo-codegen": "workspace:*",
     "@graphql-codegen/cli": "~2.3.0",
     "@graphql-codegen/typescript": "~2.4.1",
     "@graphql-codegen/typescript-operations": "~2.2.1",
-    "graphql": "15",
-    "typescript": "~4.4.2",
-    "cross-env": "~7.0.3",
     "@tkvw/eslint-config": "workspace:*",
-    "@tkvw/heft-node-rig": "workspace:*"
-  },
-  "dependencies": {
-    "@apollo/client": "~3.4.17",
-    "@tkvw/rxjs-apollo": "workspace:*",
-    "rxjs": "~7.4.0"
+    "@tkvw/heft-node-rig": "workspace:*",
+    "@tkvw/rxjs-apollo-codegen": "workspace:*",
+    "cross-env": "~7.0.3",
+    "graphql": "16",
+    "typescript": "~4.5.4"
   }
 }

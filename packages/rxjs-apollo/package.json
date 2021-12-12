@@ -36,16 +36,16 @@
     "@tkvw/rxjs": "workspace:*"
   },
   "devDependencies": {
-    "@apollo/client": "~3.4.17",
+    "@apollo/client": "~3.5.6",
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
-    "eslint": "~7.30.0",
-    "graphql": "15",
+    "eslint": "~8.4.1",
+    "graphql": "16",
     "rxjs": "~7.4.0",
     "rxjs-marbles": "~7.0.1"
   },
   "peerDependencies": {
-    "@apollo/client": "~3.4.17",
+    "@apollo/client": "~3.5.6",
     "rxjs": "~7.4.0"
   },
   "publishConfig": {

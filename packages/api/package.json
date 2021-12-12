@@ -2,18 +2,21 @@
   "name": "@tkvw/api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
-  "exports":{
-    ".":{
+  "exports": {
+    ".": {
       "import": "./lib/esm/index.js",
-      "default": "./lib/cjs/index.js"      
+      "default": "./lib/cjs/index.js"
     },
-    "./*":{
+    "./*": {
       "import": "./lib/esm/*/index.js",
-      "default": "./lib/cjs/*/index.js"      
+      "default": "./lib/cjs/*/index.js"
     }
   },
+  "main": "index.js",
   "types": "index.d.ts",
   "typesVersions": {
     "*": {
@@ -26,13 +29,10 @@
     }
   },
   "scripts": {
-    "build":"heft build --clean",
-    "watch":"heft build --clean --watch",
-    "test":"heft test --clean"
+    "build": "heft build --clean",
+    "test": "heft test --clean",
+    "watch": "heft build --clean --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@tkvw/heft-node-rig": "workspace:*"
   }
