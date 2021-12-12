@@ -2,19 +2,23 @@
   "name": "@tkvw/rxjs",
   "version": "1.0.0",
   "description": "Some rxjs operators",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "index.d.ts",
-  "repository": "git://github.com/tkvw/monorepo.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkvw/monorepo.git",
+    "directory": "packages/rxjs"
   },
+  "license": "ISC",
+  "author": "Dennie de Lange",
   "exports": {
     ".": {
       "import": "./lib/esm/index.js",
       "default": "./lib/cjs/index.js"
     }
   },
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -24,23 +28,23 @@
   },
   "scripts": {
     "build": "heft build --clean",
-    "watch": "heft build --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "heft build --watch"
   },
-  "keywords": [],
-  "author": "Dennie de Lange",
-  "license": "ISC",
   "dependencies": {
-    "rxjs": "~7.4.0",
+    "debug": "~4.3.3",
     "jwt-decode": "~3.1.2",
-    "debug": "~4.3.3"
+    "rxjs": "~7.4.0"
   },
   "devDependencies": {
-    "rxjs-marbles": "~7.0.1",
-    "type-fest": "~2.6.0",
-    "@tkvw/heft-node-rig": "workspace:*",
     "@tkvw/eslint-config": "workspace:*",
+    "@tkvw/heft-node-rig": "workspace:*",
     "@types/debug": "~4.1.7",
-    "eslint": "~7.30.0"
+    "eslint": "~7.30.0",
+    "rxjs-marbles": "~7.0.1",
+    "type-fest": "~2.6.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }

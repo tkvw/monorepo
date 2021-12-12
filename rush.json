@@ -500,12 +500,20 @@
       "projectFolder": "examples/rxjs-apollo-sveltekit"
     },
     {
-      "packageName": "@tkvw/plop",
-      "projectFolder": "build/plop"
+      "packageName": "@tkvw/build-tools",
+      "projectFolder": "build/build-tools"
     },
     {
-      "packageName": "@tkvw/templates",
-      "projectFolder": "build/templates"
+      "packageName": "@tkvw/scripts",
+      "projectFolder": "build/scripts"
+    },
+    {
+      "packageName": "@tkvw/api",
+      "projectFolder": "packages/api"
+    },
+    {
+      "packageName": "@tkvw/cli",
+      "projectFolder": "packages/cli"
     }
     
   ]

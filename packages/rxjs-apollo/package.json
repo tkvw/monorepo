@@ -2,49 +2,53 @@
   "name": "@tkvw/rxjs-apollo",
   "version": "0.0.1",
   "description": "",
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "types": "index.d.ts",
-  "scripts": {
-    "build": "heft test --clean",
-    "clean": "heft clean",
-    "test:watch": "heft test --clean --watch",
-    "test": "heft test --debug --clean"
-  },
   "keywords": [],
-  "author": "Dennie de Lange",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkvw/monorepo.git",
+    "directory": "packages/rxjs-apollo"
+  },
   "license": "ISC",
-  "repository": "git://github.com/tkvw/monorepo.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "peerDependencies": {
-    "@apollo/client": "~3.4.17",
-    "rxjs": "~7.4.0"
-  },
-  "devDependencies": {
-    "@tkvw/heft-node-rig": "workspace:*",
-    "@tkvw/eslint-config": "workspace:*",
-    "@apollo/client": "~3.4.17",
-    "graphql": "15",
-    "rxjs": "~7.4.0",
-    "rxjs-marbles": "~7.0.1",
-    "eslint": "~7.30.0"
-  },
-  "dependencies": {
-    "@tkvw/rxjs": "workspace:*"
-  },
+  "author": "Dennie de Lange",
   "exports": {
     ".": {
       "import": "./lib/esm/index.js",
       "default": "./lib/cjs/index.js"
     }
   },
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
         "lib/types/*"
       ]
     }
+  },
+  "scripts": {
+    "build": "heft test --clean",
+    "clean": "heft clean",
+    "test": "heft test --debug --clean",
+    "test:watch": "heft test --clean --watch"
+  },
+  "dependencies": {
+    "@tkvw/rxjs": "workspace:*"
+  },
+  "devDependencies": {
+    "@apollo/client": "~3.4.17",
+    "@tkvw/eslint-config": "workspace:*",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "eslint": "~7.30.0",
+    "graphql": "15",
+    "rxjs": "~7.4.0",
+    "rxjs-marbles": "~7.0.1"
+  },
+  "peerDependencies": {
+    "@apollo/client": "~3.4.17",
+    "rxjs": "~7.4.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }

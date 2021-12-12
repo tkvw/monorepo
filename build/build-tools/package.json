@@ -1,0 +1,66 @@
+{
+  "name": "@tkvw/build-tools",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    },
+    "./api/*": {
+      "import": "./lib/esm/api/*.js",
+      "default": "./lib/cjs/api/*.js"
+    },
+    "./script": {
+      "import": "./lib/esm/script/index.js",
+      "default": "./lib/cjs/script/index.js"
+    },
+    "./script/*": {
+      "import": "./lib/esm/script/*.js",
+      "default": "./lib/cjs/script/*.js"
+    },
+    "./script/api/*": {
+      "import": "./lib/esm/script/api/*.js",
+      "default": "./lib/cjs/script/api/*.js"
+    }
+  },
+  "types": "index.d.ts",
+  "typesVersions": {
+    "*": {      
+      "*": [
+        "lib/types/*"
+      ],
+      "api/*": [
+        "lib/types/api/*"
+      ],
+      "script": [
+        "lib/types/script/index.d.ts"
+      ],
+      "script/api/*": [
+        "lib/types/script/api/*"
+      ],
+      "script/*": [
+        "lib/types/script/*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "heft build --clean",
+    "watch": "heft build --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "type-fest": "~2.6.0",
+    "@microsoft/rush-lib": "~5.56.0",
+    "npm-check-updates": "~12.0.3",
+    "sort-package-json": "~1.53.1",
+    "@tkvw/api": "workspace:*"
+  },
+  "devDependencies": {
+    "@tkvw/heft-node-rig": "workspace:*"
+  }
+}

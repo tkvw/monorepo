@@ -2,22 +2,27 @@
   "name": "@tkvw/heft-node-rig",
   "version": "1.0.0",
   "description": "Build with module and commonjs settings",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkvw/monorepo.git",
+    "directory": "build/heft-node-rig"
+  },
+  "license": "ISC",
+  "author": "Dennie de Lange",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Dennie de Lange",
-  "license": "ISC",
   "dependencies": {
+    "@microsoft/api-extractor": "7.18.19",
+    "@rushstack/eslint-config": "~2.4.5",
+    "@rushstack/eslint-patch": "~1.1.0",
     "@rushstack/heft": "~0.42.2",
     "@rushstack/heft-jest-plugin": "~0.1.46",
-    "@microsoft/api-extractor": "7.18.19",
-    "eslint": "~7.30.0",
-    "typescript": "~4.4.2",
     "@types/heft-jest": "~1.0.2",
     "@types/node": "16.x",
-    "@rushstack/eslint-config": "~2.4.5",
-    "@rushstack/eslint-patch": "~1.1.0"
+    "eslint": "~7.30.0",
+    "typescript": "~4.4.2"
   }
 }

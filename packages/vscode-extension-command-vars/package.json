@@ -1,20 +1,34 @@
 {
   "name": "tkvw-vscode-command-vars",
   "displayName": "Variables",
-  "description": "Useful command variables for use in launch.json and task.json",
   "version": "0.0.1",
-  "icon": "images/tkvw.png",
-  "homepage": "https://github.com/tkvw/monorepo/packages/vscode-command-vars",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tkvw/monorepo.git"
-  },
-  "engines": {
-    "vscode": "^1.62.0"
-  },
+  "description": "Useful command variables for use in launch.json and task.json",
   "categories": [
     "Other"
   ],
+  "homepage": "https://github.com/tkvw/monorepo/packages/vscode-command-vars",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkvw/monorepo.git",
+    "directory": "packages/vscode-extension-command-vars"
+  },
+  "author": "Dennie de Lange",
+  "main": "./lib/extension.js",
+  "scripts": {
+    "build": "heft build --clean",
+    "lint": "eslint src --ext ts",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./lib/test/runTest.js",
+    "watch": "heft build --watch"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.tkvw.commandVars",
+        "title": "Tkvw: Show command variables for current file"
+      }
+    ]
+  },
   "activationEvents": [
     "onCommand:extension.tkvw.commandVars",
     "onCommand:extension.tkvw.packageJsonFolder",
@@ -29,32 +43,19 @@
     "onCommand:extension.tkvw.eslintFolderRelativeFile",
     "onCommand:extension.tkvw.srcFolder"
   ],
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.tkvw.commandVars",
-        "title": "Tkvw: Show command variables for current file"
-      }
-    ]
-  },
-  "main": "./lib/extension.js",
-  "scripts": {
-    "build": "heft build --clean",
-    "watch": "heft build --watch",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./lib/test/runTest.js"
-  },
   "devDependencies": {
-    "@types/vscode": "^1.62.0",
-    "@types/node": "16.x",
-    "@vscode/test-electron": "^1.6.2",
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.62.0",
+    "@vscode/test-electron": "^1.6.2",
     "vsce": "~2.5.1"
   },
   "peerDependencies": {
     "typescript": "~4.4.2"
   },
-  "author": "Dennie de Lange"
+  "engines": {
+    "vscode": "^1.62.0"
+  },
+  "icon": "images/tkvw.png"
 }

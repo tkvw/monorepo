@@ -2,24 +2,24 @@
   "name": "@tkvw/rxjs-apollo-codegen",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/cjs/codegen.js",
-  "module": "lib/esm/codegen.js",
-  "types": "codegen.d.ts",
+  "keywords": [],
   "homepage": "https://github.com/tkvw/monorepo",
   "repository": {
     "type": "git",
     "url": "https://github.com/tkvw/monorepo.git",
     "directory": "packages/rxjs-apollo-codegen"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "license": "ISC",
+  "author": "Dennie de Lange",
   "exports": {
     ".": {
       "import": "./lib/cjs/codegen.js",
       "default": "./lib/esm/codegen.js"
     }
   },
+  "main": "lib/cjs/codegen.js",
+  "module": "lib/esm/codegen.js",
+  "types": "codegen.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -31,20 +31,20 @@
     "build": "heft build --clean",
     "build:watch": "heft build --clean --watch"
   },
-  "keywords": [],
-  "author": "Dennie de Lange",
-  "license": "ISC",
   "dependencies": {
-    "@tkvw/rxjs-apollo": "workspace:*",
     "@microsoft/rush-lib": "~5.56.0",
+    "@tkvw/rxjs-apollo": "workspace:*",
     "pascal-case": "~3.1.2"
   },
   "devDependencies": {
-    "@types/heft-jest": "~1.0.2",
     "@graphql-codegen/plugin-helpers": "~2.3.1",
     "@graphql-codegen/visitor-plugin-common": "~2.5.1",
-    "graphql": "15",
+    "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
-    "@tkvw/eslint-config": "workspace:*"
+    "@types/heft-jest": "~1.0.2",
+    "graphql": "15"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }

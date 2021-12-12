@@ -1,0 +1,43 @@
+{
+  "name": "@tkvw/cli",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports":{
+    ".":{
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"      
+    },
+    "./*":{
+      "import": "./lib/esm/*/index.js",
+      "default": "./lib/cjs/*/index.js"      
+    }
+  },
+  "types": "index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "lib/types/*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "heft build --clean",
+    "watch": "heft build --clean --watch",
+    "test": "heft test --clean"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "~5.0.0",
+    "inquirer": "~8.2.0",
+    "table": "~6.7.5",
+    "yargs": "~17.3.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "~8.1.3",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "@types/yargs": "~17.0.7"
+  }
+}
