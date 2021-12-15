@@ -1,0 +1,17 @@
+{
+  "cacheVersion": "8.4.1_f65dfcc6a1a10c37962d3e2d6a64aaf7cc47541c",
+  "fileVersions": [
+    [
+      "syncPackageJson.ts",
+      ""
+    ],
+    [
+      "upgrade.ts",
+      ""
+    ],
+    [
+      "start.ts",
+      ""
+    ]
+  ]
+}

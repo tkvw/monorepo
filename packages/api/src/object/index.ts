@@ -1,2 +1,2 @@
-export * from "./changedProps.js";
-export * from "./commonKeys.js";
+export * from "./changedProps";
+export * from "./commonKeys";

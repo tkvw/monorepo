@@ -10,7 +10,9 @@
   },
   "license": "ISC",
   "author": "Dennie de Lange",
+  "type": "module",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./lib/esm/index.js",
       "default": "./lib/cjs/index.js"
@@ -40,7 +42,7 @@
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
     "eslint": "~8.4.1",
-    "graphql": "16",
+    "graphql": "~16.0.1",
     "rxjs": "~7.4.0",
     "rxjs-marbles": "~7.0.1"
   },

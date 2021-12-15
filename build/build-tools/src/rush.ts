@@ -1,12 +1,13 @@
 import { RushConfiguration } from '@microsoft/rush-lib';
 import path from 'path';
-import { packageJson, PackageJson } from './packageJson.js';
 
-interface RushConfigOptions {
+import { PackageJson, packageJson } from './packageJson';
+
+interface IRushConfigOptions {
   startingFolder?: string;
   verbose?: boolean;
 }
-export const rushConfig = (options: RushConfigOptions = {}) => {
+export const rushConfig = (options: IRushConfigOptions = {}) => {
   const rushConfigFile = RushConfiguration.tryFindRushJsonLocation(options);
   if (!rushConfigFile)
     throw new Error('Rush configuration not found, is the command executed from a rush repo?');
@@ -25,13 +26,20 @@ export const getRushPackages = async (config: RushConfiguration) => {
   );
 };
 
-export interface RushUpdates {
+export interface IRushUpdates {
   [name: string]: {
     current: string;
     latest: string;
     usedIn: string[];
   };
 }
+
+export const excludeWorkspaceDependencies = (dependencies: Record<string, string>) => {
+  const excludeVersion = 'workspace:';
+  const entries = Object.entries(dependencies);
+  const entriesExcludingWorkspaceVersions = entries.filter((kv) => !kv[1].startsWith(excludeVersion));
+  return Object.fromEntries(entriesExcludingWorkspaceVersions);
+};
 
 export const getRushUpdateableDependencies = async (config: RushConfiguration) => {
   const packages = await getRushPackages(config);
@@ -60,10 +68,10 @@ export const getRushUpdateableDependencies = async (config: RushConfiguration) =
       usedIn: usedIn(name)
     };
     return acc;
-  }, {} as RushUpdates);
+  }, {} as IRushUpdates);
 };
 
-export const updateRushPackages = async (config: RushConfiguration, dependencies: RushUpdates) => {
+export const updateRushPackages = async (config: RushConfiguration, dependencies: IRushUpdates) => {
   const updateDependencies = (current: Record<string, string>) =>
     Object.keys(dependencies).reduce((acc, item) => {
       if (current[item]) {
@@ -73,7 +81,7 @@ export const updateRushPackages = async (config: RushConfiguration, dependencies
     }, current);
   const packages = await getRushPackages(config);
   await Promise.all(
-    packages.map(({ path, data: { dependencies, devDependencies, peerDependencies, ...rest } }) => {
+    packages.map(async ({ path, data: { dependencies, devDependencies, peerDependencies, ...rest } }) => {
       if (dependencies) dependencies = updateDependencies(dependencies);
       if (devDependencies) devDependencies = updateDependencies(devDependencies);
       if (peerDependencies) peerDependencies = updateDependencies(peerDependencies);
@@ -84,14 +92,7 @@ export const updateRushPackages = async (config: RushConfiguration, dependencies
         ...(devDependencies ? { devDependencies } : undefined),
         ...(peerDependencies ? { peerDependencies } : undefined)
       };
-      packageJson.write(path, packageJson.sort(next));
+      await packageJson.write(path, packageJson.sort(next));
     })
   );
-};
-
-export const excludeWorkspaceDependencies = (dependencies: Record<string, string>) => {
-  const excludeVersion = 'workspace:';
-  const entries = Object.entries(dependencies);
-  const entriesExcludingWorkspaceVersions = entries.filter((kv) => !kv[1].startsWith(excludeVersion));
-  return Object.fromEntries(entriesExcludingWorkspaceVersions);
 };

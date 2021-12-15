@@ -1,5 +1,5 @@
-import commonKeys from './commonKeys.js';
-export function changedProps<Current extends Record<string, any>, Next extends Record<string, any>>(
+import commonKeys from './commonKeys';
+export function changedProps<Current extends Record<string, unknown>, Next extends Record<string, unknown>>(
   current: Current,
   next: Next
 ) {
@@ -9,7 +9,7 @@ export function changedProps<Current extends Record<string, any>, Next extends R
       acc[key] = next[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {} as Record<string, unknown>);
 }
 
 export default changedProps;

@@ -1,8 +1,9 @@
 import { ApolloLink } from '@apollo/client/core';
+import type { IOptions,IOptionsWithTransformMessage, IRetryMessage } from '@tkvw/rxjs';
 import { createRetry } from '@tkvw/rxjs';
-import type { IRetryMessage, IOptionsWithTransformMessage, IOptions } from '@tkvw/rxjs';
 import { Observable } from 'rxjs';
-import { apolloLink } from '../apolloLink.js';
+
+import { apolloLink } from '../apolloLink';
 
 export interface IRetryLink<RetryMessage> {
   link: ApolloLink;

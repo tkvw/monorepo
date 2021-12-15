@@ -1,19 +1,18 @@
+import { IReadJsonOptions, IWriteJsonOptions,readJson, writeJson } from '@tkvw/api/fs';
 import { PathLike } from 'fs';
-import { PackageJson } from 'type-fest';
-import { sortPackageJson } from 'sort-package-json';
 import { run as ncu } from 'npm-check-updates';
-import { readJson, ReadJsonOptions,writeJson, WriteJsonOptions } from '@tkvw/api/fs';
+import { sortPackageJson } from 'sort-package-json';
+import { PackageJson } from 'type-fest';
 
-
-export interface PackageJsonArgs {}
-export interface PackageJsonApi {
-  read: (path: PathLike, options?: ReadJsonOptions<PackageJson>) => Promise<PackageJson>;
-  write: (path: PathLike, data: PackageJson, options?: WriteJsonOptions<PackageJson>) => Promise<void>;
+export interface IPackageJsonArgs {}
+export interface IPackageJsonApi {
+  read: (path: PathLike, options?: IReadJsonOptions<PackageJson>) => Promise<PackageJson>;
+  write: (path: PathLike, data: PackageJson, options?: IWriteJsonOptions<PackageJson>) => Promise<void>;
   sort: (data: PackageJson, options?: { sortOrder?: string[] }) => PackageJson;
-  checkUpdates: (data: Record<string, string>) => Promise<Record<string, string>>;  
+  checkUpdates: (data: Record<string, string>) => Promise<Record<string, string>>;
 }
 
-export const packageJson: PackageJsonApi = {
+export const packageJson: IPackageJsonApi = {
   read: (path, options) => readJson<PackageJson>(path, options),
   write: (path, data, options) => writeJson(path, data, options),
   sort: (data: PackageJson, options: { sortOrder?: string[] } = {}) => sortPackageJson(data, options),
@@ -24,9 +23,9 @@ export const packageJson: PackageJsonApi = {
       }
     });
     return updates as Record<string, string>;
-  } 
+  }
 };
 
-export {PackageJson} ;
+export { PackageJson };
 
 export default packageJson;

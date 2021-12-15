@@ -1,5 +1,5 @@
 {
-    "$schema": "https://developer.microsoft.com/en-us/json-schemas/rig-package/rig.schema.json",
+    "$schema": "https://developer.microsoft.com/json-schemas/rig-package/rig.schema.json",
   
     "rigPackageName": "@tkvw/heft-node-rig",
     "rigProfile": "default"

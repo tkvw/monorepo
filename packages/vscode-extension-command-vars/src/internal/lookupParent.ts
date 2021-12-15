@@ -8,7 +8,7 @@ export async function lookupParentAsync(
     uri: vscode.Uri,
     matcher: (path:string,type: vscode.FileType,folder: vscode.Uri) => Promise<string|false>
 ): Promise<string|false>{
-    let parent = getParent(uri);
+    const parent = getParent(uri);
     if(uri.fsPath === parent.fsPath) return false; // root matched
 
     const files = await vscode.workspace.fs.readDirectory(parent);

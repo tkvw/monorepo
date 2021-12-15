@@ -1,24 +1,23 @@
-import { ApolloClient, NetworkStatus } from '@apollo/client/core';
 import type {
   ApolloQueryResult,
-  WatchQueryOptions,
-  OperationVariables,
-  FetchMoreQueryOptions,
   FetchMoreOptions,
-  SubscribeToMoreOptions
-} from '@apollo/client/core';
-import { Observable, switchMap, iif, of, map, from, NEVER } from 'rxjs';
+  FetchMoreQueryOptions,
+  OperationVariables,
+  SubscribeToMoreOptions,
+  WatchQueryOptions} from '@apollo/client/core';
+import { ApolloClient, NetworkStatus } from '@apollo/client/core';
+import { from, iif, map, NEVER,Observable, of, switchMap } from 'rxjs';
 
 export interface IQueryOptions<TVariables, TData> extends WatchQueryOptions<TVariables, TData> {
   useInitialLoading?: boolean;
   skip?: boolean;
 }
-export interface IQueryResult<TVariables = OperationVariables, TData = any> extends ApolloQueryResult<TData> {
+export interface IQueryResult<TVariables = OperationVariables, TData = unknown> extends ApolloQueryResult<TData> {
   options: IQueryOptions<TVariables, TData>;
   skipped: boolean;
   initialized: boolean;
 }
-export type IFetchMoreOptions<TVariables = OperationVariables, TData = any> = FetchMoreQueryOptions<
+export type IFetchMoreOptions<TVariables = OperationVariables, TData = unknown> = FetchMoreQueryOptions<
   TVariables,
   TData
 > &
@@ -27,7 +26,7 @@ export type IFetchMoreOptions<TVariables = OperationVariables, TData = any> = Fe
 export interface IQueryable {
   <
     TVariables = OperationVariables,
-    TData = any,
+    TData = unknown,
     TSubscriptionData = TData,
     TSubscriptionVariables = TVariables
   >(
@@ -42,7 +41,7 @@ export interface IQueryable {
 export function connectQuery(clientObservable: Observable<ApolloClient<unknown>>): IQueryable {
   return <
     TVariables = OperationVariables,
-    TData = any,
+    TData = unknown,
     TSubscriptionData = TData,
     TSubscriptionVariables = TVariables
   >(

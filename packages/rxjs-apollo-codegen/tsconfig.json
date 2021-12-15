@@ -3,7 +3,8 @@
     "compilerOptions": {
       "typeRoots": ["node_modules/@types", "../../build/heft-node-rig/node_modules/@types"],
       "types": ["heft-jest","node"],
-      "lib": ["ES2017"]
+      "lib": ["ES2017"],
+      "skipLibCheck": true // Added this because of https://github.com/microsoft/TypeScript/issues/29808 
     }
   }
   

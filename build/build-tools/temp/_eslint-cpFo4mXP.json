@@ -1,0 +1,17 @@
+{
+  "cacheVersion": "8.4.1_d1d6901adc5d9d8b8e701f7dcce079631e62924a",
+  "fileVersions": [
+    [
+      "packageJson.ts",
+      ""
+    ],
+    [
+      "rush.ts",
+      ""
+    ],
+    [
+      "index.ts",
+      ""
+    ]
+  ]
+}

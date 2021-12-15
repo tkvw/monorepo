@@ -1,11 +1,14 @@
-import {yargs} from "@tkvw/cli"
-import { upgrade } from "./upgrade.js"
-import { syncPackageJson } from "./syncPackageJson.js"
+#!/usr/bin/env node
+
+import { yargs } from '@tkvw/cli';
+
+import { syncPackageJson } from './syncPackageJson';
+import { upgrade } from './upgrade';
 
 await yargs(process.argv.slice(2))
-    .scriptName("scripts")
-    .command(upgrade)
-    .command(syncPackageJson)
-    .help()
-    .demandCommand()
-    .parseAsync();
+  .scriptName('scripts')
+  .command(upgrade)
+  .command(syncPackageJson)
+  .help()
+  .demandCommand()
+  .parseAsync();

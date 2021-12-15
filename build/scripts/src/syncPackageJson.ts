@@ -1,4 +1,4 @@
-import { rushConfig, packageJson } from '@tkvw/build-tools';
+import { packageJson,rushConfig } from '@tkvw/build-tools';
 import { yargs } from '@tkvw/cli';
 import path from 'path';
 

@@ -1,1 +1,1 @@
-export * from "./object/index.js";
+export * from "./object";

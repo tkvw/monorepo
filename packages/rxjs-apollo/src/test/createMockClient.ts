@@ -1,18 +1,16 @@
 import {
   ApolloClient,
-  InMemoryCache,
-  gql,
   ApolloLink,
+  FetchResult,
+  InMemoryCache,
   Observable as ApolloObservable,
-  Operation,
-  FetchResult
-} from '@apollo/client/core';
+  Operation} from '@apollo/client/core';
 
-export interface MockResultResolver{
+export interface IMockResultResolver{
     (operation: Operation): FetchResult
   }
   
-export function createMockLink(resolver: MockResultResolver) {
+export function createMockLink(resolver: IMockResultResolver) {
   return new ApolloLink((operation) => {
     return new ApolloObservable((observer) => {
       observer.next(resolver(operation));
@@ -21,7 +19,7 @@ export function createMockLink(resolver: MockResultResolver) {
   });
 }
 
-export function createClient(resolver: MockResultResolver) {
+export function createClient(resolver: IMockResultResolver) {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: createMockLink(resolver)

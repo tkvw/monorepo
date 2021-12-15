@@ -1,19 +1,19 @@
+import type { FetchResult,OperationVariables, SubscriptionOptions } from '@apollo/client/core';
 import { ApolloClient } from '@apollo/client/core';
-import type { OperationVariables, SubscriptionOptions, FetchResult } from '@apollo/client/core';
 import { Observable, switchMap } from 'rxjs';
 
-export interface ISubscribeResult<TData = any, TVariables = OperationVariables> extends FetchResult<TData> {
+export interface ISubscribeResult<TData = unknown, TVariables = OperationVariables> extends FetchResult<TData> {
   options: SubscriptionOptions<TVariables, TData>;
 }
 
 export interface ISubscribeable {
-  <TData = any, TVariables = OperationVariables>(
+  <TData = unknown, TVariables = OperationVariables>(
     options: Observable<SubscriptionOptions<TVariables, TData>>
   ): Observable<ISubscribeResult<TData, TVariables>>;
 }
 
 export function connectSubscribe(clientObservable: Observable<ApolloClient<unknown>>): ISubscribeable {
-  return <TData = any, TVariables = OperationVariables>(
+  return <TData = unknown, TVariables = OperationVariables>(
     options: Observable<SubscriptionOptions<TVariables, TData>>
   ) =>
     clientObservable.pipe(

@@ -1,4 +1,4 @@
-import { CodegenPlugin } from '@graphql-codegen/plugin-helpers';
+import type { CodegenPlugin } from '@graphql-codegen/plugin-helpers';
 import {
   ClientSideBaseVisitor,
   LoadedFragment,
@@ -12,7 +12,6 @@ import {
   OperationDefinitionNode,
   visit
 } from 'graphql';
-
 import { pascalCase } from 'pascal-case';
 
 interface IImport {
@@ -123,7 +122,8 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
     },
     documents
   );
-  const visitorResult = visit(ast, { leave: visitor });
+  
+  const visitorResult = visit(ast, visitor);
 
   const hasQuery = operations.some(({ operation }) => 'query' === operation);
   const hasMutation = operations.some(({ operation }) => 'mutation' === operation);
@@ -187,7 +187,7 @@ export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVari
   if (visitor.fragments) {
     contents = [...contents, `/* Fragments */`, visitor.fragments];
   }
-  const x = visitorResult.definitions.filter((t: any) => typeof t === 'string');
+  const x = visitorResult.definitions.filter((t: unknown) => typeof t === 'string');
   if (x.length > 0) {
     contents = [...contents, `/* Other */`, x.join('\n')];
   }

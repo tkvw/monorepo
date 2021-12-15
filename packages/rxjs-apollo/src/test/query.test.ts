@@ -1,29 +1,20 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  gql,
-  ApolloLink,
-  Observable as ApolloObservable,
-  Operation,
-  FetchResult
-} from '@apollo/client/core';
+import { gql } from '@apollo/client/core';
 import { of, Subject } from 'rxjs';
 
-import { connectQuery } from '../connectQuery';
-import { createClient } from './createMockClient.js';
+import { connectQuery, IQueryOptions } from '../connectQuery';
+import { createClient } from './createMockClient';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 describe('query operator function', () => {
   it.only('test query', async () => {
     const client = of(
       createClient((operation) => {
-        debugger;
         return {
-          data: operation.getContext()['response'] ?? null
+          data: operation.getContext().response ?? null
         };
       })
     );
-    const options = new Subject<any>();
+    const options = new Subject<IQueryOptions<{}, {}>>();
     const request = connectQuery(client)(options);
     const next = jest.fn();
     const subscription = request.subscribe({

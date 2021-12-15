@@ -32,17 +32,18 @@
     "build:watch": "heft build --clean --watch"
   },
   "dependencies": {
-    "@microsoft/rush-lib": "~5.57.1",
-    "@tkvw/rxjs-apollo": "workspace:*",
-    "pascal-case": "~3.1.2"
-  },
-  "devDependencies": {
     "@graphql-codegen/plugin-helpers": "~2.3.1",
     "@graphql-codegen/visitor-plugin-common": "~2.5.1",
+    "@microsoft/rush-lib": "~5.57.1",
+    "@tkvw/rxjs-apollo": "workspace:*",
+    "pascal-case": "~3.1.2",
+    "eslint": "~8.4.1"
+  },
+  "devDependencies": {
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
     "@types/heft-jest": "~1.0.2",
-    "graphql": "16"
+    "graphql": "~16.0.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

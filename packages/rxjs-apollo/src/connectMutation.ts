@@ -1,19 +1,19 @@
+import type { DefaultContext, FetchResult,MutationOptions, OperationVariables } from '@apollo/client/core';
 import { ApolloClient } from '@apollo/client/core';
-import type { OperationVariables, MutationOptions, DefaultContext, FetchResult } from '@apollo/client/core';
-import { Observable, switchMap, from, map } from 'rxjs';
+import { from, map,Observable, switchMap } from 'rxjs';
 
 export interface IMutable {
-  <TData = any, TVariables = OperationVariables, TContext = DefaultContext>(
+  <TData = unknown, TVariables = OperationVariables, TContext = DefaultContext>(
     options: Observable<MutationOptions<TData, TVariables, TContext>>
   ): Observable<FetchResult<TData>>;
 }
-export interface IMutableResult<TData = any, TVariables = OperationVariables, TContext = DefaultContext>
+export interface IMutableResult<TData = unknown, TVariables = OperationVariables, TContext = DefaultContext>
   extends FetchResult<TData> {
   options: MutationOptions<TData, TVariables, TContext>;
 }
 
 export function connectMutation(clientObservable: Observable<ApolloClient<unknown>>): IMutable {
-  return <TData = any, TVariables = OperationVariables, TContext = DefaultContext>(
+  return <TData = unknown, TVariables = OperationVariables, TContext = DefaultContext>(
     options: Observable<MutationOptions<TData, TVariables, TContext>>
   ) =>
     clientObservable.pipe(

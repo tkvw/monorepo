@@ -1,6 +1,6 @@
+import { BehaviorSubject, of } from 'rxjs';
 import { marbles } from 'rxjs-marbles/jest';
 
-import { BehaviorSubject, of } from 'rxjs';
 import createRetry from '../../operators/createRetry';
 
 describe('createRetry', () => {

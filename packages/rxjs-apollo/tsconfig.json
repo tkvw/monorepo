@@ -3,6 +3,6 @@
   "compilerOptions": {
     "typeRoots": ["node_modules/@types", "../../build/heft-node-rig/node_modules/@types"],
     "types": ["heft-jest"],
-    "lib": ["ES2017","DOM"]
+    "lib": ["esnext","DOM"]
   }
 }

@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "license": "ISC",
-  "author": "",
+  "author": "Dennie de Lange",
   "type": "module",
   "exports": {
     ".": {
@@ -61,6 +61,8 @@
     "type-fest": "~2.8.0"
   },
   "devDependencies": {
-    "@tkvw/heft-node-rig": "workspace:*"
+    "@tkvw/eslint-config": "workspace:*",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "eslint": "~8.4.1"
   }
 }

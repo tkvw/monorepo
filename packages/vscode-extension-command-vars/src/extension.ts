@@ -2,9 +2,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import vscode from 'vscode';
-import registerPathCommand from "./commands/path.js";
-import registerRelativeFile from "./commands/relativeFile.js";
-import { checkRegexPath,folderUp,isDirectory,isFile,ifFound, IMatcher } from './internal/matchers.js';
+
+import registerPathCommand from "./commands/path";
+import registerRelativeFile from "./commands/relativeFile";
+import { checkRegexPath,folderUp,ifFound, IMatcher,isDirectory,isFile } from './internal/matchers';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed

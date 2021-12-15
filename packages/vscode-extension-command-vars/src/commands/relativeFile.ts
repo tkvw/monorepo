@@ -1,6 +1,7 @@
 import vscode from 'vscode';
-import { lookupParentAsync } from '../internal/lookupParent.js';
-import { IMatcher } from '../internal/matchers.js';
+
+import { lookupParentAsync } from '../internal/lookupParent';
+import { IMatcher } from '../internal/matchers';
 
 export default function registerRelativeFile(
   commandName: string,

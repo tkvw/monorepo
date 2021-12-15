@@ -7,8 +7,8 @@
   "author": "Dennie de Lange",
   "main": "index.js",
   "scripts": {
-    "gen": "cross-env DEBUG=1 && graphql-codegen",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "",
+    "gen": "cross-env DEBUG=1 && graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "~3.5.6",
@@ -23,7 +23,8 @@
     "@tkvw/heft-node-rig": "workspace:*",
     "@tkvw/rxjs-apollo-codegen": "workspace:*",
     "cross-env": "~7.0.3",
-    "graphql": "16",
+    "eslint": "~8.4.1",    
+    "graphql": "~16.0.1",
     "typescript": "~4.5.4"
   }
 }

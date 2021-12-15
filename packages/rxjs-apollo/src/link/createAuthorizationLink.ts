@@ -1,8 +1,9 @@
-import { apolloLink } from '../apolloLink.js';
-import { InteropObservable, from, switchMap, startWith } from 'rxjs';
+import { from, InteropObservable,switchMap } from 'rxjs';
+
+import { apolloLink } from '../apolloLink';
 
 export interface IAuthorizationLinkOptions {
-    addAuthorizationHeader?: (token: string,headers: Record<string,any>) => Record<string,any>;
+    addAuthorizationHeader?: (token: string,headers: Record<string,unknown>) => Record<string,unknown>;
 }
 
 export function createAuthorizationLink(

@@ -14,7 +14,8 @@
     ".": {
       "import": "./lib/esm/index.js",
       "default": "./lib/cjs/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -27,8 +28,7 @@
     }
   },
   "scripts": {
-    "build": "heft build --clean",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "heft test --clean",
     "watch": "heft build --watch"
   },
   "dependencies": {

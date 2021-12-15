@@ -12,11 +12,12 @@
   "author": "Dennie de Lange",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": ""
   },
   "dependencies": {
     "@rushstack/eslint-config": "~2.5.0",
-    "@rushstack/eslint-patch": "~1.1.0"
+    "@rushstack/eslint-patch": "~1.1.0",
+    "eslint-plugin-simple-import-sort": "~7.0.0"
   },
   "devDependencies": {
     "eslint": "~8.4.1",

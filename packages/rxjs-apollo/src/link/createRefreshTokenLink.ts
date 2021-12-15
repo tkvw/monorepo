@@ -1,18 +1,7 @@
 import { ApolloLink, FetchResult } from '@apollo/client/core';
-import {
-  Observable,
-  Observer,
-  from,
-  InteropObservable,
-  Subscribable,
-  startWith,
-  switchMap,
-  iif,
-  Subject,
-  finalize,
-  Subscription
-} from 'rxjs';
-import { apolloLink, RxLink } from '../apolloLink.js';
+import { from, iif, InteropObservable, Observable, Observer, Subject, Subscription, switchMap } from 'rxjs';
+
+import { apolloLink, RxLink } from '../apolloLink';
 
 export interface ISubjectLike<T> extends Observer<T>, InteropObservable<T> {}
 

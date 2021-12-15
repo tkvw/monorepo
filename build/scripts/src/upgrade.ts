@@ -1,4 +1,4 @@
-import { rushConfig, getRushUpdateableDependencies, updateRushPackages } from '@tkvw/build-tools';
+import { getRushUpdateableDependencies, rushConfig, updateRushPackages } from '@tkvw/build-tools';
 import { inquirer, table, yargs } from '@tkvw/cli';
 
 export const upgrade: yargs.CommandModule<

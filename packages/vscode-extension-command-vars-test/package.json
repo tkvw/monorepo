@@ -20,6 +20,8 @@
     "tkvw-vscode-command-vars": "workspace:*"
   },
   "devDependencies": {
-    "@tkvw/heft-node-rig": "workspace:*"
+    "@tkvw/eslint-config": "workspace:*",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "eslint": "~8.4.1"
   }
 }
