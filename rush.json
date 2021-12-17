@@ -455,38 +455,32 @@
     {
       "packageName": "@tkvw/rxjs",
       "projectFolder": "packages/rxjs",
-      "shouldPublish": true,
       "versionPolicyName": "ts-rxjs"
     },
     {
       "packageName": "@tkvw/rxjs-apollo",
       "projectFolder": "packages/rxjs-apollo",
-      "shouldPublish": true,
       "versionPolicyName": "ts-rxjs"
     },
     {
       "packageName": "@tkvw/rxjs-apollo-codegen",
       "projectFolder": "packages/rxjs-apollo-codegen",
-      "shouldPublish": false,
       "versionPolicyName": "ts-rxjs"
     },
     {
       "packageName": "@tkvw/heft-node-rig",
       "projectFolder": "build/heft-node-rig",
-      "shouldPublish": true,
       "versionPolicyName": "ts-heft"
     },
     {
       "packageName": "@tkvw/eslint-config",
       "projectFolder": "build/eslint-config",
-      "shouldPublish": true,
       "versionPolicyName": "ts-heft"
     },
     {
       "packageName": "tkvw-vscode-command-vars",
       "projectFolder": "packages/vscode-extension-command-vars",
-      "shouldPublish": false,
-      "versionPolicyName": "ts-vscode"
+      "shouldPublish": false
     },
     {
       "packageName": "vscode-extension-command-vars-test",
