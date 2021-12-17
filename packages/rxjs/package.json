@@ -43,8 +43,5 @@
     "eslint": "~8.4.1",
     "rxjs-marbles": "~7.0.1",
     "type-fest": "~2.8.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }

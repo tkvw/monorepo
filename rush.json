@@ -485,6 +485,7 @@
     {
       "packageName": "tkvw-vscode-command-vars",
       "projectFolder": "packages/vscode-extension-command-vars",
+      "shouldPublish": false,
       "versionPolicyName": "ts-vscode"
     },
     {

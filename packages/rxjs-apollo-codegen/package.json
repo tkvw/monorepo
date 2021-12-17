@@ -44,8 +44,5 @@
     "@tkvw/heft-node-rig": "workspace:*",
     "@types/heft-jest": "~1.0.2",
     "graphql": "~16.0.1"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }
