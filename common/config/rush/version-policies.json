@@ -102,13 +102,19 @@
   {
     "definitionName": "lockStepVersion",
     "policyName": "ts-rxjs",
-    "version": "1.0.0",
-    "nextBump": "prerelease"
+    "version": "0.0.1",
+    "nextBump": "patch"
   },
   {
     "definitionName": "lockStepVersion",
     "policyName": "ts-heft",
-    "version": "1.0.0",
-    "nextBump": "prerelease"
+    "version": "0.0.1",
+    "nextBump": "patch"
+  },
+  {
+    "definitionName": "lockStepVersion",
+    "policyName": "ts-vscode",
+    "version": "0.0.1",
+    "nextBump": "patch"
   }
 ]
