@@ -1,7 +1,7 @@
 import { RushConfiguration } from '@microsoft/rush-lib';
 import path from 'path';
 
-import { PackageJson, packageJson } from './packageJson';
+import { PackageJson, packageJson } from './packageJson.js';
 
 interface IRushConfigOptions {
   startingFolder?: string;

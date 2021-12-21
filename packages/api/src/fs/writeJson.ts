@@ -1,6 +1,6 @@
 import { PathLike } from 'fs';
 
-import { IWriteTextOptions,writeText } from './writeText';
+import { IWriteTextOptions,writeText } from './writeText.js';
 
 export interface IWriteJsonOptions<JsonData> extends IWriteTextOptions {
   stringify?: (data: JsonData) => Promise<string>;

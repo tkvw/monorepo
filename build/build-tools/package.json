@@ -8,24 +8,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./lib/esm/index.js",
-      "default": "./lib/cjs/index.js"
-    },
-    "./api/*": {
-      "import": "./lib/esm/api/*.js",
-      "default": "./lib/cjs/api/*.js"
-    },
-    "./script": {
-      "import": "./lib/esm/script/index.js",
-      "default": "./lib/cjs/script/index.js"
-    },
-    "./script/*": {
-      "import": "./lib/esm/script/*.js",
-      "default": "./lib/cjs/script/*.js"
-    },
-    "./script/api/*": {
-      "import": "./lib/esm/script/api/*.js",
-      "default": "./lib/cjs/script/api/*.js"
+      "require": "./lib/cjs/index.js",
+      "default": "./lib/esm/index.js"
     }
   },
   "types": "index.d.ts",
@@ -33,18 +17,6 @@
     "*": {
       "*": [
         "lib/types/*"
-      ],
-      "api/*": [
-        "lib/types/api/*"
-      ],
-      "script": [
-        "lib/types/script/index.d.ts"
-      ],
-      "script/api/*": [
-        "lib/types/script/api/*"
-      ],
-      "script/*": [
-        "lib/types/script/*"
       ]
     }
   },
@@ -63,6 +35,7 @@
   "devDependencies": {
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
-    "eslint": "~8.4.1"
+    "eslint": "~8.4.1",
+    "@rushstack/heft": "~0.43.2"
   }
 }

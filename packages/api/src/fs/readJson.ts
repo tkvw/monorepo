@@ -1,6 +1,6 @@
 import { PathLike } from 'fs';
 
-import { IReadTextOptions,readText } from './readText';
+import { IReadTextOptions,readText } from './readText.js';
 
 export interface IReadJsonOptions<JsonData> extends IReadTextOptions {
   parse?: (text: string) => JsonData;

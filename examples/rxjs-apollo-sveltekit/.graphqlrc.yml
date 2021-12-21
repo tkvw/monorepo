@@ -1,4 +1,4 @@
-schema: https://api.spacex.land/graphql/
+schema: https://wpdlf.tkvw.nl/graphql
 documents: src/queries.graphql
 extensions:
   codegen:
@@ -6,14 +6,16 @@ extensions:
       ./src/schema.graphql:
         plugins:
           - schema-ast
-      ./src/generated.ts:
+      ./src/lib/generated.ts:
         plugins:
           - typescript
           - typescript-operations
           - "@tkvw/rxjs-apollo-codegen"
         config:
           clientPath: './client'
-          queryOperationPrefix: 'use'      
-          queryOperationSuffix: 'Query'      
+          queryOperationPrefix: 'use'
+          queryOperationSuffix: 'Query'
+          mutationOperationPrefix: 'use'
+          mutationOperationSuffix: 'Mutation'
           fragmentVariableSuffix: 'Fragment'
           documentVariableSuffix: 'Document'

@@ -36,6 +36,7 @@
   "devDependencies": {
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
-    "eslint": "~8.4.1"
+    "eslint": "~8.4.1",
+    "@rushstack/heft": "~0.43.2"
   }
 }

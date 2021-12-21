@@ -73,4 +73,5 @@ packages/*/temp
 *.vsix
 
 # Svelte
+examples/*/build
 examples/*/.svelte-kit

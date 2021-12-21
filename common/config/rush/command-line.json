@@ -172,6 +172,13 @@
       "summary": "xx",
       "description": "Generate a template",
       "shellCommand": "node build/templates/lib/start.js"
+    },
+    {
+      "commandKind": "global",
+      "name": "patch-packages",
+      "summary": "Patches node modules",
+      "description": "Patches node modules",
+      "shellCommand": "node common/scripts/patch-packages.mjs"
     }
   ],
 

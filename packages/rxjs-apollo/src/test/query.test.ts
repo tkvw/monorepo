@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client/core/index.js';
 import { of, Subject } from 'rxjs';
 
 import { connectQuery, IQueryOptions } from '../connectQuery';

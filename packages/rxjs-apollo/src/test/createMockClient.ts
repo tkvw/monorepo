@@ -4,7 +4,7 @@ import {
   FetchResult,
   InMemoryCache,
   Observable as ApolloObservable,
-  Operation} from '@apollo/client/core';
+  Operation} from '@apollo/client/core/index.js';
 
 export interface IMockResultResolver{
     (operation: Operation): FetchResult

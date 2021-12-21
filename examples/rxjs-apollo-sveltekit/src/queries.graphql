@@ -1,9 +1,37 @@
-query launchesPast  {
-    launchesPast {
-      mission_name
-      details
-      links {
-        flickr_images
+mutation Login($input: LoginInput!){
+  login (input: $input){
+    authToken
+    refreshToken
+  }
+}
+mutation RefreshToken($input: RefreshJwtAuthTokenInput!){
+  refreshJwtAuthToken(input: $input) {
+    authToken
+  }
+}
+query Posts($first: Int!){
+  posts (first: $first){
+    nodes {
+      author {
+        node {
+          firstName
+        }
       }
+      date
     }
   }
+}
+query Viewer{
+  viewer{
+    roles{
+      nodes{
+        id
+        name
+        isRestricted
+        displayName
+        capabilities
+      }
+    }
+    email
+  }
+}

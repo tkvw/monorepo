@@ -17,7 +17,8 @@
   "dependencies": {
     "@tkvw/api": "workspace:*",
     "@tkvw/build-tools": "workspace:*",
-    "@tkvw/cli": "workspace:*"
+    "@tkvw/cli": "workspace:*",
+    "@apollo/client": "~3.5.6"
   },
   "devDependencies": {
     "@tkvw/eslint-config": "workspace:*",
@@ -25,6 +26,15 @@
     "@types/node": "16.x",
     "eslint": "~8.4.1",
     "ts-node": "~10.4.0",
-    "typescript": "~4.5.4"
+    "typescript": "~4.5.4",
+    "@rushstack/heft": "~0.43.2",
+    "@apollo/client": "~3.5.6",
+    "graphql": "~16.0.1"
+  },
+  "exports": {
+    "./*":{
+      "node":"./lib/cjs/*.js",
+      "default":"./lib/esm/*.js"
+    }
   }
 }

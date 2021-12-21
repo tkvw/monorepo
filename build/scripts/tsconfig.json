@@ -4,5 +4,11 @@
     "typeRoots": ["node_modules/@types", "../../build/heft-node-rig/node_modules/@types"],
     "types": ["heft-jest", "node"],
     "lib": ["ES2017"]
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "ESNext"
+    }
   }
 }

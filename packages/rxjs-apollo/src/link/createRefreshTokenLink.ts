@@ -1,15 +1,11 @@
-import { ApolloLink, FetchResult } from '@apollo/client/core';
-import { from, iif, InteropObservable, Observable, Observer, Subject, Subscription, switchMap } from 'rxjs';
+import { FetchResult } from '@apollo/client/core/index.js';
+import { from, iif, Observable, ObservableInput, Observer, Subject, Subscription, switchMap } from 'rxjs';
 
-import { apolloLink, RxLink } from '../apolloLink';
+import { RxLink, RxMiddleware } from '../apolloLink';
 
-export interface ISubjectLike<T> extends Observer<T>, InteropObservable<T> {}
+export type ISubjectLike<T> = Observer<T> & ObservableInput<T>;
 
-export interface IRetryLink<RetryMessage> {
-  link: ApolloLink;
-  retryMessages: Observable<RetryMessage>;
-}
-interface ITokens {
+export interface IRefreshTokens {
   authToken?: string;
   refreshToken?: string;
 }
@@ -17,14 +13,14 @@ interface ITokens {
 export interface IRefreshTokenLinkOptions {
   authTokenSubject: ISubjectLike<string | undefined>;
   refreshTokenSubject: ISubjectLike<string | undefined>;
-  refreshOperation: (next: RxLink, refreshToken: string) => InteropObservable<ITokens>;
+  refreshOperation: (next: RxLink, refreshToken: string) => ObservableInput<IRefreshTokens>;
 }
 export function createRefreshTokenLink({
   authTokenSubject,
   refreshTokenSubject,
   refreshOperation
-}: IRefreshTokenLinkOptions) {
-  return apolloLink((next) => {
+}: IRefreshTokenLinkOptions): RxMiddleware {
+  return (next) => {
     let underway: Subject<void> | undefined;
     return (operation) => {
       const next$ = next(operation);
@@ -80,5 +76,5 @@ export function createRefreshTokenLink({
         return sub;
       });
     };
-  });
+  };
 }

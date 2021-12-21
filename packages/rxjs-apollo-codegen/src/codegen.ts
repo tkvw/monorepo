@@ -122,7 +122,7 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
     },
     documents
   );
-  
+
   const visitorResult = visit(ast, visitor);
 
   const hasQuery = operations.some(({ operation }) => 'query' === operation);
@@ -139,7 +139,7 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
   const client = createImport(clientPath, {
     default: 'client'
   });
-  const apollo = createImport('@apollo/client/core', {
+  const apollo = createImport('@apollo/client/core/index.js', {
     libs: ['gql']
   });
   const rxjs = createImport('rxjs', {
@@ -153,10 +153,12 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
       'IQueryOptions as IQueryOptionsOriginal',
       'IFetchMoreOptions as IFetchMoreOptionsOriginal'
     );
+    rxjs.libs.push('of');
   }
   if (hasMutation) {
     rxjsApollo.libs.push('connectMutation');
-    apollo.types.push('MutationOptions', 'DefaultContext');
+    apollo.types.push('FetchResult','MutationOptions', 'DefaultContext');
+    rxjs.libs.push('Subject');
   }
   if (hasSubscription) {
     rxjsApollo.libs.push('connectSubscribe');
@@ -208,7 +210,8 @@ export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVari
       contents.push(`
 export type ${queryOptionsName} = IQueryOptions<${opv},${op}>;
 export type ${fetchMoreOptionsName} = IFetchMoreOptions<${opv},${op}>;
-export function ${functionName}(options$: Observable<${queryOptionsName}>, fetchMoreOptions$: Observable<${fetchMoreOptionsName}> = NEVER){
+export function ${functionName}(options$?: Observable<${queryOptionsName}>, fetchMoreOptions$: Observable<${fetchMoreOptionsName}> = NEVER){
+  options$ = options$ ?? of({});
   return query(options$.pipe(
     map(options => ({
       ...options,
@@ -226,13 +229,24 @@ export function ${functionName}(options$: Observable<${queryOptionsName}>, fetch
       const mutationOptionsName = `${mutationOptionsPrefix}${operationName}${mutationOptionsSuffix}`;
       contents.push(`
 export type ${mutationOptionsName}<TContext = DefaultContext> = IMutationOptions<${opv},${op},TContext>;
-export function ${functionName}<TContext = DefaultContext>(options$: Observable<${mutationOptionsName}<TContext>>){
-  return mutation(options$.pipe(
+export function ${functionName}<TContext = DefaultContext>(): [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${opv},${op}>>];
+export function ${functionName}<TContext = DefaultContext>(options$: Observable<${mutationOptionsName}<TContext>>):Observable<FetchResult<${opv},${op}>>
+export function ${functionName}<TContext = DefaultContext>(options$?: Observable<${mutationOptionsName}<TContext>>): (Observable<FetchResult<${opv},${op}>> | [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${opv},${op}>>]){
+  if(options$) {
+    return mutation(options$.pipe(
+      map(options => ({
+        ...options,
+        mutation: ${documentVariableName}
+      }))
+    ));
+  }
+  const subject$ = new Subject<${mutationOptionsName}<TContext>>();
+  return [subject$,mutation(subject$.pipe(
     map(options => ({
       ...options,
       mutation: ${documentVariableName}
     }))
-  ));
+  ))];
 }
 `);
     } else if ('subscription' === operation.operation) {

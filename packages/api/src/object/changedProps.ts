@@ -1,4 +1,4 @@
-import commonKeys from './commonKeys';
+import commonKeys from './commonKeys.js';
 export function changedProps<Current extends Record<string, unknown>, Next extends Record<string, unknown>>(
   current: Current,
   next: Next

@@ -1,4 +1,4 @@
-import { ApolloLink, FetchResult, Observable as ApolloObservable, Operation } from '@apollo/client/core';
+import { ApolloLink, FetchResult, Observable as ApolloObservable, Operation } from '@apollo/client/core/index.js';
 import { Observable } from 'rxjs';
 
 export type RxLink = (operation: Operation) => Observable<FetchResult>;
@@ -14,7 +14,7 @@ export function apolloLink(createLink: RxMiddleware){
 }
 
 
-export function from(...links:RxMiddleware[]): RxMiddleware{
+export function fromRx(...links:RxMiddleware[]): RxMiddleware{
     return (next) => {
         const [seed,...rest] = links.reverse();
         return rest.reduce((acc,item)=> item(acc),seed(next));

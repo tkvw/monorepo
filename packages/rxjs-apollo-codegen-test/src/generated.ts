@@ -1,8 +1,9 @@
-import { gql } from "@apollo/client/core";
-import type { MutationOptions, DefaultContext, SubscriptionOptions } from "@apollo/client/core";
-import { Observable, map, NEVER } from "rxjs";
-import { connectQuery, connectMutation, connectSubscribe } from "@tkvw/rxjs-apollo";
-import type { IQueryOptions as IQueryOptionsOriginal, IFetchMoreOptions as IFetchMoreOptionsOriginal } from "@tkvw/rxjs-apollo";
+import type { DefaultContext, MutationOptions, SubscriptionOptions } from "@apollo/client/core";
+import { gql } from "@apollo/client/core/index.js";
+import type { IFetchMoreOptions as IFetchMoreOptionsOriginal,IQueryOptions as IQueryOptionsOriginal } from "@tkvw/rxjs-apollo";
+import { connectMutation, connectQuery, connectSubscribe } from "@tkvw/rxjs-apollo";
+import { map, NEVER,Observable } from "rxjs";
+
 import client from "./client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;

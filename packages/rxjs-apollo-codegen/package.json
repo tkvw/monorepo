@@ -13,8 +13,8 @@
   "author": "Dennie de Lange",
   "exports": {
     ".": {
-      "import": "./lib/cjs/codegen.js",
-      "default": "./lib/esm/codegen.js"
+      "import": "./lib/esm/codegen.js",
+      "default": "./lib/cjs/codegen.js"
     }
   },
   "main": "lib/cjs/codegen.js",
@@ -43,6 +43,7 @@
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
     "@types/heft-jest": "~1.0.2",
-    "graphql": "~16.0.1"
+    "graphql": "~16.0.1",
+    "@rushstack/heft": "~0.43.2"
   }
 }
