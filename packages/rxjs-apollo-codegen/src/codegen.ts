@@ -176,7 +176,7 @@ export type IFetchMoreOptions<TVariables,TData> = Omit<IFetchMoreOptionsOriginal
   if (hasMutation) {
     statements.push(`
 export const mutation = connectMutation(client);
-export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TVariables,TData,TContext>,"mutation">;
+export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TData,TVariables,TContext>,"mutation">;
 `);
   }
   if (hasSubscription) {
