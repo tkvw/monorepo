@@ -1,5 +1,5 @@
-import { gql } from "@apollo/client/core/index.js";
-import type { FetchResult, MutationOptions, DefaultContext } from "@apollo/client/core/index.js";
+import { gql } from "@apollo/client/core";
+import type { FetchResult, MutationOptions, DefaultContext } from "@apollo/client/core";
 import { Observable, map, NEVER, of, Subject } from "rxjs";
 import { connectQuery, connectMutation } from "@tkvw/rxjs-apollo";
 import type { IQueryOptions as IQueryOptionsOriginal, IFetchMoreOptions as IFetchMoreOptionsOriginal } from "@tkvw/rxjs-apollo";
@@ -7728,7 +7728,7 @@ export type IFetchMoreOptions<TVariables,TData> = Omit<IFetchMoreOptionsOriginal
 
 
 export const mutation = connectMutation(client);
-export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TVariables,TData,TContext>,"mutation">;
+export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TData,TVariables,TContext>,"mutation">;
 
 
 /* Other */

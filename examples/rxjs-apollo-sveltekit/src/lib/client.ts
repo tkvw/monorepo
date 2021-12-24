@@ -1,5 +1,5 @@
-import { ApolloClient, InMemoryCache, createHttpLink,  gql } from '@apollo/client/core/index.js';
-import { createOperation } from '@apollo/client/link/utils/index.js';
+import { ApolloClient, InMemoryCache, createHttpLink,  gql } from '@apollo/client/core';
+import { createOperation } from '@apollo/client/link/utils';
 import { browser } from '$app/env';
 
 import type { IRefreshTokens } from '@tkvw/rxjs-apollo';

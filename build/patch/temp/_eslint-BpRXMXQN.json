@@ -1,0 +1,37 @@
+{
+  "cacheVersion": "8.4.1_f51e12ec03fe788ff07ed658e160d4ee9bebc514",
+  "fileVersions": [
+    [
+      "commands/createCommand.ts",
+      ""
+    ],
+    [
+      "commands/apply.ts",
+      ""
+    ],
+    [
+      "commands/clean.ts",
+      ""
+    ],
+    [
+      "libs/createExec.ts",
+      ""
+    ],
+    [
+      "commands/init.ts",
+      ""
+    ],
+    [
+      "commands/patch.ts",
+      ""
+    ],
+    [
+      "start.ts",
+      ""
+    ],
+    [
+      "libs/index.ts",
+      ""
+    ]
+  ]
+}

@@ -75,3 +75,6 @@ packages/*/temp
 # Svelte
 examples/*/build
 examples/*/.svelte-kit
+
+build/local-patch/patches/*
+!build/local-patch/patches/*.patch

@@ -1,0 +1,57 @@
+diff --git @apollo/client/package.json @apollo/client/package.json
+index f257414..09e7511 100644
+--- @apollo/client/package.json
++++ @apollo/client/package.json
+@@ -99,5 +99,39 @@
+   "publishConfig": {
+     "access": "public"
+   },
+-  "type": "module"
++  "type": "module",
++  "exports": {
++    ".": {
++      "require": "./main.cjs",
++      "default": "./index.js"
++    },
++    "./core": {
++      "require": "./core/core.cjs",
++      "default": "./core/index.js"
++    },
++    "./link/batch": {
++      "require": "./link/batch/batch.cjs",
++      "default": "./link/batch/index.js"
++    },
++    "./link/batch-http": {
++      "require": "./link/batch-http/batch-http.cjs",
++      "default": "./link/batch-http/index.js"
++    },
++    "./link/context": {
++      "require": "./link/context/context.cjs",
++      "default": "./link/context/index.js"
++    },
++    "./link/core": {
++      "require": "./link/core/core.cjs",
++      "default": "./link/core/index.js"
++    },
++    "./link/error": {
++      "require": "./link/error/error.cjs",
++      "default": "./link/error/index.js"
++    },
++    "./link/utils": {
++      "require": "./link/utils/utils.cjs",
++      "default": "./link/utils/index.js"
++    }
++  }
+ }
+diff --git ts-invariant/process/package.json ts-invariant/process/package.json
+index 0f2cc43..f0a7110 100644
+--- ts-invariant/process/package.json
++++ ts-invariant/process/package.json
+@@ -6,5 +6,6 @@
+   "sideEffects": [
+     "./main.js",
+     "./index.js"
+-  ]
++  ],
++  "type": "module"
+ }

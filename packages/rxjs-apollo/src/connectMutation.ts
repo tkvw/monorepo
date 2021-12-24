@@ -1,5 +1,5 @@
 import type { DefaultContext, FetchResult,MutationOptions, OperationVariables } from '@apollo/client/core';
-import { ApolloClient } from '@apollo/client/core/index.js';
+import { ApolloClient } from '@apollo/client/core';
 import { from, map,Observable, switchMap } from 'rxjs';
 
 export interface IMutable {

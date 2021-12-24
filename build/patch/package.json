@@ -1,0 +1,38 @@
+{
+  "name": "@tkvw/patch",
+  "version": "1.0.0",
+  "description": "A special package to patch packages used",
+  "main": "index.js",
+  "bin": {
+    "patch-cjs": "lib/cjs/start.js",
+    "patch": "lib/esm/start.js"
+  },
+  "scripts": {
+    "build": "heft build --clean",
+    "watch": "heft build --watch --clean"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/yargs": "~17.0.7",
+    "fast-glob": "~3.2.7",
+    "ts-node": "~10.4.0",
+    "typescript": "~4.5.4",
+    "@tkvw/eslint-config": "workspace:*",
+    "@tkvw/heft-node-rig": "workspace:*",
+    "@types/fs-extra": "~9.0.13",
+    "@types/node": "16.x",
+    "@rushstack/heft": "~0.43.2",
+    "@types/diff": "~5.0.1",
+    "eslint": "~8.4.1"
+  },
+  "dependencies": {
+    "fs-extra": "~10.0.0",
+    "yargs": "~17.3.0",
+    "yaml": "~1.10.2",
+    "find-up": "~6.2.0",
+    "diff": "~5.0.0"
+  }
+}

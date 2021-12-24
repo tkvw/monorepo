@@ -1,4 +1,4 @@
-import { ApolloLink, FetchResult, Observable as ApolloObservable, Operation } from '@apollo/client/core/index.js';
+import { ApolloLink, FetchResult, Observable as ApolloObservable, Operation } from '@apollo/client/core';
 import { Observable } from 'rxjs';
 
 export type RxLink = (operation: Operation) => Observable<FetchResult>;

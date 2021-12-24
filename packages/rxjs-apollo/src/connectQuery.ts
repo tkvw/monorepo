@@ -5,7 +5,7 @@ import type {
   OperationVariables,
   SubscribeToMoreOptions,
   WatchQueryOptions} from '@apollo/client/core';
-import { ApolloClient, NetworkStatus } from '@apollo/client/core/index.js';
+import { ApolloClient, NetworkStatus } from '@apollo/client/core';
 import { from, iif, map, NEVER,Observable, of, switchMap } from 'rxjs';
 
 export interface IQueryOptions<TVariables, TData> extends WatchQueryOptions<TVariables, TData> {

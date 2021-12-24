@@ -315,7 +315,7 @@
      * The list of shell commands to run after the Rush installation finishes
      */
     "postRushInstall": [
-      "rush patch-packages"
+      
     ],
 
     /**
@@ -511,6 +511,14 @@
     {
       "packageName": "@tkvw/cli",
       "projectFolder": "packages/cli"
+    },
+    {
+      "packageName": "@tkvw/patch",
+      "projectFolder": "build/patch"
+    },
+    {
+      "packageName": "local-patch",
+      "projectFolder": "build/local-patch"
     }
     
   ]
