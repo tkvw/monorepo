@@ -7,20 +7,23 @@
   "author": "Dennie de Lange",
   "type": "module",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "import": "./lib/esm/index.js",
-      "default": "./lib/cjs/index.js"
+      "require": "./lib/index.cjs",
+      "import": "./lib/index.js"
     },
     "./*": {
-      "import": "./lib/esm/*/index.js",
-      "default": "./lib/cjs/*/index.js"
+      "require": "./lib/*.cjs",
+      "import": "./lib/*.js"
     }
   },
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
   "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "lib/types/*"
+        "lib/*"
       ]
     }
   },

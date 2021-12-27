@@ -11,19 +11,20 @@
   },
   "license": "ISC",
   "author": "Dennie de Lange",
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./lib/esm/codegen.js",
-      "default": "./lib/cjs/codegen.js"
+      "import": "./lib/codegen.cjs",
+      "default": "./lib/codegen.js"
     }
   },
-  "main": "lib/cjs/codegen.js",
-  "module": "lib/esm/codegen.js",
+  "main": "lib/codegen.cjs",
+  "module": "lib/codegen.js",
   "types": "codegen.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "lib/types/*"
+        "lib/*"
       ]
     }
   },

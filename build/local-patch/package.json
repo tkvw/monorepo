@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build":""
+    "build": "",
+    "patch": "patch patch",
+    "apply": "patch apply"
   },
   "keywords": [],
   "author": "",

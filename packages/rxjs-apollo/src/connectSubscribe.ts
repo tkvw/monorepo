@@ -1,5 +1,5 @@
 import type { FetchResult,OperationVariables, SubscriptionOptions } from '@apollo/client/core';
-import { ApolloClient } from '@apollo/client/core/index.js';
+import { ApolloClient } from '@apollo/client/core';
 import { Observable, switchMap } from 'rxjs';
 
 export interface ISubscribeResult<TData = unknown, TVariables = OperationVariables> extends FetchResult<TData> {

@@ -3,6 +3,6 @@ patches:
   - name: make_esm_compatible
     source: node_modules
     globs:
-      - "ts-invariant/process/package.json"
-      - "@apollo/client/**/package.json"  
+      - "ts-invariant/**/*"
+      - "@apollo/client/**/*"  
   

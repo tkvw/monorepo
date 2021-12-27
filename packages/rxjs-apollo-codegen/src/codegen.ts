@@ -139,7 +139,7 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
   const client = createImport(clientPath, {
     default: 'client'
   });
-  const apollo = createImport('@apollo/client/core/index.js', {
+  const apollo = createImport('@apollo/client/core', {
     libs: ['gql']
   });
   const rxjs = createImport('rxjs', {
@@ -229,16 +229,16 @@ export function ${functionName}(options$?: Observable<${queryOptionsName}>, fetc
       const mutationOptionsName = `${mutationOptionsPrefix}${operationName}${mutationOptionsSuffix}`;
       contents.push(`
 export type ${mutationOptionsName}<TContext = DefaultContext> = IMutationOptions<${opv},${op},TContext>;
-export function ${functionName}<TContext = DefaultContext>(): [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${opv},${op}>>];
-export function ${functionName}<TContext = DefaultContext>(options$: Observable<${mutationOptionsName}<TContext>>):Observable<FetchResult<${opv},${op}>>
-export function ${functionName}<TContext = DefaultContext>(options$?: Observable<${mutationOptionsName}<TContext>>): (Observable<FetchResult<${opv},${op}>> | [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${opv},${op}>>]){
+export function ${functionName}<TContext = DefaultContext>(): [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${op},TContext>>];
+export function ${functionName}<TContext = DefaultContext>(options$: Observable<${mutationOptionsName}<TContext>>):Observable<FetchResult<${op},TContext>>
+export function ${functionName}<TContext = DefaultContext>(options$?: Observable<${mutationOptionsName}<TContext>>): (Observable<FetchResult<${op},TContext>> | [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${op},TContext>>]){
   if(options$) {
     return mutation(options$.pipe(
       map(options => ({
         ...options,
         mutation: ${documentVariableName}
       }))
-    ));
+    )) as Observable<FetchResult<${op},TContext>>;
   }
   const subject$ = new Subject<${mutationOptionsName}<TContext>>();
   return [subject$,mutation(subject$.pipe(
@@ -246,7 +246,7 @@ export function ${functionName}<TContext = DefaultContext>(options$?: Observable
       ...options,
       mutation: ${documentVariableName}
     }))
-  ))];
+  )) as Observable<FetchResult<${op},TContext>>];
 }
 `);
     } else if ('subscription' === operation.operation) {

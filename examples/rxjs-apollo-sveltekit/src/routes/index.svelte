@@ -8,8 +8,6 @@
     })
   );
 
-  // const [login,loginResult] = useLoginMutation();
-
   $: {
     console.log($viewer);
   }
@@ -17,9 +15,4 @@
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
-<!-- {#if $viewer.loading}
-  Loading...
-{:else}
-  {$viewer.data.viewer?.email}
-{/if}  -->
+<a href="page2">Page2</a>

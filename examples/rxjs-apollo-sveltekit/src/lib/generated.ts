@@ -7693,6 +7693,10 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']>;
 };
 
+export type UserRoleFragment = { __typename?: 'UserRole', id: string, name?: string | null | undefined, isRestricted?: boolean | null | undefined, capabilities?: Array<string | null | undefined> | null | undefined };
+
+export type ViewerFragment = { __typename?: 'User', id: string, firstName?: string | null | undefined, lastName?: string | null | undefined, locale?: string | null | undefined, avatar?: { __typename?: 'Avatar', default?: string | null | undefined } | null | undefined, roles?: { __typename?: 'UserToUserRoleConnection', nodes?: Array<{ __typename?: 'UserRole', id: string, name?: string | null | undefined, isRestricted?: boolean | null | undefined, capabilities?: Array<string | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -7717,7 +7721,7 @@ export type PostsQuery = { __typename?: 'RootQuery', posts?: { __typename?: 'Roo
 export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ViewerQuery = { __typename?: 'RootQuery', viewer?: { __typename?: 'User', email?: string | null | undefined, roles?: { __typename?: 'UserToUserRoleConnection', nodes?: Array<{ __typename?: 'UserRole', id: string, name?: string | null | undefined, isRestricted?: boolean | null | undefined, displayName?: string | null | undefined, capabilities?: Array<string | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined };
+export type ViewerQuery = { __typename?: 'RootQuery', viewer?: { __typename?: 'User', id: string, firstName?: string | null | undefined, lastName?: string | null | undefined, locale?: string | null | undefined, avatar?: { __typename?: 'Avatar', default?: string | null | undefined } | null | undefined, roles?: { __typename?: 'UserToUserRoleConnection', nodes?: Array<{ __typename?: 'UserRole', id: string, name?: string | null | undefined, isRestricted?: boolean | null | undefined, capabilities?: Array<string | null | undefined> | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined };
 
 
 
@@ -7731,6 +7735,31 @@ export const mutation = connectMutation(client);
 export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TData,TVariables,TContext>,"mutation">;
 
 
+/* Fragments */
+export const UserRoleFragment = gql`
+    fragment UserRole on UserRole {
+  id
+  name
+  isRestricted
+  capabilities
+}
+    `;
+export const ViewerFragment = gql`
+    fragment Viewer on User {
+  id
+  firstName
+  lastName
+  locale
+  avatar {
+    default
+  }
+  roles {
+    nodes {
+      ...UserRole
+    }
+  }
+}
+    ${UserRoleFragment}`;
 /* Other */
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
@@ -7764,31 +7793,22 @@ export const PostsDocument = gql`
 export const ViewerDocument = gql`
     query Viewer {
   viewer {
-    roles {
-      nodes {
-        id
-        name
-        isRestricted
-        displayName
-        capabilities
-      }
-    }
-    email
+    ...Viewer
   }
 }
-    `;
+    ${ViewerFragment}`;
 
 export type LoginMutationOptions<TContext = DefaultContext> = IMutationOptions<LoginMutationVariables,LoginMutation,TContext>;
-export function useLoginMutation<TContext = DefaultContext>(): [Subject<LoginMutationOptions<TContext>>,Observable<FetchResult<LoginMutationVariables,LoginMutation>>];
-export function useLoginMutation<TContext = DefaultContext>(options$: Observable<LoginMutationOptions<TContext>>):Observable<FetchResult<LoginMutationVariables,LoginMutation>>
-export function useLoginMutation<TContext = DefaultContext>(options$?: Observable<LoginMutationOptions<TContext>>): (Observable<FetchResult<LoginMutationVariables,LoginMutation>> | [Subject<LoginMutationOptions<TContext>>,Observable<FetchResult<LoginMutationVariables,LoginMutation>>]){
+export function useLoginMutation<TContext = DefaultContext>(): [Subject<LoginMutationOptions<TContext>>,Observable<FetchResult<LoginMutation,TContext>>];
+export function useLoginMutation<TContext = DefaultContext>(options$: Observable<LoginMutationOptions<TContext>>):Observable<FetchResult<LoginMutation,TContext>>
+export function useLoginMutation<TContext = DefaultContext>(options$?: Observable<LoginMutationOptions<TContext>>): (Observable<FetchResult<LoginMutation,TContext>> | [Subject<LoginMutationOptions<TContext>>,Observable<FetchResult<LoginMutation,TContext>>]){
   if(options$) {
     return mutation(options$.pipe(
       map(options => ({
         ...options,
         mutation: LoginDocument
       }))
-    ));
+    )) as Observable<FetchResult<LoginMutation,TContext>>;
   }
   const subject$ = new Subject<LoginMutationOptions<TContext>>();
   return [subject$,mutation(subject$.pipe(
@@ -7796,21 +7816,21 @@ export function useLoginMutation<TContext = DefaultContext>(options$?: Observabl
       ...options,
       mutation: LoginDocument
     }))
-  ))];
+  )) as Observable<FetchResult<LoginMutation,TContext>>];
 }
 
 
 export type RefreshTokenMutationOptions<TContext = DefaultContext> = IMutationOptions<RefreshTokenMutationVariables,RefreshTokenMutation,TContext>;
-export function useRefreshTokenMutation<TContext = DefaultContext>(): [Subject<RefreshTokenMutationOptions<TContext>>,Observable<FetchResult<RefreshTokenMutationVariables,RefreshTokenMutation>>];
-export function useRefreshTokenMutation<TContext = DefaultContext>(options$: Observable<RefreshTokenMutationOptions<TContext>>):Observable<FetchResult<RefreshTokenMutationVariables,RefreshTokenMutation>>
-export function useRefreshTokenMutation<TContext = DefaultContext>(options$?: Observable<RefreshTokenMutationOptions<TContext>>): (Observable<FetchResult<RefreshTokenMutationVariables,RefreshTokenMutation>> | [Subject<RefreshTokenMutationOptions<TContext>>,Observable<FetchResult<RefreshTokenMutationVariables,RefreshTokenMutation>>]){
+export function useRefreshTokenMutation<TContext = DefaultContext>(): [Subject<RefreshTokenMutationOptions<TContext>>,Observable<FetchResult<RefreshTokenMutation,TContext>>];
+export function useRefreshTokenMutation<TContext = DefaultContext>(options$: Observable<RefreshTokenMutationOptions<TContext>>):Observable<FetchResult<RefreshTokenMutation,TContext>>
+export function useRefreshTokenMutation<TContext = DefaultContext>(options$?: Observable<RefreshTokenMutationOptions<TContext>>): (Observable<FetchResult<RefreshTokenMutation,TContext>> | [Subject<RefreshTokenMutationOptions<TContext>>,Observable<FetchResult<RefreshTokenMutation,TContext>>]){
   if(options$) {
     return mutation(options$.pipe(
       map(options => ({
         ...options,
         mutation: RefreshTokenDocument
       }))
-    ));
+    )) as Observable<FetchResult<RefreshTokenMutation,TContext>>;
   }
   const subject$ = new Subject<RefreshTokenMutationOptions<TContext>>();
   return [subject$,mutation(subject$.pipe(
@@ -7818,7 +7838,7 @@ export function useRefreshTokenMutation<TContext = DefaultContext>(options$?: Ob
       ...options,
       mutation: RefreshTokenDocument
     }))
-  ))];
+  )) as Observable<FetchResult<RefreshTokenMutation,TContext>>];
 }
 
 

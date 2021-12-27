@@ -1,14 +1,270 @@
-diff --git @apollo/client/package.json @apollo/client/package.json
-index f257414..09e7511 100644
---- @apollo/client/package.json
-+++ @apollo/client/package.json
-@@ -99,5 +99,39 @@
+diff --git a/@apollo/client/cache/package.json b/@apollo/client/cache/package.json
+index 426bb2a..42c7c26 100644
+--- a/@apollo/client/cache/package.json
++++ b/@apollo/client/cache/package.json
+@@ -4,5 +4,12 @@
+   "main": "cache.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./cache.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/core/package.json b/@apollo/client/core/package.json
+index 24f30b4..16f5abe 100644
+--- a/@apollo/client/core/package.json
++++ b/@apollo/client/core/package.json
+@@ -4,5 +4,15 @@
+   "main": "core.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./core.cjs",
++      "default": "./index.js"
++    },
++    "./index.js":{
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/errors/package.json b/@apollo/client/errors/package.json
+index 9068a1b..2ea3a4f 100644
+--- a/@apollo/client/errors/package.json
++++ b/@apollo/client/errors/package.json
+@@ -4,5 +4,12 @@
+   "main": "errors.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./errors.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/batch-http/package.json b/@apollo/client/link/batch-http/package.json
+index e539c88..6e460d0 100644
+--- a/@apollo/client/link/batch-http/package.json
++++ b/@apollo/client/link/batch-http/package.json
+@@ -4,5 +4,12 @@
+   "main": "batch-http.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./batch-http.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/batch/package.json b/@apollo/client/link/batch/package.json
+index 8b223ff..e655d40 100644
+--- a/@apollo/client/link/batch/package.json
++++ b/@apollo/client/link/batch/package.json
+@@ -4,5 +4,12 @@
+   "main": "batch.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./batch.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/context/package.json b/@apollo/client/link/context/package.json
+index 91276b0..7848def 100644
+--- a/@apollo/client/link/context/package.json
++++ b/@apollo/client/link/context/package.json
+@@ -4,5 +4,12 @@
+   "main": "context.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./context.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/core/package.json b/@apollo/client/link/core/package.json
+index d75b99b..1a629da 100644
+--- a/@apollo/client/link/core/package.json
++++ b/@apollo/client/link/core/package.json
+@@ -4,5 +4,12 @@
+   "main": "core.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./core.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/error/package.json b/@apollo/client/link/error/package.json
+index 04a6adc..a92584c 100644
+--- a/@apollo/client/link/error/package.json
++++ b/@apollo/client/link/error/package.json
+@@ -4,5 +4,12 @@
+   "main": "error.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./error.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/http/package.json b/@apollo/client/link/http/package.json
+index 9c2f0ee..142a419 100644
+--- a/@apollo/client/link/http/package.json
++++ b/@apollo/client/link/http/package.json
+@@ -4,5 +4,12 @@
+   "main": "http.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./http.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/persisted-queries/package.json b/@apollo/client/link/persisted-queries/package.json
+index a4794f5..227f001 100644
+--- a/@apollo/client/link/persisted-queries/package.json
++++ b/@apollo/client/link/persisted-queries/package.json
+@@ -4,5 +4,12 @@
+   "main": "persisted-queries.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./persisted-queries.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/retry/package.json b/@apollo/client/link/retry/package.json
+index 1e067ee..6bb21cf 100644
+--- a/@apollo/client/link/retry/package.json
++++ b/@apollo/client/link/retry/package.json
+@@ -4,5 +4,12 @@
+   "main": "retry.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./retry.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/schema/package.json b/@apollo/client/link/schema/package.json
+index d47ad33..c2fdcd7 100644
+--- a/@apollo/client/link/schema/package.json
++++ b/@apollo/client/link/schema/package.json
+@@ -4,5 +4,12 @@
+   "main": "schema.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./schema.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/utils/package.json b/@apollo/client/link/utils/package.json
+index 21c2e1a..bab4bea 100644
+--- a/@apollo/client/link/utils/package.json
++++ b/@apollo/client/link/utils/package.json
+@@ -4,5 +4,12 @@
+   "main": "utils.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./utils.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/link/ws/package.json b/@apollo/client/link/ws/package.json
+index 8478b6f..1a31ba8 100644
+--- a/@apollo/client/link/ws/package.json
++++ b/@apollo/client/link/ws/package.json
+@@ -4,5 +4,12 @@
+   "main": "ws.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./ws.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/package.json b/@apollo/client/package.json
+index f257414..a0da70b 100644
+--- a/@apollo/client/package.json
++++ b/@apollo/client/package.json
+@@ -99,5 +99,28 @@
    "publishConfig": {
      "access": "public"
    },
 -  "type": "module"
 +  "type": "module",
-+  "exports": {
++  "exports":{
++    "./package.json":"./package.json",
 +    ".": {
 +      "require": "./main.cjs",
 +      "default": "./index.js"
@@ -17,41 +273,178 @@ index f257414..09e7511 100644
 +      "require": "./core/core.cjs",
 +      "default": "./core/index.js"
 +    },
-+    "./link/batch": {
-+      "require": "./link/batch/batch.cjs",
-+      "default": "./link/batch/index.js"
-+    },
-+    "./link/batch-http": {
-+      "require": "./link/batch-http/batch-http.cjs",
-+      "default": "./link/batch-http/index.js"
-+    },
-+    "./link/context": {
-+      "require": "./link/context/context.cjs",
-+      "default": "./link/context/index.js"
-+    },
-+    "./link/core": {
-+      "require": "./link/core/core.cjs",
-+      "default": "./link/core/index.js"
-+    },
-+    "./link/error": {
-+      "require": "./link/error/error.cjs",
-+      "default": "./link/error/index.js"
-+    },
 +    "./link/utils": {
 +      "require": "./link/utils/utils.cjs",
 +      "default": "./link/utils/index.js"
++    },
++    "./utilities": {
++      "require": "./utilities/utilities.cjs",
++      "default": "./utilities/index.js"
++    },
++    "./utilities/globals": {
++      "require": "./utilities/globals/globals.cjs",
++      "default": "./utilities/globals/index.js"
 +    }
 +  }
  }
-diff --git ts-invariant/process/package.json ts-invariant/process/package.json
-index 0f2cc43..f0a7110 100644
---- ts-invariant/process/package.json
-+++ ts-invariant/process/package.json
-@@ -6,5 +6,6 @@
+diff --git a/@apollo/client/testing/core/package.json b/@apollo/client/testing/core/package.json
+index 3a00628..a2668aa 100644
+--- a/@apollo/client/testing/core/package.json
++++ b/@apollo/client/testing/core/package.json
+@@ -4,5 +4,12 @@
+   "main": "core.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./core.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/testing/package.json b/@apollo/client/testing/package.json
+index 99feaf1..65eda27 100644
+--- a/@apollo/client/testing/package.json
++++ b/@apollo/client/testing/package.json
+@@ -4,5 +4,12 @@
+   "main": "testing.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./testing.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/utilities/globals/package.json b/@apollo/client/utilities/globals/package.json
+index 4c63fea..927a280 100644
+--- a/@apollo/client/utilities/globals/package.json
++++ b/@apollo/client/utilities/globals/package.json
+@@ -4,5 +4,12 @@
+   "main": "globals.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": true
++  "sideEffects": true,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./globals.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/@apollo/client/utilities/package.json b/@apollo/client/utilities/package.json
+index 4ada65f..772ec85 100644
+--- a/@apollo/client/utilities/package.json
++++ b/@apollo/client/utilities/package.json
+@@ -4,5 +4,12 @@
+   "main": "utilities.cjs",
+   "module": "index.js",
+   "types": "index.d.ts",
+-  "sideEffects": false
++  "sideEffects": false,
++  "exports": {
++    "./package.json": "./package.json",
++    ".":{
++      "require": "./utilities.cjs",
++      "default": "./index.js"
++    }
++  }
+ }
+diff --git a/ts-invariant/lib/invariant.js b/ts-invariant/lib/invariant.cjs
+similarity index 100%
+rename from ts-invariant/lib/invariant.js
+rename to ts-invariant/lib/invariant.cjs
+diff --git a/ts-invariant/lib/invariant.js.map b/ts-invariant/lib/invariant.cjs.map
+similarity index 100%
+rename from ts-invariant/lib/invariant.js.map
+rename to ts-invariant/lib/invariant.cjs.map
+diff --git a/ts-invariant/package.json b/ts-invariant/package.json
+index c7e2764..c8a35eb 100644
+--- a/ts-invariant/package.json
++++ b/ts-invariant/package.json
+@@ -4,7 +4,7 @@
+   "author": "Ben Newman <ben@apollographql.com>",
+   "description": "TypeScript implementation of invariant(condition, message)",
+   "license": "MIT",
+-  "main": "lib/invariant.js",
++  "main": "lib/invariant.cjs",
+   "module": "lib/invariant.esm.js",
+   "types": "lib/invariant.d.ts",
+   "keywords": [
+@@ -42,5 +42,20 @@
+   "engines": {
+     "node": ">=8"
+   },
+-  "gitHead": "84163bbe416bae1221d58f5ce947b43d8f751cb7"
++  "type": "module",
++  "gitHead": "84163bbe416bae1221d58f5ce947b43d8f751cb7",
++  "exports":{
++    "./package.json": "./package.json",
++    ".": {
++      "require": "./lib/invariant.cjs",
++      "default": "./lib/invariant.esm.js"
++    },
++    "./process":{
++      "require": "./process/main.cjs",
++      "default": "./process/index.js"
++    },
++    "./process/index.js":{
++      "import": "./process/index.js"
++    }
++  }
+ }
+diff --git a/ts-invariant/process/main.js b/ts-invariant/process/main.cjs
+similarity index 99%
+rename from ts-invariant/process/main.js
+rename to ts-invariant/process/main.cjs
+index ff7a49c..c2d6a59 100644
+--- a/ts-invariant/process/main.js
++++ b/ts-invariant/process/main.cjs
+@@ -1,5 +1,6 @@
+ 'use strict';
+ 
++
+ Object.defineProperty(exports, '__esModule', { value: true });
+ 
+ function maybe(thunk) {
+diff --git a/ts-invariant/process/main.js.map b/ts-invariant/process/main.cjs.map
+similarity index 100%
+rename from ts-invariant/process/main.js.map
+rename to ts-invariant/process/main.cjs.map
+diff --git a/ts-invariant/process/package.json b/ts-invariant/process/package.json
+index 0f2cc43..a1b951a 100644
+--- a/ts-invariant/process/package.json
++++ b/ts-invariant/process/package.json
+@@ -1,10 +1,20 @@
+ {
+   "name": "ts-invariant/process",
+-  "main": "./main.js",
++  "main": "./main.cjs",
+   "module": "./index.js",
+   "types": "./index.d.ts",
    "sideEffects": [
-     "./main.js",
+-    "./main.js",
++    "./main.cjs",
      "./index.js"
 -  ]
 +  ],
-+  "type": "module"
++  "type": "module",
++  "exports":{
++    ".": {
++      "require": "./main.cjs",
++      "default": "./index.js"
++    },
++    "./index.js": {
++      "default": "./index.js"
++    }
++  }
  }

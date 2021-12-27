@@ -4,15 +4,17 @@ import type {
   FetchMoreQueryOptions,
   OperationVariables,
   SubscribeToMoreOptions,
-  WatchQueryOptions} from '@apollo/client/core';
+  WatchQueryOptions
+} from '@apollo/client/core';
 import { ApolloClient, NetworkStatus } from '@apollo/client/core';
-import { from, iif, map, NEVER,Observable, of, switchMap } from 'rxjs';
+import { from, iif, map, NEVER, Observable, of, switchMap } from 'rxjs';
 
 export interface IQueryOptions<TVariables, TData> extends WatchQueryOptions<TVariables, TData> {
   useInitialLoading?: boolean;
   skip?: boolean;
 }
-export interface IQueryResult<TVariables = OperationVariables, TData = unknown> extends ApolloQueryResult<TData> {
+export interface IQueryResult<TVariables = OperationVariables, TData = unknown>
+  extends ApolloQueryResult<TData> {
   options: IQueryOptions<TVariables, TData>;
   skipped: boolean;
   initialized: boolean;
@@ -81,14 +83,23 @@ export function connectQuery(clientObservable: Observable<ApolloClient<unknown>>
 
                 const transformResult = (
                   result: ApolloQueryResult<TData>
-                ): IQueryResult<TVariables, TData> => ({
-                  ...result,
-                  options,
-                  skipped: false,
-                  initialized: true
-                });
+                ): IQueryResult<TVariables, TData> => {
+                  const transformed = {
+                    ...result,
+                    options,
+                    skipped: false,
+                    initialized: true
+                  };
+                  console.log({
+                    result,
+                    transformed
+                  });
+                  return transformed;
+                };
 
-                const watchQuerySubscription = watchQuery.map(transformResult).subscribe(observer);
+                const watchQuerySubscription = watchQuery
+                  .map(transformResult)
+                  .subscribe(observer);
                 const fetchMoreSubscription = fetchMoreOptions
                   .pipe(
                     switchMap((moreOptions) => from(watchQuery.fetchMore(moreOptions))),

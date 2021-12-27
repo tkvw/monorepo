@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client/core/index.js';
+import { FetchResult } from '@apollo/client/core';
 import { from, iif, Observable, ObservableInput, Observer, Subject, Subscription, switchMap } from 'rxjs';
 
 import { RxLink, RxMiddleware } from '../apolloLink';

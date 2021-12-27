@@ -14,23 +14,28 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": "./lib/esm/index.js",
-      "default": "./lib/cjs/index.js"
+      "require": "./lib/index.cjs",
+      "import": "./lib/index.js"
+    },
+    "./*": {
+      "require": "./lib/*.cjs",
+      "import": "./lib/*.js"
     }
   },
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
   "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "lib/types/*"
+        "lib/*"
       ]
     }
   },
   "scripts": {
     "build": "heft test --clean",
     "clean": "heft clean",
+    "watch": "heft build --watch",
     "test": "heft test --debug --clean",
     "test:watch": "heft test --clean --watch"
   },

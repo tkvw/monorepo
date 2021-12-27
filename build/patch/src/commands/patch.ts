@@ -17,7 +17,7 @@ export default createCommand({
       });
 
       await git('add', '.');
-      const patchDiff = await git('diff', '--no-prefix', 'HEAD');
+      const patchDiff = await git('diff', 'HEAD');
       if (patchDiff === '') return;
       await fse.writeFile(path.join(patchesFolder, `${name}.patch`), patchDiff, {
         encoding: 'utf-8'

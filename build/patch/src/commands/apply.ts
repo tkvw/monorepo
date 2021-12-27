@@ -1,5 +1,6 @@
 import { applyPatch, parsePatch } from 'diff';
 import fse from 'fs-extra';
+import parseDiff from "parse-diff"
 import path from 'path';
 
 import { createCommand } from './createCommand.js';
@@ -12,42 +13,24 @@ export default createCommand({
 
     for (const patch of config.patches) {
       const { name, source = defaultSource } = patch;
-      const patchFile = path.resolve(patchesFolder, `${name}.patch`);
       const patchFolder = path.resolve(patchesFolder, name);
 
-      if (!(await fse.pathExists(patchFile))) continue;
+      if (!(await fse.pathExists(patchFolder))) continue;
 
-      const patchContent = await fse.readFile(patchFile, {
-        encoding: 'utf-8'
-      });
-      const patches = parsePatch(patchContent, {
-        strict: false
-      });
-
-      for (const diff of patches) {
-        if (!diff.newFileName) continue;
-
-        const sourceFile = path.join(patchFolder, diff.newFileName);
-        const targetFile = path.join(source, diff.newFileName);
-
-        if (await fse.pathExists(sourceFile)) {
-          await fse.copyFile(sourceFile, targetFile);
-        } else {
-          const targetContent = (await fse.pathExists(targetFile))
-            ? await fse.readFile(targetFile, {
-                encoding: 'utf-8'
-              })
-            : '';
-          const result = applyPatch(targetContent, diff);
-          if (!result) {
-            console.log(`failed to apply patch to ${targetFile}, maybe patched already?`);
-            continue;
-          }
-          await fse.writeFile(targetFile, result, {
-            encoding: 'utf-8'
-          });
+      const patchedFolders = await fse.readdir(patchFolder);
+      for(const patchedFolder of patchedFolders){
+        if(await fse.pathExists(path.resolve(source,patchedFolder))){
+          await fse.copy(
+            path.resolve(patchFolder,patchedFolder),
+            path.resolve(source,patchedFolder),
+            {
+              overwrite: true,
+              recursive: true,
+              dereference: true
+            }
+          );
         }
-      }
+      }      
     }
   }
 });

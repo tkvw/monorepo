@@ -47,7 +47,7 @@ export default createCommand({
 
       const patchFile = path.join(patchesFolder, `${name}.patch`);
       if (await fse.pathExists(patchFile)) {
-        await git('apply', '-p0', patchFile);
+        await git('apply', patchFile);
       }
     }
   }

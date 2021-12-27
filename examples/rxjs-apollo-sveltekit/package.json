@@ -7,7 +7,7 @@
     "build": "svelte-kit build --verbose",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "dev": "DEBUG=* svelte-kit dev",
+    "dev": "svelte-kit dev",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
     "gen": "graphql-codegen",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
@@ -18,7 +18,8 @@
     "@apollo/client": "~3.5.6",
     "@graphql-codegen/schema-ast": "~2.4.0",
     "@tkvw/rxjs-apollo": "workspace:*",
-    "rxjs": "~7.4.0"
+    "rxjs": "~7.4.0",
+    "@tkvw/rxjs": "workspace:*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "~2.3.0",

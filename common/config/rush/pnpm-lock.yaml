@@ -88,7 +88,6 @@ importers:
       '@types/fs-extra': ~9.0.13
       '@types/node': 16.x
       '@types/yargs': ~17.0.7
-      diff: ~5.0.0
       eslint: ~8.4.1
       fast-glob: ~3.2.7
       find-up: ~6.2.0
@@ -98,7 +97,6 @@ importers:
       yaml: ~1.10.2
       yargs: ~17.3.0
     dependencies:
-      diff: 5.0.0
       find-up: 6.2.0
       fs-extra: 10.0.0
       yaml: 1.10.2
@@ -156,6 +154,7 @@ importers:
       '@graphql-tools/schema': ~8.3.1
       '@sveltejs/adapter-static': 1.0.0-next.22
       '@sveltejs/kit': 1.0.0-next.202
+      '@tkvw/rxjs': workspace:*
       '@tkvw/rxjs-apollo': workspace:*
       '@tkvw/rxjs-apollo-codegen': workspace:*
       '@typescript-eslint/eslint-plugin': ^5.7.0
@@ -175,6 +174,7 @@ importers:
     dependencies:
       '@apollo/client': 3.5.6_graphql@16.0.1
       '@graphql-codegen/schema-ast': 2.4.0_graphql@16.0.1
+      '@tkvw/rxjs': link:../../packages/rxjs
       '@tkvw/rxjs-apollo': link:../../packages/rxjs-apollo
       rxjs: 7.4.0
     devDependencies:

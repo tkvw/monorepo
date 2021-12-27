@@ -8,20 +8,21 @@
      * If provided, emit these module kinds in addition to the modules specified in the tsconfig.
      * Note that this option only applies to the main tsconfig.json configuration.
      */
-    "additionalModuleKindsToEmit": [{
-      "moduleKind": "commonjs",
-      "outFolderName": "lib/cjs"
-    }],
-  
+    // "additionalModuleKindsToEmit": [{
+    //   "moduleKind": "commonjs",
+    //   "outFolderName": "lib/cjs",
+    //   "extension": ".cjs"
+    // }],
+      
     /**
      * Specifies the intermediary folder that tests will use.  Because Jest uses the
      * Node.js runtime to execute tests, the module format must be CommonJS.
      *
      * The default value is "lib".
      */
-    "emitFolderNameForTests": "lib/cjs",
+    "emitFolderNameForTests": "lib",
 
-  //  "emitMjsExtensionForESModule": true,
+    "emitCjsExtensionForCommonJS": true,
   
     /**
      * If set to "true", the TSlint task will not be invoked.
