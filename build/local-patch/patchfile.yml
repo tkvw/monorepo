@@ -1,8 +1,5 @@
-folder: "patches"
-patches:
-  - name: make_esm_compatible
-    source: node_modules
-    globs:
-      - "ts-invariant/**/*"
-      - "@apollo/client/**/*"  
+- name: make_esm_compatible
+  packages:
+    - "@apollo/client"
+    - "ts-invariant"
   

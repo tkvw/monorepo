@@ -1,9 +1,9 @@
+import type { DefaultContext } from "@apollo/client/core";
 import { gql } from "@apollo/client/core";
-import type { FetchResult, MutationOptions, DefaultContext } from "@apollo/client/core";
-import { Observable, map, NEVER, of, Subject } from "rxjs";
-import { connectQuery, connectMutation } from "@tkvw/rxjs-apollo";
-import type { IQueryOptions as IQueryOptionsOriginal, IFetchMoreOptions as IFetchMoreOptionsOriginal } from "@tkvw/rxjs-apollo";
-import client from "./client";
+import { Observable, Subject, map, switchMap } from "rxjs";
+import type { IMutableResult, IMutationOptions, IQueryOptions, IQueryResult, IRxQuery } from "@tkvw/rxjs-apollo";
+import { rxMutation, rxQuery } from "@tkvw/rxjs-apollo";
+import client$ from "./client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -7718,6 +7718,11 @@ export type PostsQueryVariables = Exact<{
 
 export type PostsQuery = { __typename?: 'RootQuery', posts?: { __typename?: 'RootQueryToPostConnection', nodes?: Array<{ __typename?: 'Post', date?: string | null | undefined, author?: { __typename?: 'NodeWithAuthorToUserConnectionEdge', node?: { __typename?: 'User', firstName?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined };
 
+export type AllSettingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllSettingsQuery = { __typename?: 'RootQuery', allSettings?: { __typename?: 'Settings', generalSettingsUrl?: string | null | undefined, discussionSettingsDefaultCommentStatus?: string | null | undefined, readingSettingsPostsPerPage?: number | null | undefined } | null | undefined };
+
 export type ViewerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7726,13 +7731,10 @@ export type ViewerQuery = { __typename?: 'RootQuery', viewer?: { __typename?: 'U
 
 
 
-export const query = connectQuery(client);
-export type IQueryOptions<TVariables,TData> = Omit<IQueryOptionsOriginal<TVariables,TData>,"query">;
-export type IFetchMoreOptions<TVariables,TData> = Omit<IFetchMoreOptionsOriginal<TVariables,TData>,"query">;
+export type IGeneratedQueryOptions<TVariables,TData> = Omit<IQueryOptions<TVariables,TData>,"query" | "client">;
 
 
-export const mutation = connectMutation(client);
-export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TData,TVariables,TContext>,"mutation">;
+export type IGeneratedMutationOptions<TVariables,TData,TContext> = Omit<IMutationOptions<TData,TVariables,TContext>,"client" | "mutation">;
 
 
 /* Fragments */
@@ -7790,6 +7792,15 @@ export const PostsDocument = gql`
   }
 }
     `;
+export const AllSettingsDocument = gql`
+    query allSettings {
+  allSettings {
+    generalSettingsUrl
+    discussionSettingsDefaultCommentStatus
+    readingSettingsPostsPerPage
+  }
+}
+    `;
 export const ViewerDocument = gql`
     query Viewer {
   viewer {
@@ -7798,82 +7809,102 @@ export const ViewerDocument = gql`
 }
     ${ViewerFragment}`;
 
-export type LoginMutationOptions<TContext = DefaultContext> = IMutationOptions<LoginMutationVariables,LoginMutation,TContext>;
-export function useLoginMutation<TContext = DefaultContext>(): [Subject<LoginMutationOptions<TContext>>,Observable<FetchResult<LoginMutation,TContext>>];
-export function useLoginMutation<TContext = DefaultContext>(options$: Observable<LoginMutationOptions<TContext>>):Observable<FetchResult<LoginMutation,TContext>>
-export function useLoginMutation<TContext = DefaultContext>(options$?: Observable<LoginMutationOptions<TContext>>): (Observable<FetchResult<LoginMutation,TContext>> | [Subject<LoginMutationOptions<TContext>>,Observable<FetchResult<LoginMutation,TContext>>]){
-  if(options$) {
-    return mutation(options$.pipe(
+export type LoginMutationOptions<TContext = DefaultContext> = IGeneratedMutationOptions<LoginMutationVariables,LoginMutation,TContext>;
+export function useLoginMutation<TContext = DefaultContext>(): [Subject<LoginMutationOptions<TContext>>,Observable<IMutableResult<LoginMutation,LoginMutationVariables,TContext>>];
+export function useLoginMutation<TContext = DefaultContext>(options$: Observable<LoginMutationOptions<TContext>>):Observable<IMutableResult<LoginMutation,LoginMutationVariables,TContext>>
+export function useLoginMutation<TContext = DefaultContext>(options$?: Observable<LoginMutationOptions<TContext>>): (Observable<IMutableResult<LoginMutation,LoginMutationVariables,TContext>> | [Subject<LoginMutationOptions<TContext>>,Observable<IMutableResult<LoginMutation,LoginMutationVariables,TContext>>]){
+  if(!options$){
+    const subject = new Subject<LoginMutationOptions<TContext>>();
+    return [subject,useLoginMutation<TContext>(subject.asObservable())];
+  }
+  return rxMutation(client$.pipe(switchMap(client => 
+    options$.pipe(
       map(options => ({
         ...options,
+        client,
         mutation: LoginDocument
       }))
-    )) as Observable<FetchResult<LoginMutation,TContext>>;
-  }
-  const subject$ = new Subject<LoginMutationOptions<TContext>>();
-  return [subject$,mutation(subject$.pipe(
-    map(options => ({
-      ...options,
-      mutation: LoginDocument
-    }))
-  )) as Observable<FetchResult<LoginMutation,TContext>>];
+    )
+  ))) as Observable<IMutableResult<LoginMutation,LoginMutationVariables,TContext>>;
 }
 
 
-export type RefreshTokenMutationOptions<TContext = DefaultContext> = IMutationOptions<RefreshTokenMutationVariables,RefreshTokenMutation,TContext>;
-export function useRefreshTokenMutation<TContext = DefaultContext>(): [Subject<RefreshTokenMutationOptions<TContext>>,Observable<FetchResult<RefreshTokenMutation,TContext>>];
-export function useRefreshTokenMutation<TContext = DefaultContext>(options$: Observable<RefreshTokenMutationOptions<TContext>>):Observable<FetchResult<RefreshTokenMutation,TContext>>
-export function useRefreshTokenMutation<TContext = DefaultContext>(options$?: Observable<RefreshTokenMutationOptions<TContext>>): (Observable<FetchResult<RefreshTokenMutation,TContext>> | [Subject<RefreshTokenMutationOptions<TContext>>,Observable<FetchResult<RefreshTokenMutation,TContext>>]){
-  if(options$) {
-    return mutation(options$.pipe(
+export type RefreshTokenMutationOptions<TContext = DefaultContext> = IGeneratedMutationOptions<RefreshTokenMutationVariables,RefreshTokenMutation,TContext>;
+export function useRefreshTokenMutation<TContext = DefaultContext>(): [Subject<RefreshTokenMutationOptions<TContext>>,Observable<IMutableResult<RefreshTokenMutation,RefreshTokenMutationVariables,TContext>>];
+export function useRefreshTokenMutation<TContext = DefaultContext>(options$: Observable<RefreshTokenMutationOptions<TContext>>):Observable<IMutableResult<RefreshTokenMutation,RefreshTokenMutationVariables,TContext>>
+export function useRefreshTokenMutation<TContext = DefaultContext>(options$?: Observable<RefreshTokenMutationOptions<TContext>>): (Observable<IMutableResult<RefreshTokenMutation,RefreshTokenMutationVariables,TContext>> | [Subject<RefreshTokenMutationOptions<TContext>>,Observable<IMutableResult<RefreshTokenMutation,RefreshTokenMutationVariables,TContext>>]){
+  if(!options$){
+    const subject = new Subject<RefreshTokenMutationOptions<TContext>>();
+    return [subject,useRefreshTokenMutation<TContext>(subject.asObservable())];
+  }
+  return rxMutation(client$.pipe(switchMap(client => 
+    options$.pipe(
       map(options => ({
         ...options,
+        client,
         mutation: RefreshTokenDocument
       }))
-    )) as Observable<FetchResult<RefreshTokenMutation,TContext>>;
+    )
+  ))) as Observable<IMutableResult<RefreshTokenMutation,RefreshTokenMutationVariables,TContext>>;
+}
+
+
+export type PostsOptions = IGeneratedQueryOptions<PostsQueryVariables,PostsQuery>;
+export function usePostsQuery(): [Subject<PostsOptions>,IRxQuery<PostsQueryVariables,PostsQuery>];
+export function usePostsQuery(options$: Observable<PostsOptions>):IRxQuery<PostsQueryVariables,PostsQuery>
+export function usePostsQuery(options$?: Observable<PostsOptions>){
+  if(!options$){
+    const subject = new Subject<PostsOptions>();
+    return [subject,usePostsQuery(subject.asObservable())];
   }
-  const subject$ = new Subject<RefreshTokenMutationOptions<TContext>>();
-  return [subject$,mutation(subject$.pipe(
-    map(options => ({
-      ...options,
-      mutation: RefreshTokenDocument
-    }))
-  )) as Observable<FetchResult<RefreshTokenMutation,TContext>>];
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: PostsDocument
+      }))
+    )
+  ))) as IRxQuery<PostsQueryVariables,PostsQuery>;
 }
 
 
-export type PostsOptions = IQueryOptions<PostsQueryVariables,PostsQuery>;
-export type PostsFetchMoreOptions = IFetchMoreOptions<PostsQueryVariables,PostsQuery>;
-export function usePostsQuery(options$?: Observable<PostsOptions>, fetchMoreOptions$: Observable<PostsFetchMoreOptions> = NEVER){
-  options$ = options$ ?? of({});
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: PostsDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: PostsDocument
-    }))
-  ));
+export type AllSettingsOptions = IGeneratedQueryOptions<AllSettingsQueryVariables,AllSettingsQuery>;
+export function useAllSettingsQuery(): [Subject<AllSettingsOptions>,IRxQuery<AllSettingsQueryVariables,AllSettingsQuery>];
+export function useAllSettingsQuery(options$: Observable<AllSettingsOptions>):IRxQuery<AllSettingsQueryVariables,AllSettingsQuery>
+export function useAllSettingsQuery(options$?: Observable<AllSettingsOptions>){
+  if(!options$){
+    const subject = new Subject<AllSettingsOptions>();
+    return [subject,useAllSettingsQuery(subject.asObservable())];
+  }
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: AllSettingsDocument
+      }))
+    )
+  ))) as IRxQuery<AllSettingsQueryVariables,AllSettingsQuery>;
 }
 
 
-export type ViewerOptions = IQueryOptions<ViewerQueryVariables,ViewerQuery>;
-export type ViewerFetchMoreOptions = IFetchMoreOptions<ViewerQueryVariables,ViewerQuery>;
-export function useViewerQuery(options$?: Observable<ViewerOptions>, fetchMoreOptions$: Observable<ViewerFetchMoreOptions> = NEVER){
-  options$ = options$ ?? of({});
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: ViewerDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: ViewerDocument
-    }))
-  ));
+export type ViewerOptions = IGeneratedQueryOptions<ViewerQueryVariables,ViewerQuery>;
+export function useViewerQuery(): [Subject<ViewerOptions>,IRxQuery<ViewerQueryVariables,ViewerQuery>];
+export function useViewerQuery(options$: Observable<ViewerOptions>):IRxQuery<ViewerQueryVariables,ViewerQuery>
+export function useViewerQuery(options$?: Observable<ViewerOptions>){
+  if(!options$){
+    const subject = new Subject<ViewerOptions>();
+    return [subject,useViewerQuery(subject.asObservable())];
+  }
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: ViewerDocument
+      }))
+    )
+  ))) as IRxQuery<ViewerQueryVariables,ViewerQuery>;
 }
 

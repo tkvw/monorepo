@@ -2,17 +2,17 @@
  * Configures the TypeScript plugin for Heft.  This plugin also manages linting.
  */
  {
-    "$schema": "https://developer.microsoft.com/en-us/json-schemas/heft/typescript.schema.json",
+    "$schema": "https://developer.microsoft.com/json-schemas/heft/typescript.schema.json",
   
     /**
      * If provided, emit these module kinds in addition to the modules specified in the tsconfig.
      * Note that this option only applies to the main tsconfig.json configuration.
      */
-    // "additionalModuleKindsToEmit": [{
-    //   "moduleKind": "commonjs",
-    //   "outFolderName": "lib/cjs",
-    //   "extension": ".cjs"
-    // }],
+     "additionalModuleKindsToEmit": [{
+       "moduleKind": "commonjs",
+       "outFolderName": "lib/cjs",
+
+     }],
       
     /**
      * Specifies the intermediary folder that tests will use.  Because Jest uses the
@@ -20,9 +20,9 @@
      *
      * The default value is "lib".
      */
-    "emitFolderNameForTests": "lib",
+    "emitFolderNameForTests": "lib/cjs",
 
-    "emitCjsExtensionForCommonJS": true,
+//    "emitCjsExtensionForCommonJS": true,
   
     /**
      * If set to "true", the TSlint task will not be invoked.

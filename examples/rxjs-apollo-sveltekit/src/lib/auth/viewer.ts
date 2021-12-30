@@ -1,4 +1,4 @@
-import { BehaviorSubject, delay, startWith, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import type { ViewerFragment } from '../generated.js';
 
 export const _viewer = new BehaviorSubject<{
@@ -15,7 +15,3 @@ export const setViewer = (viewer?: ViewerFragment) => {
     initialized: true
   });
 };
-
-
-export const counter = new BehaviorSubject(1);
-export const counter$ = counter.asObservable();

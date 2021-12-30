@@ -69,6 +69,7 @@ common/autoinstallers/*/.npmrc
 build/*/lib
 packages/*/lib
 packages/*/temp
+learn/*/*/lib
 .vscode-test
 *.vsix
 

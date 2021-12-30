@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { findUp } from 'find-up';
+import path from 'path';
 import yargs from 'yargs';
 
 import applyCommand from './commands/apply.js';
 import cleanCommand from './commands/clean.js';
-import initCommand from './commands/init.js';
-import patchCommand from './commands/patch.js';
+import commitCommand from './commands/commit.js';
 
 const { cwd } = yargs(process.argv.slice(2))
   .option('cwd', {
@@ -32,10 +32,14 @@ await yargs(process.argv.slice(2))
     type: 'string',
     default: defaultFile
   })
+  .option('patchDir', {
+    describe: 'Directory where to patch',
+    type: 'string',
+    default: path.join(cwd,"patches")
+  })
   .demandOption('config')
   .demandCommand()
-  .command(initCommand)
   .command(applyCommand)
   .command(cleanCommand)
-  .command(patchCommand)
+  .command(commitCommand)
   .parseAsync();

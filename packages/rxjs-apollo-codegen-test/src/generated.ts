@@ -1,10 +1,9 @@
-import type { DefaultContext, MutationOptions, SubscriptionOptions } from "@apollo/client/core";
-import { gql } from "@apollo/client/core/index.js";
-import type { IFetchMoreOptions as IFetchMoreOptionsOriginal,IQueryOptions as IQueryOptionsOriginal } from "@tkvw/rxjs-apollo";
-import { connectMutation, connectQuery, connectSubscribe } from "@tkvw/rxjs-apollo";
-import { map, NEVER,Observable } from "rxjs";
-
-import client from "./client";
+import type { DefaultContext } from "@apollo/client/core";
+import { gql } from "@apollo/client/core";
+import { Observable, Subject, map, switchMap } from "rxjs";
+import type { IMutableResult, IMutationOptions, IQueryOptions, IQueryResult, ISubscribeOptions, ISubscribeResult } from "@tkvw/rxjs-apollo";
+import { rxMutation, rxQuery, rxSubscribe } from "@tkvw/rxjs-apollo";
+import client$ from "./client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1371,17 +1370,13 @@ export type InsertUsersAndPublishMutation = { __typename?: 'Mutation', insert_us
 
 
 
-export const query = connectQuery(client);
-export type IQueryOptions<TVariables,TData> = Omit<IQueryOptionsOriginal<TVariables,TData>,"query">;
-export type IFetchMoreOptions<TVariables,TData> = Omit<IFetchMoreOptionsOriginal<TVariables,TData>,"query">;
+export type IGeneratedQueryOptions<TVariables,TData> = Omit<IQueryOptions<TVariables,TData>,"query" | "client">;
 
 
-export const mutation = connectMutation(client);
-export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TVariables,TData,TContext>,"mutation">;
+export type IGeneratedMutationOptions<TVariables,TData,TContext> = Omit<IMutationOptions<TData,TVariables,TContext>,"client" | "mutation">;
 
 
-export const subscribe = connectSubscribe(client);
-export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVariables,TData>,"query">;
+export type IGeneratedSubscribeOptions<TVariables,TData> = Omit<ISubscribeOptions<TVariables,TData>,"client" | "query">;
 
 
 /* Fragments */
@@ -1450,97 +1445,142 @@ export const InsertUsersAndPublishDocument = gql`
 }
     `;
 
-export type AddCodegenUserMutationOptions<TContext = DefaultContext> = IMutationOptions<AddCodegenUserMutationVariables,AddCodegenUserMutation,TContext>;
-export function AddCodegenUser<TContext = DefaultContext>(options$: Observable<AddCodegenUserMutationOptions<TContext>>){
-  return mutation(options$.pipe(
-    map(options => ({
-      ...options,
-      mutation: AddCodegenUserDocument
-    }))
-  ));
+export type AddCodegenUserMutationOptions<TContext = DefaultContext> = IGeneratedMutationOptions<AddCodegenUserMutationVariables,AddCodegenUserMutation,TContext>;
+export function AddCodegenUser<TContext = DefaultContext>(): [Subject<AddCodegenUserMutationOptions<TContext>>,Observable<IMutableResult<AddCodegenUserMutation,AddCodegenUserMutationVariables,TContext>>];
+export function AddCodegenUser<TContext = DefaultContext>(options$: Observable<AddCodegenUserMutationOptions<TContext>>):Observable<IMutableResult<AddCodegenUserMutation,AddCodegenUserMutationVariables,TContext>>
+export function AddCodegenUser<TContext = DefaultContext>(options$?: Observable<AddCodegenUserMutationOptions<TContext>>): (Observable<IMutableResult<AddCodegenUserMutation,AddCodegenUserMutationVariables,TContext>> | [Subject<AddCodegenUserMutationOptions<TContext>>,Observable<IMutableResult<AddCodegenUserMutation,AddCodegenUserMutationVariables,TContext>>]){
+  if(!options$){
+    const subject = new Subject<AddCodegenUserMutationOptions<TContext>>();
+    return [subject,AddCodegenUser<TContext>(subject.asObservable())];
+  }
+  return rxMutation(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        mutation: AddCodegenUserDocument
+      }))
+    )
+  ))) as Observable<IMutableResult<AddCodegenUserMutation,AddCodegenUserMutationVariables,TContext>>;
 }
 
 
-export type DeleteCodegenUserMutationOptions<TContext = DefaultContext> = IMutationOptions<DeleteCodegenUserMutationVariables,DeleteCodegenUserMutation,TContext>;
-export function DeleteCodegenUser<TContext = DefaultContext>(options$: Observable<DeleteCodegenUserMutationOptions<TContext>>){
-  return mutation(options$.pipe(
-    map(options => ({
-      ...options,
-      mutation: DeleteCodegenUserDocument
-    }))
-  ));
+export type DeleteCodegenUserMutationOptions<TContext = DefaultContext> = IGeneratedMutationOptions<DeleteCodegenUserMutationVariables,DeleteCodegenUserMutation,TContext>;
+export function DeleteCodegenUser<TContext = DefaultContext>(): [Subject<DeleteCodegenUserMutationOptions<TContext>>,Observable<IMutableResult<DeleteCodegenUserMutation,DeleteCodegenUserMutationVariables,TContext>>];
+export function DeleteCodegenUser<TContext = DefaultContext>(options$: Observable<DeleteCodegenUserMutationOptions<TContext>>):Observable<IMutableResult<DeleteCodegenUserMutation,DeleteCodegenUserMutationVariables,TContext>>
+export function DeleteCodegenUser<TContext = DefaultContext>(options$?: Observable<DeleteCodegenUserMutationOptions<TContext>>): (Observable<IMutableResult<DeleteCodegenUserMutation,DeleteCodegenUserMutationVariables,TContext>> | [Subject<DeleteCodegenUserMutationOptions<TContext>>,Observable<IMutableResult<DeleteCodegenUserMutation,DeleteCodegenUserMutationVariables,TContext>>]){
+  if(!options$){
+    const subject = new Subject<DeleteCodegenUserMutationOptions<TContext>>();
+    return [subject,DeleteCodegenUser<TContext>(subject.asObservable())];
+  }
+  return rxMutation(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        mutation: DeleteCodegenUserDocument
+      }))
+    )
+  ))) as Observable<IMutableResult<DeleteCodegenUserMutation,DeleteCodegenUserMutationVariables,TContext>>;
 }
 
 
-export type GetCodegenUsersOptions = IQueryOptions<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>;
-export type GetCodegenUsersFetchMoreOptions = IFetchMoreOptions<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>;
-export function useGetCodegenUsersQuery(options$: Observable<GetCodegenUsersOptions>, fetchMoreOptions$: Observable<GetCodegenUsersFetchMoreOptions> = NEVER){
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: GetCodegenUsersDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: GetCodegenUsersDocument
-    }))
-  ));
+export type GetCodegenUsersOptions = IGeneratedQueryOptions<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>;
+export function useGetCodegenUsersQuery(): [Subject<GetCodegenUsersOptions>,Observable<IQueryResult<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>>];
+export function useGetCodegenUsersQuery(options$: Observable<GetCodegenUsersOptions>):Observable<IQueryResult<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>>
+export function useGetCodegenUsersQuery(options$?: Observable<GetCodegenUsersOptions>){
+  if(!options$){
+    const subject = new Subject<GetCodegenUsersOptions>();
+    return [subject,useGetCodegenUsersQuery(subject.asObservable())];
+  }
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: GetCodegenUsersDocument
+      }))
+    )
+  ))) as Observable<IQueryResult<GetCodegenUsersQueryVariables,GetCodegenUsersQuery>>;
 }
 
 
-export type GetLaunchesOptions = IQueryOptions<GetLaunchesQueryVariables,GetLaunchesQuery>;
-export type GetLaunchesFetchMoreOptions = IFetchMoreOptions<GetLaunchesQueryVariables,GetLaunchesQuery>;
-export function useGetLaunchesQuery(options$: Observable<GetLaunchesOptions>, fetchMoreOptions$: Observable<GetLaunchesFetchMoreOptions> = NEVER){
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesDocument
-    }))
-  ));
+export type GetLaunchesOptions = IGeneratedQueryOptions<GetLaunchesQueryVariables,GetLaunchesQuery>;
+export function useGetLaunchesQuery(): [Subject<GetLaunchesOptions>,Observable<IQueryResult<GetLaunchesQueryVariables,GetLaunchesQuery>>];
+export function useGetLaunchesQuery(options$: Observable<GetLaunchesOptions>):Observable<IQueryResult<GetLaunchesQueryVariables,GetLaunchesQuery>>
+export function useGetLaunchesQuery(options$?: Observable<GetLaunchesOptions>){
+  if(!options$){
+    const subject = new Subject<GetLaunchesOptions>();
+    return [subject,useGetLaunchesQuery(subject.asObservable())];
+  }
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: GetLaunchesDocument
+      }))
+    )
+  ))) as Observable<IQueryResult<GetLaunchesQueryVariables,GetLaunchesQuery>>;
 }
 
 
-export type GetLaunchesWithArgsOptions = IQueryOptions<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>;
-export type GetLaunchesWithArgsFetchMoreOptions = IFetchMoreOptions<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>;
-export function useGetLaunchesWithArgsQuery(options$: Observable<GetLaunchesWithArgsOptions>, fetchMoreOptions$: Observable<GetLaunchesWithArgsFetchMoreOptions> = NEVER){
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesWithArgsDocument
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: GetLaunchesWithArgsDocument
-    }))
-  ));
+export type GetLaunchesWithArgsOptions = IGeneratedQueryOptions<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>;
+export function useGetLaunchesWithArgsQuery(): [Subject<GetLaunchesWithArgsOptions>,Observable<IQueryResult<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>>];
+export function useGetLaunchesWithArgsQuery(options$: Observable<GetLaunchesWithArgsOptions>):Observable<IQueryResult<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>>
+export function useGetLaunchesWithArgsQuery(options$?: Observable<GetLaunchesWithArgsOptions>){
+  if(!options$){
+    const subject = new Subject<GetLaunchesWithArgsOptions>();
+    return [subject,useGetLaunchesWithArgsQuery(subject.asObservable())];
+  }
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: GetLaunchesWithArgsDocument
+      }))
+    )
+  ))) as Observable<IQueryResult<GetLaunchesWithArgsQueryVariables,GetLaunchesWithArgsQuery>>;
 }
 
 
-export type UsersAddedSubscribeOptions = ISubscribeOptions<UsersAddedSubscriptionVariables,UsersAddedSubscription>;
-export function UsersAdded(options$: Observable<UsersAddedSubscribeOptions>){
-  return subscribe(options$.pipe(
-    map(options => ({
-      ...options,
-      query: UsersAddedDocument
-    }))
-  ));
+export type UsersAddedSubscribeOptions = IGeneratedSubscribeOptions<UsersAddedSubscriptionVariables,UsersAddedSubscription>;
+export function UsersAdded(): [Subject<UsersAddedSubscribeOptions>,Observable<ISubscribeResult<UsersAddedSubscription,UsersAddedSubscriptionVariables>>];
+export function UsersAdded(options$: Observable<UsersAddedSubscribeOptions>):Observable<ISubscribeResult<UsersAddedSubscription,UsersAddedSubscriptionVariables>>
+export function UsersAdded(options$?: Observable<UsersAddedSubscribeOptions>){
+  if(!options$){
+    const subject = new Subject<UsersAddedSubscribeOptions>();
+    return [subject,UsersAdded(subject.asObservable())];
+  }
+  return rxSubscribe(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: UsersAddedDocument
+      }))
+    )
+  ))) as Observable<ISubscribeResult<UsersAddedSubscription,UsersAddedSubscriptionVariables>>;
 }
 
 
-export type InsertUsersAndPublishMutationOptions<TContext = DefaultContext> = IMutationOptions<InsertUsersAndPublishMutationVariables,InsertUsersAndPublishMutation,TContext>;
-export function InsertUsersAndPublish<TContext = DefaultContext>(options$: Observable<InsertUsersAndPublishMutationOptions<TContext>>){
-  return mutation(options$.pipe(
-    map(options => ({
-      ...options,
-      mutation: InsertUsersAndPublishDocument
-    }))
-  ));
+export type InsertUsersAndPublishMutationOptions<TContext = DefaultContext> = IGeneratedMutationOptions<InsertUsersAndPublishMutationVariables,InsertUsersAndPublishMutation,TContext>;
+export function InsertUsersAndPublish<TContext = DefaultContext>(): [Subject<InsertUsersAndPublishMutationOptions<TContext>>,Observable<IMutableResult<InsertUsersAndPublishMutation,InsertUsersAndPublishMutationVariables,TContext>>];
+export function InsertUsersAndPublish<TContext = DefaultContext>(options$: Observable<InsertUsersAndPublishMutationOptions<TContext>>):Observable<IMutableResult<InsertUsersAndPublishMutation,InsertUsersAndPublishMutationVariables,TContext>>
+export function InsertUsersAndPublish<TContext = DefaultContext>(options$?: Observable<InsertUsersAndPublishMutationOptions<TContext>>): (Observable<IMutableResult<InsertUsersAndPublishMutation,InsertUsersAndPublishMutationVariables,TContext>> | [Subject<InsertUsersAndPublishMutationOptions<TContext>>,Observable<IMutableResult<InsertUsersAndPublishMutation,InsertUsersAndPublishMutationVariables,TContext>>]){
+  if(!options$){
+    const subject = new Subject<InsertUsersAndPublishMutationOptions<TContext>>();
+    return [subject,InsertUsersAndPublish<TContext>(subject.asObservable())];
+  }
+  return rxMutation(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        mutation: InsertUsersAndPublishDocument
+      }))
+    )
+  ))) as Observable<IMutableResult<InsertUsersAndPublishMutation,InsertUsersAndPublishMutationVariables,TContext>>;
 }
 

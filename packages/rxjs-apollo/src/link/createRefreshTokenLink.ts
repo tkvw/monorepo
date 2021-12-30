@@ -1,80 +1,94 @@
-import { FetchResult } from '@apollo/client/core';
-import { from, iif, Observable, ObservableInput, Observer, Subject, Subscription, switchMap } from 'rxjs';
+import { FetchResult, Operation } from '@apollo/client/core';
+import { from, map, Observable, ObservableInput, of, Subject, Subscription, switchMap, take } from 'rxjs';
 
-import { RxLink, RxMiddleware } from '../apolloLink';
-
-export type ISubjectLike<T> = Observer<T> & ObservableInput<T>;
-
-export interface IRefreshTokens {
-  authToken?: string;
-  refreshToken?: string;
-}
+import { RxLink, RxMiddleware } from '../apolloLink.js';
+import { IRefreshTokens } from './IRefreshTokens.js';
+import { ISubjectLike } from './ISubjectLike.js';
 
 export interface IRefreshTokenLinkOptions {
-  authTokenSubject: ISubjectLike<string | undefined>;
-  refreshTokenSubject: ISubjectLike<string | undefined>;
+  tokenSubject: ISubjectLike<IRefreshTokens>;
   refreshOperation: (next: RxLink, refreshToken: string) => ObservableInput<IRefreshTokens>;
 }
 export function createRefreshTokenLink({
-  authTokenSubject,
-  refreshTokenSubject,
+  tokenSubject,
   refreshOperation
 }: IRefreshTokenLinkOptions): RxMiddleware {
+  const tokenSubject$ = from(tokenSubject);
+
+  const refreshToken$ = tokenSubject$.pipe(
+    take(1),
+    map(({ refreshToken }) => refreshToken)
+  );
+
+  const shouldRefreshToken$ = tokenSubject$.pipe(
+    take(1),
+    map(({ authToken, refreshToken }) => {
+      if (!refreshToken) return false;
+      if (refreshToken && !authToken) return true;
+      const authTokenIsOutdated = false;
+      return authTokenIsOutdated;
+    })
+  );
+  const canRefresh$ = tokenSubject$.pipe(
+    take(1),
+    map(({ refreshToken }) => !!refreshToken)
+  );
+
   return (next) => {
-    let underway: Subject<void> | undefined;
-    return (operation) => {
-      const next$ = next(operation);
-
-      const tryToRefreshToken$ = from(refreshTokenSubject).pipe(
-        switchMap((refreshToken) =>
-          iif(
-            () => !refreshToken,
-            next$,
-            new Observable<FetchResult>((observer) => {
-              underway = new Subject<void>();
-
-              const unsubscribe = from(refreshOperation(next, refreshToken!)).subscribe({
-                next: (tokens) => {
-                  authTokenSubject.next(tokens.authToken);
-                  if (refreshToken !== tokens.refreshToken) {
-                    refreshTokenSubject.next(tokens.refreshToken);
-                  }
-                  refreshTokenSubject.next(refreshToken);
-                },
-                error: (e) => underway!.error(e),
-                complete: () => {
-                  underway!.complete();
-                  underway = undefined;
-                }
-              });
-
-              unsubscribe.add(
-                underway.subscribe({
-                  complete: () => unsubscribe.add(next$.subscribe(observer))
-                })
-              );
-              return unsubscribe;
+    let refreshTokenUnderway$: Subject<void> | undefined;
+    const createRefresh = (operation: Operation) => {
+      refreshTokenUnderway$ = new Subject();
+      return new Observable<FetchResult>((observer) => {
+        const tearDown = new Subscription();
+        tearDown.add(
+          refreshToken$
+            .pipe(switchMap((refreshToken) => (refreshToken ? refreshOperation(next, refreshToken) : of({}))))
+            .subscribe((refreshTokens) => {
+              tokenSubject.next(refreshTokens);
+              tearDown.add(next(operation).subscribe(observer));
+              refreshTokenUnderway$?.complete();
+              refreshTokenUnderway$ = undefined;
             })
-          )
-        )
-      );
-      const authToken$ = from(authTokenSubject).pipe(
-        switchMap((authToken) => iif(() => !authToken, tryToRefreshToken$, next$))
-      );
-
-      return new Observable((observer) => {
-        const sub = new Subscription();
-        if (underway) {
-          sub.add(
-            underway.subscribe({
-              complete: () => sub.add(authToken$.subscribe(observer))
-            })
-          );
-        } else {
-          sub.add(authToken$.subscribe(observer));
-        }
-        return sub;
+        );
+        return tearDown;
       });
     };
+    const isUnauthorizedResponse = (result: FetchResult, operation: Operation) => {
+      if(result?.errors && result.errors.length>0){
+        return true;
+      }
+      return false;
+    };
+    return (operation: Operation) =>
+      new Observable<FetchResult>((observer) => {
+        if (refreshTokenUnderway$ !== undefined) {
+          const tearDown = new Subscription();
+          tearDown.add(
+            refreshTokenUnderway$.subscribe({
+              complete: () => tearDown.add(next(operation).subscribe(observer))
+            })
+          );
+          // A refresh token request is already underway
+          // let's wait for its result and continue
+          return tearDown;
+        }
+
+        return shouldRefreshToken$
+          .pipe(
+            switchMap((shouldRefreshToken) =>
+              shouldRefreshToken ? createRefresh(operation) : next(operation)
+            ),
+            switchMap((result) => {
+              // It is possible the server responded with an authorization error response
+              // Let's act on this if we have a refreshtoken
+              return isUnauthorizedResponse(result, operation)
+                ? canRefresh$.pipe(
+                    switchMap((canRefresh) => (canRefresh ? createRefresh(operation) : of(result)))
+                  )
+                : of(result);
+            })
+          )
+          .subscribe(observer);
+      });
   };
 }

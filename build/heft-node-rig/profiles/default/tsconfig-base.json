@@ -2,14 +2,14 @@
   "$schema": "http://json.schemastore.org/tsconfig",
 
   "compilerOptions": {
-    "outDir": "../../../../../lib",
+    "outDir": "../../../../../lib/esm",
     "rootDir": "../../../../../src",
 
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true,
-    "declarationDir": "../../../../../lib",
+    "declarationDir": "../../../../../lib/types",
     "inlineSources": true,
     "experimentalDecorators": true,
     "strict": true,

@@ -43,9 +43,6 @@ export interface IConfig extends Omit<RawClientSideBasePluginConfig, 'scalars'> 
   queryOptionsPrefix?: string;
   queryOptionsSuffix?: string;
 
-  fetchMoreOptionsPrefix?: string;
-  fetchMoreOptionsSuffix?: string;
-
   mutationOptionsPrefix?: string;
   mutationOptionsSuffix?: string;
 
@@ -69,8 +66,6 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
     documentVariableSuffix = 'Doc',
     queryOptionsPrefix = '',
     queryOptionsSuffix = 'Options',
-    fetchMoreOptionsPrefix = '',
-    fetchMoreOptionsSuffix = 'FetchMoreOptions',
     mutationOptionsPrefix = '',
     mutationOptionsSuffix = 'MutationOptions',
     subscribeOptionsPrefix = '',
@@ -137,52 +132,46 @@ export const plugin: CodegenPlugin<IConfig>['plugin'] = async (
   }
 
   const client = createImport(clientPath, {
-    default: 'client'
+    default: 'client$'
   });
   const apollo = createImport('@apollo/client/core', {
     libs: ['gql']
   });
   const rxjs = createImport('rxjs', {
-    libs: ['Observable', 'map', 'NEVER']
+    libs: ['Observable', 'map', 'switchMap','Subject']
   });
   const rxjsApollo = createImport('@tkvw/rxjs-apollo');
 
   if (hasQuery) {
-    rxjsApollo.libs.push('connectQuery');
+    rxjsApollo.libs.push('rxQuery');
     rxjsApollo.types.push(
-      'IQueryOptions as IQueryOptionsOriginal',
-      'IFetchMoreOptions as IFetchMoreOptionsOriginal'
+      'IQueryOptions','IQueryResult','IRxQuery'
     );
-    rxjs.libs.push('of');
   }
   if (hasMutation) {
-    rxjsApollo.libs.push('connectMutation');
-    apollo.types.push('FetchResult','MutationOptions', 'DefaultContext');
-    rxjs.libs.push('Subject');
+    rxjsApollo.libs.push('rxMutation');
+    rxjsApollo.types.push('IMutableResult','IMutationOptions');
+    apollo.types.push('DefaultContext');
   }
   if (hasSubscription) {
-    rxjsApollo.libs.push('connectSubscribe');
-    apollo.types.push('SubscriptionOptions');
+    rxjsApollo.libs.push('rxSubscribe');
+    rxjsApollo.types.push('ISubscribeResult','ISubscribeOptions');
   }
 
   const statements = [];
   if (hasQuery) {
     statements.push(`
-export const query = connectQuery(client);
-export type IQueryOptions<TVariables,TData> = Omit<IQueryOptionsOriginal<TVariables,TData>,"query">;
-export type IFetchMoreOptions<TVariables,TData> = Omit<IFetchMoreOptionsOriginal<TVariables,TData>,"query">;
+export type IGeneratedQueryOptions<TVariables,TData> = Omit<IQueryOptions<TVariables,TData>,"query" | "client">;
 `);
   }
   if (hasMutation) {
     statements.push(`
-export const mutation = connectMutation(client);
-export type IMutationOptions<TVariables,TData,TContext> = Omit<MutationOptions<TData,TVariables,TContext>,"mutation">;
+export type IGeneratedMutationOptions<TVariables,TData,TContext> = Omit<IMutationOptions<TData,TVariables,TContext>,"client" | "mutation">;
 `);
   }
   if (hasSubscription) {
     statements.push(`
-export const subscribe = connectSubscribe(client);
-export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVariables,TData>,"query">;
+export type IGeneratedSubscribeOptions<TVariables,TData> = Omit<ISubscribeOptions<TVariables,TData>,"client" | "query">;
 `);
   }
   let contents: string[] = [];
@@ -206,60 +195,68 @@ export type ISubscribeOptions<TVariables,TData> = Omit<SubscriptionOptions<TVari
 
     if ('query' === operation.operation) {
       const queryOptionsName = `${queryOptionsPrefix}${operationName}${queryOptionsSuffix}`;
-      const fetchMoreOptionsName = `${fetchMoreOptionsPrefix}${operationName}${fetchMoreOptionsSuffix}`;
       contents.push(`
-export type ${queryOptionsName} = IQueryOptions<${opv},${op}>;
-export type ${fetchMoreOptionsName} = IFetchMoreOptions<${opv},${op}>;
-export function ${functionName}(options$?: Observable<${queryOptionsName}>, fetchMoreOptions$: Observable<${fetchMoreOptionsName}> = NEVER){
-  options$ = options$ ?? of({});
-  return query(options$.pipe(
-    map(options => ({
-      ...options,
-      query: ${documentVariableName}
-    }))
-  ),fetchMoreOptions$.pipe(
-    map(options => ({
-      ...options,
-      query: ${documentVariableName}
-    }))
-  ));
+export type ${queryOptionsName} = IGeneratedQueryOptions<${opv},${op}>;
+export function ${functionName}(): [Subject<${queryOptionsName}>,IRxQuery<${opv},${op}>];
+export function ${functionName}(options$: Observable<${queryOptionsName}>):IRxQuery<${opv},${op}>
+export function ${functionName}(options$?: Observable<${queryOptionsName}>){
+  if(!options$){
+    const subject = new Subject<${queryOptionsName}>();
+    return [subject,${functionName}(subject.asObservable())];
+  }
+  return rxQuery(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: ${documentVariableName}
+      }))
+    )
+  ))) as IRxQuery<${opv},${op}>;
 }
 `);
     } else if ('mutation' === operation.operation) {
       const mutationOptionsName = `${mutationOptionsPrefix}${operationName}${mutationOptionsSuffix}`;
       contents.push(`
-export type ${mutationOptionsName}<TContext = DefaultContext> = IMutationOptions<${opv},${op},TContext>;
-export function ${functionName}<TContext = DefaultContext>(): [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${op},TContext>>];
-export function ${functionName}<TContext = DefaultContext>(options$: Observable<${mutationOptionsName}<TContext>>):Observable<FetchResult<${op},TContext>>
-export function ${functionName}<TContext = DefaultContext>(options$?: Observable<${mutationOptionsName}<TContext>>): (Observable<FetchResult<${op},TContext>> | [Subject<${mutationOptionsName}<TContext>>,Observable<FetchResult<${op},TContext>>]){
-  if(options$) {
-    return mutation(options$.pipe(
+export type ${mutationOptionsName}<TContext = DefaultContext> = IGeneratedMutationOptions<${opv},${op},TContext>;
+export function ${functionName}<TContext = DefaultContext>(): [Subject<${mutationOptionsName}<TContext>>,Observable<IMutableResult<${op},${opv},TContext>>];
+export function ${functionName}<TContext = DefaultContext>(options$: Observable<${mutationOptionsName}<TContext>>):Observable<IMutableResult<${op},${opv},TContext>>
+export function ${functionName}<TContext = DefaultContext>(options$?: Observable<${mutationOptionsName}<TContext>>): (Observable<IMutableResult<${op},${opv},TContext>> | [Subject<${mutationOptionsName}<TContext>>,Observable<IMutableResult<${op},${opv},TContext>>]){
+  if(!options$){
+    const subject = new Subject<${mutationOptionsName}<TContext>>();
+    return [subject,${functionName}<TContext>(subject.asObservable())];
+  }
+  return rxMutation(client$.pipe(switchMap(client => 
+    options$.pipe(
       map(options => ({
         ...options,
+        client,
         mutation: ${documentVariableName}
       }))
-    )) as Observable<FetchResult<${op},TContext>>;
-  }
-  const subject$ = new Subject<${mutationOptionsName}<TContext>>();
-  return [subject$,mutation(subject$.pipe(
-    map(options => ({
-      ...options,
-      mutation: ${documentVariableName}
-    }))
-  )) as Observable<FetchResult<${op},TContext>>];
+    )
+  ))) as Observable<IMutableResult<${op},${opv},TContext>>;
 }
 `);
     } else if ('subscription' === operation.operation) {
       const subscribeOptionsName = `${subscribeOptionsPrefix}${operationName}${subscribeOptionsSuffix}`;
       contents.push(`
-export type ${subscribeOptionsName} = ISubscribeOptions<${opv},${op}>;
-export function ${functionName}(options$: Observable<${subscribeOptionsName}>){
-  return subscribe(options$.pipe(
-    map(options => ({
-      ...options,
-      query: ${documentVariableName}
-    }))
-  ));
+export type ${subscribeOptionsName} = IGeneratedSubscribeOptions<${opv},${op}>;
+export function ${functionName}(): [Subject<${subscribeOptionsName}>,Observable<ISubscribeResult<${op},${opv}>>];
+export function ${functionName}(options$: Observable<${subscribeOptionsName}>):Observable<ISubscribeResult<${op},${opv}>>
+export function ${functionName}(options$?: Observable<${subscribeOptionsName}>){
+  if(!options$){
+    const subject = new Subject<${subscribeOptionsName}>();
+    return [subject,${functionName}(subject.asObservable())];
+  }
+  return rxSubscribe(client$.pipe(switchMap(client => 
+    options$.pipe(
+      map(options => ({
+        ...options,
+        client,
+        query: ${documentVariableName}
+      }))
+    )
+  ))) as Observable<ISubscribeResult<${op},${opv}>>;
 }
 `);
     }
@@ -268,16 +265,16 @@ export function ${functionName}(options$: Observable<${subscribeOptionsName}>){
   }, contents);
 
   const prepend: string[] = [apollo, rxjs, rxjsApollo, client].reduce<string[]>((acc, item) => {
-    const libs = item.libs.length > 0 ? `{ ${item.libs.join(', ')} }` : '';
+    const libs = item.libs.length > 0 ? `{ ${item.libs.sort().join(', ')} }` : '';
+    if (item.types.length > 0) {
+      acc.push(`import type { ${item.types.sort().join(', ')} } from "${item.from}";`);
+    }
     if (item.default && libs) {
       acc.push(`import ${item.default}, ${libs} from "${item.from}";`);
     } else if (libs) {
       acc.push(`import ${libs} from "${item.from}";`);
     } else {
       acc.push(`import ${item.default} from "${item.from}";`);
-    }
-    if (item.types.length > 0) {
-      acc.push(`import type { ${item.types.join(', ')} } from "${item.from}";`);
     }
     return acc;
   }, []);

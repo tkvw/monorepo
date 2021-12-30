@@ -4,21 +4,17 @@ import { ArgumentsCamelCase, Argv, CommandModule } from 'yargs';
 
 export interface IPatchOptions {
   cwd: string;
+  patchDir: string;
   config: string;
 }
 export interface IPatchConfig {
-  folder: string;
-  patches: {
-    name: string;
-    source?: string;
-    issue?: string;
-    globs?: string[];
-  }[];
+  name: string;
+  packages: string[]
 }
 export interface IPatchCommand<Out extends IPatchOptions>
   extends Omit<CommandModule<IPatchOptions, Out>, 'handler'> {
   command: string | string[];
-  handler: (args: ArgumentsCamelCase<Out>, config: IPatchConfig) => Promise<void>;
+  handler: (args: ArgumentsCamelCase<Out>, config: IPatchConfig[]) => Promise<void>;
 }
 
 export function createCommand<Out extends IPatchOptions = IPatchOptions>(
@@ -34,10 +30,7 @@ export function createCommand<Out extends IPatchOptions = IPatchOptions>(
           encoding: 'utf-8'
         })
       );
-      await options.handler(args, {
-        folder: 'patches',
-        ...config
-      } as IPatchConfig);
+      await options.handler(args, config as IPatchConfig[]);
     }
   };
 }

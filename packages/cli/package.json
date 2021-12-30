@@ -5,25 +5,21 @@
   "keywords": [],
   "license": "ISC",
   "author": "Dennie de Lange",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "index.d.ts",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "require": "./lib/index.cjs",
-      "import": "./lib/index.js"
-    },
-    "./*": {
-      "require": "./lib/*.cjs",
-      "import": "./lib/*.js"
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js"
     }
   },
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.js",
-  "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "lib/*"
+        "lib/types/*"
       ]
     }
   },

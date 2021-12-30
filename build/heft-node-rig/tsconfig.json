@@ -1,0 +1,14 @@
+{
+    "extends": "./profiles/default/tsconfig-base.json",
+    "compilerOptions": {
+      "typeRoots": ["node_modules/@types"],
+      "types": ["heft-jest","node"],
+      "lib": ["ES2017"],
+      "module": "CommonJS",
+      "outDir": "lib",
+      "declarationDir": "lib",
+      "rootDir": "./src"
+    },
+    "include": ["src/**/*.ts"]
+  }
+  

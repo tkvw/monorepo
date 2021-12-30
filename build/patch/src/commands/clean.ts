@@ -6,11 +6,10 @@ import { createCommand } from './createCommand.js';
 export default createCommand({
   command: 'clean',
   handler: async (args, config) => {
-    const patchesFolder = path.resolve(args.cwd, config.folder);
-    for (const patch of config.patches) {
-      const { name } = patch;
-      const patchFolder = path.resolve(patchesFolder, name);
+    const patchesFolder = args.patchDir;
 
+    for (const { name } of config) {
+      const patchFolder = path.resolve(patchesFolder, name);
       if (await fse.pathExists(patchFolder)) {
         await fse.remove(patchFolder);
       }

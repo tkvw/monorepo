@@ -5,33 +5,39 @@
   "keywords": [],
   "license": "ISC",
   "author": "Dennie de Lange",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "index.d.ts",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "require": "./lib/index.cjs",
-      "import": "./lib/index.js"
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js"
     },
     "./*": {
-      "require": "./lib/*.cjs",
-      "import": "./lib/*.js"
+      "require": "./lib/cjs/*.js",
+      "import": "./lib/esm/*.js"
     },
     "./fs": {
-      "require": "./lib/fs/index.cjs",
-      "import": "./lib/fs/index.js"
+      "require": "./lib/cjs/fs/index.js",
+      "import": "./lib/esm/fs/index.js"
     },
     "./object": {
-      "require": "./lib/object/index.cjs",
-      "import": "./lib/object/index.js"
+      "require": "./lib/cjs/object/index.js",
+      "import": "./lib/esm/object/index.js"
     }
   },
-  "main": "lib/index.cjs",
-  "module": "lib/index.js",
-  "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
         "lib/*"
+      ],
+      "fs": [
+        "lib/types/fs/index.d.ts"
+      ],
+      "object": [
+        "lib/types/object/index.d.ts"
       ]
     }
   },

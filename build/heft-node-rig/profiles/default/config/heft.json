@@ -2,7 +2,7 @@
  * Defines configuration used by core Heft.
  */
 {
-  "$schema": "https://developer.microsoft.com/en-us/json-schemas/heft/heft.schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/heft/heft.schema.json",
 
   "eventActions": [
     {
@@ -30,6 +30,12 @@
        * Recommend exactly matching with "projectOutputFolderNames" in rush-project.json.
        */
       "globsToDelete": ["dist", "lib", "temp"]
+    },
+    {
+      "actionId": "createPackageJson",
+      "actionKind": "runScript",
+      "heftEvent": "post-build",
+      "scriptPath": "lib/WritePackageJson.js"
     }
   ],
 

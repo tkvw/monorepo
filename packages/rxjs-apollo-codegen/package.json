@@ -14,12 +14,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./lib/codegen.cjs",
-      "default": "./lib/codegen.js"
+      "require": "./lib/cjs/codegen.js",
+      "import": "./lib/esm/codegen.js"
     }
   },
-  "main": "lib/codegen.cjs",
-  "module": "lib/codegen.js",
+  "main": "lib/cjs/codegen.js",
+  "module": "lib/esm/codegen.js",
   "types": "codegen.d.ts",
   "typesVersions": {
     "*": {
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "build": "heft build --clean",
-    "build:watch": "heft build --clean --watch"
+    "watch": "heft build --clean --watch"
   },
   "dependencies": {
     "@graphql-codegen/plugin-helpers": "~2.3.1",

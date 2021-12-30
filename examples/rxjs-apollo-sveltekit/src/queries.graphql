@@ -42,6 +42,15 @@ query Posts($first: Int!){
     }
   }
 }
+
+query allSettings{
+  allSettings {
+    generalSettingsUrl
+    discussionSettingsDefaultCommentStatus
+    readingSettingsPostsPerPage
+  }
+}
+
 query Viewer{
   viewer{
     ...Viewer

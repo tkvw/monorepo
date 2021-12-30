@@ -1,79 +1,73 @@
-import { ApolloClient, InMemoryCache, createHttpLink,  gql } from '@apollo/client/core';
+import { ApolloClient, InMemoryCache, createHttpLink, gql, from } from '@apollo/client/core';
 import { createOperation } from '@apollo/client/link/utils';
-import { browser } from '$app/env';
 
-import type { IRefreshTokens } from '@tkvw/rxjs-apollo';
-import { createAuthorizationLink, createRefreshTokenLink, fromRx } from '@tkvw/rxjs-apollo';
-import { BehaviorSubject, Observable, of} from 'rxjs';
+import type { IRetryLinkEvent } from '@tkvw/rxjs-apollo';
+import {
+  createAuthorizationLink,
+  createRefreshTokenLink,
+  apolloLink,
+  createRetryLink
+} from '@tkvw/rxjs-apollo';
+import { map, of, Subject } from 'rxjs';
 
-const isSsr = typeof window === 'undefined';
-const AUTHTOKEN_KEY = '_authToken';
-const REFRESHTOKEN_KEY = '_refreshToken';
-export const authToken$ = new BehaviorSubject<string | undefined>(
-  isSsr ? undefined : sessionStorage.getItem(AUTHTOKEN_KEY) ?? undefined
-);
-authToken$.subscribe((authToken) => {
-  if (isSsr) return;
+import { tokens$ } from '$lib/auth/tokens';
+import type { RefreshJwtAuthTokenInput } from './generated.js';
 
-  if (!authToken) sessionStorage.removeItem(AUTHTOKEN_KEY);
-  else sessionStorage.setItem(AUTHTOKEN_KEY, authToken);
-});
-
-export const refreshToken$ = new BehaviorSubject<string | undefined>(
-  isSsr ? undefined : localStorage.getItem(REFRESHTOKEN_KEY) ?? undefined
-);
-refreshToken$.subscribe(function persistRefreshToken(token) {
-  if (isSsr) return;
-
-  if (!token) localStorage.removeItem(REFRESHTOKEN_KEY);
-  else localStorage.setItem(REFRESHTOKEN_KEY, token);
-});
-
-refreshToken$.subscribe(function redirectToLogin(token) {
-  if (!browser) return;
-
-  //if(!token && browser) goto("/login");
-});
-
-const authorizationLink = createAuthorizationLink(authToken$);
+const authorizationLink = createAuthorizationLink(tokens$);
 const refreshTokenLink = createRefreshTokenLink({
-  authTokenSubject: authToken$,
-  refreshTokenSubject: refreshToken$,
+  tokenSubject: tokens$,
   refreshOperation: (next, jwtRefreshToken) =>
-    new Observable<IRefreshTokens>((observer) => {
-      return next(
-        createOperation(
-          {},
-          {
-            variables: {
+    next(
+      createOperation(
+        {},
+        {
+          variables: {
+            input: {
               jwtRefreshToken
-            },
-            query: gql`
-              mutation RefreshToken($input: RefreshJwtAuthTokenInput!) {
-                refreshJwtAuthToken(input: $input) {
-                  authToken
-                }
+            } as RefreshJwtAuthTokenInput
+          },
+          query: gql`
+            mutation RefreshToken($input: RefreshJwtAuthTokenInput!) {
+              refreshJwtAuthToken(input: $input) {
+                authToken
               }
-            `
-          }
-        )
-      ).subscribe(({ data }) => {
-        observer.next({
-          authToken: data?.refreshJwtAuthToken?.authToken
-        });
-        observer.complete();
-      });
-    })
+            }
+          `
+        }
+      )
+    ).pipe(
+      map((response) => {
+        if (response.data?.refreshJwtAuthToken?.authToken) {
+          return {
+            authToken: response.data?.refreshJwtAuthToken?.authToken,
+            refreshToken: jwtRefreshToken
+          };
+        }
+        return {};
+      })
+    )
 });
 
-const rxLink = fromRx(refreshTokenLink, authorizationLink);
+const retryInfoSubject = new Subject<IRetryLinkEvent>();
+export const retryInfo$ = retryInfoSubject.asObservable();
+retryInfo$.subscribe((info) => {
+  console.log('Retrying... ', info);
+});
+
+const retryLink = createRetryLink({
+  inform: retryInfoSubject,
+  maxRetries: 4,
+  initialDelay: 200
+});
 
 export default of(
   new ApolloClient({
     cache: new InMemoryCache(),
-    link: createHttpLink({
-      uri: 'https://wpdlf.tkvw.nl/graphql',
-      fetch: fetch
-    })
+    link: from([
+      apolloLink(refreshTokenLink, authorizationLink, retryLink),
+      createHttpLink({
+        uri: 'https://wpdlf.tkvw.nl/graphqsl'
+      })
+    ])
   })
 );

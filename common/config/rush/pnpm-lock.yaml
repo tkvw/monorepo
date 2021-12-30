@@ -52,10 +52,14 @@ importers:
       '@rushstack/eslint-patch': ~1.1.0
       '@rushstack/heft': ~0.43.2
       '@rushstack/heft-jest-plugin': ~0.1.53
+      '@types/fs-extra': ~9.0.13
       '@types/heft-jest': ~1.0.2
       '@types/node': 16.x
+      '@types/yargs': ~17.0.7
       eslint: ~8.4.1
+      fs-extra: ~10.0.0
       typescript: ~4.5.4
+      yargs: ~17.3.0
     dependencies:
       '@microsoft/api-extractor': 7.19.2
       '@rushstack/eslint-config': 2.5.0_eslint@8.4.1+typescript@4.5.4
@@ -65,7 +69,12 @@ importers:
       '@types/heft-jest': 1.0.2
       '@types/node': 16.11.17
       eslint: 8.4.1
+      fs-extra: 10.0.0
       typescript: 4.5.4
+      yargs: 17.3.0
+    devDependencies:
+      '@types/fs-extra': 9.0.13
+      '@types/yargs': 17.0.8
 
   ../../build/local-patch:
     specifiers:
@@ -159,10 +168,12 @@ importers:
       '@tkvw/rxjs-apollo-codegen': workspace:*
       '@typescript-eslint/eslint-plugin': ^5.7.0
       '@typescript-eslint/parser': ^5.7.0
+      debug: ~4.3.3
       eslint: ~8.4.1
       eslint-config-prettier: ^8.3.0
       eslint-plugin-svelte3: ^3.2.1
       graphql: ~16.0.1
+      jwt-decode: ~3.1.2
       prettier: ^2.5.1
       prettier-plugin-svelte: ^2.5.1
       rxjs: ~7.4.0
@@ -176,6 +187,7 @@ importers:
       '@graphql-codegen/schema-ast': 2.4.0_graphql@16.0.1
       '@tkvw/rxjs': link:../../packages/rxjs
       '@tkvw/rxjs-apollo': link:../../packages/rxjs-apollo
+      jwt-decode: 3.1.2
       rxjs: 7.4.0
     devDependencies:
       '@graphql-codegen/cli': 2.3.0_graphql@16.0.1+typescript@4.5.4
@@ -188,6 +200,7 @@ importers:
       '@tkvw/rxjs-apollo-codegen': link:../../packages/rxjs-apollo-codegen
       '@typescript-eslint/eslint-plugin': 5.8.0_1fc30528f3250d50a07da7ea3c631fe9
       '@typescript-eslint/parser': 5.8.0_eslint@8.4.1+typescript@4.5.4
+      debug: 4.3.3
       eslint: 8.4.1
       eslint-config-prettier: 8.3.0_eslint@8.4.1
       eslint-plugin-svelte3: 3.2.1_eslint@8.4.1+svelte@3.44.3
@@ -273,8 +286,10 @@ importers:
       graphql: ~16.0.1
       rxjs: ~7.4.0
       rxjs-marbles: ~7.0.1
+      rxjs-spy: ~8.0.0
     dependencies:
       '@tkvw/rxjs': link:../rxjs
+      rxjs-spy: 8.0.0_rxjs@7.4.0
     devDependencies:
       '@apollo/client': 3.5.6_graphql@16.0.1
       '@rushstack/heft': 0.43.2
@@ -2524,6 +2539,10 @@ packages:
       '@babel/types': 7.16.0
     dev: false
 
+  /@types/circular-json/0.4.0:
+    resolution: {integrity: sha512-7+kYB7x5a7nFWW1YPBh3KxhwKfiaI4PbZ1RvzBU91LZy7lWJO822CI+pqzSre/DZ7KsCuMKdHnLHHFu8AyXbQg==}
+    dev: false
+
   /@types/debug/4.1.7:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
@@ -2663,6 +2682,10 @@ packages:
 
   /@types/stack-utils/1.0.1:
     resolution: {integrity: sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==}
+    dev: false
+
+  /@types/stacktrace-js/0.0.33:
+    resolution: {integrity: sha512-aqJ6QM9QThNL4dHBhwl1f9B0oDqiREkYLn9RldghUKsGeFWWGlCsqsRWxbh+hDvvmptMFqc4aIfFIGz9BBu8Qg==}
     dev: false
 
   /@types/tapable/1.0.6:
@@ -3445,7 +3468,6 @@ packages:
       bytesish: 0.4.4
       caseless: 0.12.0
       is-stream: 2.0.1
-    dev: true
 
   /better-path-resolve/1.0.0:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
@@ -3589,7 +3611,6 @@ packages:
 
   /bytesish/0.4.4:
     resolution: {integrity: sha512-i4uu6M4zuMUiyfZN4RU2+i9+peJh//pXhd9x1oSe1LBkZ3LEbCoygu8W0bXTukU1Jme2txKuotpCZRaC3FLxcQ==}
-    dev: true
 
   /cacache/15.3.0:
     resolution: {integrity: sha512-VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==}
@@ -3834,6 +3855,11 @@ packages:
 
   /cint/8.2.1:
     resolution: {integrity: sha1-cDhrG0jidz0NYxZqVa/5TvRFahI=}
+    dev: false
+
+  /circular-json/0.5.9:
+    resolution: {integrity: sha512-4ivwqHpIFJZBuhN3g/pEcdbnGUywkBblloGbkglyloVjjR3uT6tieI89MVOfbP2tHX5sgb01FuLgAOzebNlJNQ==}
+    deprecated: CircularJSON is in maintenance only, flatted is its successor.
     dev: false
 
   /class-utils/0.3.6:
@@ -4495,6 +4521,12 @@ packages:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
     dependencies:
       is-arrayish: 0.2.1
+
+  /error-stack-parser/2.0.6:
+    resolution: {integrity: sha512-d51brTeqC+BHlwF0BhPtcYgF5nlzf9ZZ0ZIUQNZpc9ZB9qw5IJ2diTrBY9jlCJkTLITYPjmiX6OWCwH+fuyNgQ==}
+    dependencies:
+      stackframe: 1.2.0
+    dev: false
 
   /es-abstract/1.19.1:
     resolution: {integrity: sha512-2vJ6tjA/UfqLm2MPs7jxVybLoB8i1t1Jd9R3kISld20sIxPcTbLuggQOUxeWeAvIUkduv/CfMjuh4WmiXr2v9w==}
@@ -8974,7 +9006,22 @@ packages:
       prompts: 2.4.2
     transitivePeerDependencies:
       - supports-color
-    dev: true
+
+  /rxjs-spy/8.0.0_rxjs@7.4.0:
+    resolution: {integrity: sha512-McjTZjTlCacHb2CKGS6vC4Sflb94UEpsEnKZjCydKZY7LQ0ywvnVGkRVwpqSfdna4/XXmgtcNCvhDVJ4P7I92w==}
+    peerDependencies:
+      rxjs: ^7.0.0
+    dependencies:
+      '@types/circular-json': 0.4.0
+      '@types/stacktrace-js': 0.0.33
+      circular-json: 0.5.9
+      error-stack-parser: 2.0.6
+      rxjs: 7.4.0
+      rxjs-report-usage: 1.0.6
+      stacktrace-gps: 3.0.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /rxjs/6.6.7:
     resolution: {integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==}
@@ -9300,6 +9347,11 @@ packages:
     resolution: {integrity: sha512-cPiFOTLUKvJFIg4SKVScy4ilPPW6rFgMgfuZJPNoDuMs3nC1HbMUycBoJw77xFIp6z1UJQJOfx6C9GMH80DiTw==}
     dev: false
 
+  /source-map/0.5.6:
+    resolution: {integrity: sha1-dc449SvwczxafwwRjYEzSiu19BI=}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
   /source-map/0.5.7:
     resolution: {integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=}
     engines: {node: '>=0.10.0'}
@@ -9386,6 +9438,17 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       escape-string-regexp: 2.0.0
+    dev: false
+
+  /stackframe/1.2.0:
+    resolution: {integrity: sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==}
+    dev: false
+
+  /stacktrace-gps/3.0.4:
+    resolution: {integrity: sha512-qIr8x41yZVSldqdqe6jciXEaSCKw1U8XTXpjDuy0ki/apyTn/r3w9hDAAQOhZdxvsC93H+WwwEu5cq5VemzYeg==}
+    dependencies:
+      source-map: 0.5.6
+      stackframe: 1.2.0
     dev: false
 
   /static-extend/0.1.2:

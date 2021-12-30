@@ -1,26 +1,25 @@
 import { gql } from '@apollo/client/core';
-import { of, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import { connectQuery, IQueryOptions } from '../connectQuery';
+import { IQueryOptions,rxQuery } from '../rxQuery.js';
 import { createClient } from './createMockClient';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 describe('query operator function', () => {
   it.only('test query', async () => {
-    const client = of(
-      createClient((operation) => {
-        return {
-          data: operation.getContext().response ?? null
-        };
-      })
-    );
+    const client = createClient((operation) => {
+      return {
+        data: operation.getContext().response ?? null
+      };
+    });
     const options = new Subject<IQueryOptions<{}, {}>>();
-    const request = connectQuery(client)(options);
+    const request = rxQuery(options);
     const next = jest.fn();
     const subscription = request.subscribe({
       next
     });
     options.next({
+      client,
       context: {
         response: {
           first: 'message'
@@ -35,6 +34,7 @@ describe('query operator function', () => {
     await delay(1);
 
     options.next({
+      client,
       query: gql`
         query {
           second

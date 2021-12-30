@@ -1,31 +1,53 @@
-import { from, ObservableInput, switchMap } from 'rxjs';
+import { FetchResult, Operation } from '@apollo/client/core';
+import { from, switchMap, take, tap } from 'rxjs';
 
-import { RxMiddleware } from '../apolloLink';
+import { RxMiddleware } from '../apolloLink.js';
+import { IRefreshTokens } from './IRefreshTokens.js';
+import { ISubjectLike } from './ISubjectLike.js';
 
 export interface IAuthorizationLinkOptions {
   addAuthorizationHeader?: (token: string, headers: Record<string, unknown>) => Record<string, unknown>;
+  getNextAuthToken?: (response: FetchResult, operation: Operation, authToken: string) => string | undefined;
 }
 
 export function createAuthorizationLink(
-  token$: ObservableInput<string | undefined>,
+  token$: ISubjectLike<IRefreshTokens>,
   {
-    addAuthorizationHeader = (token, headers) => ({
+    addAuthorizationHeader = (token, headers = {}) => ({
       ...headers,
-      authorization: headers.authorization ?? `Bearer ${token}`
-    })
+      authorization: `Bearer ${token}`
+    }),
+    getNextAuthToken = (response, _, authToken) => {
+      if (response && response.errors && response.errors.length > 0) {
+        return undefined;
+      }
+      return authToken;
+    }
   }: IAuthorizationLinkOptions = {}
 ): RxMiddleware {
+  const authTokens$ = from(token$).pipe(take(1));
   return (next) => (operation) =>
-    from(token$).pipe(
-      switchMap((authToken) => {
+    authTokens$.pipe(
+      switchMap(({ authToken, refreshToken }) => {
         if (!authToken) return next(operation);
 
         const { headers, ...ctx } = operation.getContext();
-        operation.setContext({
+        const nextContext = {
           ...ctx,
           headers: addAuthorizationHeader(authToken, headers)
-        });
-        return next(operation);
+        };
+        operation.setContext(nextContext);
+        return next(operation).pipe(
+          tap((data) => {
+            const nextAuthToken = getNextAuthToken(data, operation, authToken);
+            if (nextAuthToken !== authToken) {
+              token$.next({
+                authToken: nextAuthToken,
+                refreshToken
+              });
+            }
+          })
+        );
       })
     );
 }

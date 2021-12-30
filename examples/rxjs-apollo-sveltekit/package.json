@@ -19,7 +19,8 @@
     "@graphql-codegen/schema-ast": "~2.4.0",
     "@tkvw/rxjs-apollo": "workspace:*",
     "rxjs": "~7.4.0",
-    "@tkvw/rxjs": "workspace:*"
+    "@tkvw/rxjs": "workspace:*",
+    "jwt-decode": "~3.1.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "~2.3.0",
@@ -42,6 +43,7 @@
     "typescript": "~4.5.4",
     "@graphql-tools/mock": "~8.5.0",
     "@graphql-tools/schema": "~8.3.1",
-    "@sveltejs/adapter-static": "1.0.0-next.22"
+    "@sveltejs/adapter-static": "1.0.0-next.22",
+    "debug": "~4.3.3"
   }
 }
