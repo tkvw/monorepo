@@ -1,17 +1,21 @@
 # @Tkvw\rxjs-apollo
 
-Use the apollo client as a 
-Usage
+This library allows to use apollo client in a reactive way using the rxjs library. 
+
 ```ts
 import { rxQuery } from "@tkvw/rxjs-apollo"
 import { of, BehaviourSubject } from "rxjs";
 import { ApolloClient } from "@apollo/client/core";
 
-const variables = new BehaviourSubject();
+const [options$,results$] = rxQuery();
 
-const response = of(new ApolloClient())
-    .pipe(rxQuery(variables));
+options$.next({
+    query: gql`{
+        message
+    }`
+});
 
-const items = response.pipe(map(({data})=> data.cd.items));
+results$.subscribe(({loading,data}) => console.log({loading,data}))
+
 
 ```
