@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@tkvw/rxjs-apollo",
+      "comment": "Minor readme change",
+      "type": "none"
+    }
+  ],
+  "packageName": "@tkvw/rxjs-apollo"
+}
