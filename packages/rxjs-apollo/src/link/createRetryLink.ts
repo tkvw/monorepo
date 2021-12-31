@@ -42,7 +42,6 @@ export function createRetryLink({ inform, ...options }: IRetryLinkOptions = {}):
     };
 
     return function execute(operation: Operation) {
-      console.log('operation: ', operation);
       return new Observable<FetchResult>((observer) => {
         if (retryQueue) {
           operations?.push(operation);
