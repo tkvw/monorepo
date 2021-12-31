@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client/core';
 import { Subject } from 'rxjs';
 
-import { IQueryOptions,rxQuery } from '../rxQuery.js';
+import { IQueryOptions,rxQuery } from '../rxQuery';
 import { createClient } from './createMockClient';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -43,7 +43,7 @@ describe('query operator function', () => {
     });
     await delay(1);
 
-    expect(next).toBeCalledTimes(2);
+    expect(next).toBeCalledTimes(1 /* load */ + 1 /* response */ + 1 /* load */ + 1 /* response */);
     subscription.unsubscribe();
   });
 });

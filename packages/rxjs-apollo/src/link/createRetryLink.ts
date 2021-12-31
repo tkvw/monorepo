@@ -1,6 +1,6 @@
 import type { FetchResult, Operation } from '@apollo/client/core';
 import type { IRetryBackoffEvent, IRetryBackoffOptions } from '@tkvw/rxjs/operators';
-import { debug, retryBackoff } from '@tkvw/rxjs/operators';
+import { retryBackoff } from '@tkvw/rxjs/operators';
 import { Observable, Observer, Subject } from 'rxjs';
 
 import { RxMiddleware } from '../apolloLink.js';
@@ -42,7 +42,7 @@ export function createRetryLink({ inform, ...options }: IRetryLinkOptions = {}):
     };
 
     return function execute(operation: Operation) {
-      console.log("operation: ", operation);
+      console.log('operation: ', operation);
       return new Observable<FetchResult>((observer) => {
         if (retryQueue) {
           operations?.push(operation);

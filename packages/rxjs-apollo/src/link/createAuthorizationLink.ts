@@ -17,7 +17,7 @@ export function createAuthorizationLink(
       ...headers,
       authorization: `Bearer ${token}`
     }),
-    getNextAuthToken = (response, _, authToken) => {
+    getNextAuthToken = (response, operation, authToken) => {
       if (response && response.errors && response.errors.length > 0) {
         return undefined;
       }

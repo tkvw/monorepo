@@ -2,17 +2,13 @@ import {
   BehaviorSubject,
   concatMap,
   defer,
-  EMPTY,
   filter,
   iif,
-  map,
   Observable,
   Observer,
-  OperatorFunction,
   pipe,
   race,
   retryWhen,
-  Subject,
   switchMapTo,
   take,
   tap,
@@ -30,13 +26,13 @@ export interface IRetryBackoffEvent {
 export interface IRetryBackoffOptions {
   start?: () => void;
   restored?: () => void;
-  failedPermanently?: (error: any) => void;
+  failedPermanently?: (error: unknown) => void;
   inform?: Observer<IRetryBackoffEvent>;
   initialDelay?: number;
   maxRetries?: number;
   maxDelay?: number;
   resetOnSuccess?: boolean;
-  shouldRetry?: (error: any) => boolean;
+  shouldRetry?: (error: unknown) => boolean;
   backoffDelay?: (attempt: number, initialDelay: number) => number;
 }
 
