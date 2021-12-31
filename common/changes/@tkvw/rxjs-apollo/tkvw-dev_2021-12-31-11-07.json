@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@tkvw/rxjs-apollo",
+      "comment": "Another document update",
+      "type": "none"
+    }
+  ],
+  "packageName": "@tkvw/rxjs-apollo"
+}

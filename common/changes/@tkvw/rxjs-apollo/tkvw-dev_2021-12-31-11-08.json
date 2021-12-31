@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@tkvw/rxjs-apollo",
+      "comment": "Removed console logs",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@tkvw/rxjs-apollo"
+}
