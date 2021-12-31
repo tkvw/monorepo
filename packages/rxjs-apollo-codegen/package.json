@@ -41,10 +41,10 @@
     "pascal-case": "~3.1.2"
   },
   "devDependencies": {
+    "@rushstack/heft": "~0.43.2",
     "@tkvw/eslint-config": "workspace:*",
     "@tkvw/heft-node-rig": "workspace:*",
     "@types/heft-jest": "~1.0.2",
-    "graphql": "~16.0.1",
-    "@rushstack/heft": "~0.43.2"
+    "graphql": "~16.0.1"
   }
 }
